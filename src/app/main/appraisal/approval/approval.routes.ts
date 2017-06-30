@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
-import {ApprovalComponent} from './approval.component';
+import { ApprovalComponent } from './approval.component';
 
-export const approvalRoutes : Routes = [
-    {path:'', component:ApprovalComponent, pathMatch:'full'}
+export const approvalRoutes: Routes = [
+    { path: '', redirectTo: 'index', pathMatch: 'full' },
+    { path: 'index', component: ApprovalComponent }
 ]
