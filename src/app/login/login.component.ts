@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthenService } from '../core/services/authen.service';
 import { NotificationService } from '../core/services/notification.service';
-import {MessageConstants} from '../core/common/message.constants';
+import { MessageConstants } from '../core/common/message.constants';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     this._authenService.login(this.model.username, this.model.password).subscribe((data) => {
-    },error =>{
+    }, error => {
       this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
       this.loading = false;
     });
