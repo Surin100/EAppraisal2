@@ -8,7 +8,7 @@ import { NotificationService } from './notification.service';
 import { UtilityService } from './utility.service';
 
 import {Observable} from 'rxjs/Observable';
-import {MessageContstants} from './../common/message.constants';
+import {MessageConstants} from './../common/message.constants';
 
 @Injectable()
 export class DataService {
@@ -50,7 +50,7 @@ export class DataService {
    public handleError(error: any) {
         if (error.status == 401) {
             localStorage.removeItem(SystemConstants.CURRENT_USER);
-            this._notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
+            this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
             this._utilityService.navigateToLogin();
         }
         else {

@@ -4,12 +4,14 @@ import { RouterModule} from '@angular/router';
 
 import { MainComponent } from './main.component';
 import { mainRoutes} from './main.routes';
+import {AuthenService} from '../core/services/authen.service';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(mainRoutes)
   ],
+  providers:[AuthenService],
   declarations: [MainComponent]
 })
 export class MainModule { }

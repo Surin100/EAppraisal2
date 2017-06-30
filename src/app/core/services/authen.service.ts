@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {Router} from '@angular/router';
 
 import { SystemConstants } from '../common/system.constants';
 import { LoggedInUser } from '../domain/loggedin.user';
-import { UtilityService } from './utility.service';
+import { UrlConstants} from '../common/url.constants';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenService {
 
-  constructor(private _http: Http, private _utilityService: UtilityService) { }
+  constructor(private _http: Http, private _router:Router) { }
 
   login(username: string, password: string) {
     let body = "userName=" + encodeURIComponent(username) +
@@ -25,12 +26,13 @@ export class AuthenService {
       if (user.access_token) {
         localStorage.removeItem(SystemConstants.CURRENT_USER);
         localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+        this._router.navigate([UrlConstants.HOME]);
       }
     });
   }
   logout() {
     localStorage.removeItem(SystemConstants.CURRENT_USER);
-    this._utilityService.navigateToLogin();
+    this._router.navigate([UrlConstants.LOGIN]);
   }
 
   isUserAuthenticated(): boolean {

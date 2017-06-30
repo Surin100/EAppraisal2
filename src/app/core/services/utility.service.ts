@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { UrlConstants } from '../../core/common/url.constants';
-import { AuthenService } from './authen.service';
+
 
 @Injectable()
 export class UtilityService {
   private _router: Router;
 
-  constructor(router: Router, private http: Http, private authenService: AuthenService) {
+  constructor(router: Router, private http: Http) {
     this._router = router;
   }
 
