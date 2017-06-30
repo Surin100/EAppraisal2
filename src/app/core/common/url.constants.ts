@@ -1,5 +1,7 @@
 export class UrlConstants{
     public static LOGIN = "/login";
-    public static HOME = "/main/home";
-     public static REGISTER = "/main/register";
+    public static HOME = "/main";
+    public static REGISTER = "/main/register";
+    public static APPRAISAL = '/main/appraisal';
+    public static APPRAISAL_APPROVAL = '/main/appraisal/approval';
 }

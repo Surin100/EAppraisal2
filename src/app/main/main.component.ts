@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
   }
 
   appraisalClick(){
-    
+    this._router.navigate([UrlConstants.APPRAISAL]);
   }
 
   goalClick(){

@@ -10,8 +10,8 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    var s = document.getElementById('homeMenu');
-    s.setAttribute('class', 'active');
+    // var s = document.getElementById('homeMenu');
+    // s.setAttribute('class', 'active');
   }
 
 }

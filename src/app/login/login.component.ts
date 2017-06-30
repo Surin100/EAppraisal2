@@ -27,7 +27,13 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this._authenService.login(this.model.username, this.model.password).subscribe((data) => {
     }, error => {
-      this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
+      if(error.status===0){
+        this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
+      }
+      else{
+        this._notificationService.printErrorMessage(JSON.parse(error._body).error_description);
+      }
+      
       this.loading = false;
     });
   }

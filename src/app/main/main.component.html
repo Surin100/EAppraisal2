@@ -29,14 +29,14 @@
     <div class="col-md-12">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bar_tabs" style="margin-bottom:0">
-                <li id="homeMenu"><a href="#tab_content1" (click)="homeClick()" data-toggle="tab">Home</a></li>
-                <li><a href="#tab_content1" (click)="appraisalClick()" data-toggle="tab">Performance Appraisal</a></li>
-                <li><a href="#tab_content1" (click)="goalClick()" data-toggle="tab">Smart Goal</a></li>
-                <li><a href="#tab_content1" (click)="guidelineClick()" data-toggle="tab">Guide Line</a></li>
-                <li *ngIf="user.role == 'HR'"><a href="#tab_content1" (click)="reportClick()" data-toggle="tab">Reports</a></li>
-                <li *ngIf="user.role == 'HR'"><a href="#tab_content1" (click)="registerClick()" data-toggle="tab">Register</a></li>
+                <li><a href="#tab_content1" (click)="homeClick()" data-toggle="tab">Home</a></li>
+                <li><a href="#tab_content2" (click)="appraisalClick()" data-toggle="tab">Performance Appraisal</a></li>
+                <li><a href="#tab_content3" (click)="goalClick()" data-toggle="tab">Smart Goal</a></li>
+                <li><a href="#tab_content4" (click)="guidelineClick()" data-toggle="tab">Guide Line</a></li>
+                <li *ngIf="user.role == 'HR'"><a href="#tab_content5" (click)="reportClick()" data-toggle="tab">Reports</a></li>
+                <li *ngIf="user.role == 'HR'"><a href="#tab_content6" (click)="registerClick()" data-toggle="tab">Register</a></li>
                 <li class="pull-right" id="profileMenu">
-                    <a href="#tab_content1" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <a href="#tab_content1" class="user-profile dro-------pdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     {{user.fullName}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
