@@ -7,7 +7,7 @@ import { AuthenService } from './authen.service';
 import { NotificationService } from './notification.service';
 import { UtilityService } from './utility.service';
 
-import {Observable} from 'rxjs/Observable';
+// import {Observable} from 'rxjs/Observable';
 import {MessageConstants} from './../common/message.constants';
 
 @Injectable()
@@ -53,12 +53,16 @@ export class DataService {
             this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
             this._utilityService.navigateToLogin();
         }
+        else if(error.status == 0){
+          this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
+        }
+        else if(JSON.parse(error._body).error_description){
+          this._notificationService.printErrorMessage(JSON.parse(error._body).error_description);
+        }
         else {
             let errMsg = (error.message) ? error.message :
-                error.status ? `${error.status} - ${error.statusText}` : 'Lỗi hệ thống';
+                error.status ? `${error.status} - ${error.statusText}` : 'System Error';
             this._notificationService.printErrorMessage(errMsg);
-
-            return Observable.throw(errMsg);
         }
 
     }

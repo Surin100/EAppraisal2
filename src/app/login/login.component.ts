@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenService } from '../core/services/authen.service';
+import { DataService } from '../core/services/data.service';
 import { NotificationService } from '../core/services/notification.service';
 import { MessageConstants } from '../core/common/message.constants';
 
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   returnUrl: string;
   constructor(private _authenService: AuthenService, private _notificationService: NotificationService,
-    private _router: Router
+    private _dataService:DataService, private _router: Router
   ) { }
 
   ngOnInit() {
@@ -27,13 +28,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this._authenService.login(this.model.username, this.model.password).subscribe((data) => {
     }, error => {
-      if(error.status===0){
-        this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
-      }
-      else{
-        this._notificationService.printErrorMessage(JSON.parse(error._body).error_description);
-      }
-      
+      this._dataService.handleError(error);
       this.loading = false;
     });
   }

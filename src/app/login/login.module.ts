@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
 import { AuthenService } from '../core/services/authen.service';
+import { DataService } from '../core/services/data.service';
 import { UtilityService } from '../core/services/utility.service';
 import { NotificationService } from '../core/services/notification.service';
 import { loginRoutes } from './login.routes';
@@ -15,7 +16,7 @@ import { loginRoutes } from './login.routes';
     FormsModule,
     RouterModule.forChild(loginRoutes)
   ],
-  providers: [AuthenService, UtilityService, NotificationService],
+  providers: [AuthenService, UtilityService, NotificationService, DataService],
   declarations: [LoginComponent]
 })
 export class LoginModule { }
