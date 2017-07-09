@@ -13,8 +13,4 @@ import {appraisalRoutes}from './appraisal.routes';
   declarations: [AppraisalComponent]
 })
 
-// @Directive({
-//   selector: '[routerLinkActive]',
-//   exportAs: 'routerLinkActive',
-// })
 export class AppraisalModule { }

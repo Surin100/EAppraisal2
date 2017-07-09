@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {AuthenService} from '../core/services/authen.service';
-import {LoggedInUser} from '../core/domain/loggedin.user';
-import {SystemConstants} from '../core/common/system.constants';
-import {UrlConstants} from '../core/common/url.constants';
+import { AuthenService } from '../core/services/authen.service';
+import { LoggedInUser } from '../core/domain/loggedin.user';
+import { SystemConstants } from '../core/common/system.constants';
+import { UrlConstants } from '../core/common/url.constants';
 
 @Component({
   selector: 'app-main',
@@ -13,37 +13,40 @@ import {UrlConstants} from '../core/common/url.constants';
 })
 export class MainComponent implements OnInit {
   user: LoggedInUser;
-  constructor(private _authenService:AuthenService, private _router:Router) { }
+  selfLoad: Boolean;
+  constructor(private _authenService: AuthenService, private _router: Router) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
-    // console.log(JSON.stringify(this.user));
+    // console.log(this.user.roles);
   }
-  logout(){
+  logout() {
     this._authenService.logout();
   }
 
-  homeClick(){
+  homeClick() {
     this._router.navigate([UrlConstants.HOME]);
   }
 
-  appraisalClick(){
+  appraisalClick() {
+    this.selfLoad = true;
     this._router.navigate([UrlConstants.APPRAISAL]);
-  }
-
-  goalClick(){
 
   }
 
-  guidelineClick(){
+  goalClick() {
 
   }
 
-  reportClick(){
+  guidelineClick() {
 
   }
 
-  registerClick(){
+  reportClick() {
+
+  }
+
+  registerClick() {
     this._router.navigate([UrlConstants.REGISTER]);
   }
 

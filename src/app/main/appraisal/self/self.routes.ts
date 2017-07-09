@@ -1,7 +1,13 @@
 import { Routes } from '@angular/router';
-import {SelfComponent} from './self.component';
+import { SelfComponent } from './self.component';
 
-export const selfRoutes : Routes = [
-    {path:'', redirectTo:'index', pathMatch:'full'},
-    {path:'index',component:SelfComponent}
+export const selfRoutes: Routes = [
+    {
+        path: '', component: SelfComponent, children: [
+            {path:'', redirectTo:'index', pathMatch:'full'},
+            { path: 'index', component: SelfComponent },
+            {path:'create', loadChildren:'./create/create.module#CreateModule'}
+        ]
+    },
+
 ]

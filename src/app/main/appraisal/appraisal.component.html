@@ -1,10 +1,14 @@
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+<div class="row" style="margin-right:0">
+    <div class="">
         <div class="x_panel" style="padding-top:3px">
             <div class="x_title" style="padding-bottom:0">
-                <div class="pull-right" >
-                    <a class="btn btn-success" routerLink="/main/appraisal/self/index"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Your Appraisal</a>
-                    <a class="btn btn-success" routerLink="/main/appraisal/approval/index"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Need Your Approval</a>
+                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager')">
+                    <a class="btn btn-success" routerLink="/main/appraisal/self/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="selfClick()">Your Appraisal</a>
+                    <a class="btn btn-success" routerLink="/main/appraisal/approval/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="approvalClick()">Need Your Approval</a>
+                </div>
+                <div class="pull-left" *ngIf="selfLoad">
+                    <a class="btn btn-danger" routerLink="/main/appraisal/self/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add</a>
+                    
                 </div>
                 <div class="clearfix"></div>
             </div>

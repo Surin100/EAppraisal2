@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-approval',
   templateUrl: './approval.component.html',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovalComponent implements OnInit {
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
+
   }
 
 }
