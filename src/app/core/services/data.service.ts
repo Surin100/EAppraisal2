@@ -62,14 +62,14 @@ export class DataService {
     else if (error.status == 0 || error.status == 500) {
       this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
     }
-    // else if(JSON.parse(error._body).error_description){
-    //   this._notificationService.printErrorMessage(JSON.parse(error._body).error_description);
-    // }
+    else if(JSON.parse(error._body).error_description){
+      this._notificationService.printErrorMessage(JSON.parse(error._body).error_description);
+    }
     else {
       let errMsg = (error.message) ? error.message :
         error.status ? `${error.status} - ${error.statusText}` : 'System Error';
       this._notificationService.printErrorMessage(errMsg);
-      return Observable.throw(errMsg);
+      // return Observable.throw(errMsg);
     }
   }
 }

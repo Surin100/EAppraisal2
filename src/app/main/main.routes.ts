@@ -6,6 +6,7 @@ export const mainRoutes: Routes = [
         {path:'',redirectTo:'home', pathMatch:'full'},
         {path:'home', loadChildren:'./home/home.module#HomeModule'},
         {path:'register', loadChildren:'./register/register.module#RegisterModule'},
-        {path:'appraisal', loadChildren:'./appraisal/appraisal.module#AppraisalModule'}
+        {path:'appraisal', loadChildren:'./appraisal/appraisal.module#AppraisalModule'},
+        {path:'guideline', loadChildren:'./guideline/guideline.module#GuidelineModule'}
     ]}
 ]

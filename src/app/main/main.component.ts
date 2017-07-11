@@ -39,7 +39,7 @@ export class MainComponent implements OnInit {
   }
 
   guidelineClick() {
-
+    this._router.navigate([UrlConstants.GUIDELINE]);
   }
 
   reportClick() {
