@@ -99,6 +99,149 @@ export class CreateComponent implements OnInit {
       this._utilityService.navigate('/main/appraisal');
     }, error => this._dataService.handleError(error));
   }
+
+  // Generate conclusion
+  subTotal1 = 0;
+  subTotal2 = 0;
+  conclusion = 0;
+
+  customerDriven = 0;
+  questForExcellence = 0;
+  teamWork = 0;
+  respectAndTrust = 0;
+  enterprising = 0;
+  communication = 0;
+  dependability = 0;
+  quantityOfWork = 0;
+  qualityOfWork = 0;
+
+  personalEfficiency = 0;
+  workforceScheduling = 0;
+  qualityManagement = 0;
+  performanceManagement = 0;
+  successionPlanning = 0;
+  managingConflicts = 0;
+  celebrateResults = 0;
+
+  leadWithVision = 0;
+  alignAndEngage = 0;
+  talentMagnet = 0;
+
+  goal1 = 0;
+  goal2 = 0;
+  goal3 = 0;
+  goal4 = 0;
+
+  generateConclusion(name: string, value: number) {
+    // debugger;
+    switch (name) {
+      case 'customerDriven':
+        this.customerDriven = value; break;
+      case 'questForExcellence':
+        this.questForExcellence = value; break;
+      case 'teamWork':
+        this.teamWork = value; break;
+      case 'respectAndTrust':
+        this.respectAndTrust = value; break;
+      case 'enterprising':
+        this.enterprising = value; break;
+      case 'communication':
+        this.communication = value; break;
+      case 'dependability':
+        this.dependability = value; break;
+      case 'quantityOfWork':
+        this.quantityOfWork = value; break;
+      case 'qualityOfWork':
+        this.qualityOfWork = value; break;
+
+      case 'personalEfficiency':
+        this.personalEfficiency = value; break;
+      case 'workforceScheduling':
+        this.workforceScheduling = value; break;
+      case 'qualityManagement':
+        this.qualityManagement = value; break;
+      case 'performanceManagement':
+        this.performanceManagement = value; break;
+      case 'successionPlanning':
+        this.successionPlanning = value; break;
+      case 'managingConflicts':
+        this.managingConflicts = value; break;
+      case 'celebrateResults':
+        this.celebrateResults = value; break;
+
+      case 'leadWithVision':
+        this.leadWithVision = value; break;
+      case 'alignAndEngage':
+        this.alignAndEngage = value; break;
+      case 'talentMagnet':
+        this.talentMagnet = value; break;
+
+      case 'goal1':
+        this.goal1 = value; break;
+      case 'goal2':
+        this.goal2 = value; break;
+      case 'goal3':
+        this.goal3 = value; break;
+      case 'goal4':
+        this.goal4 = value; break;
+      default: return;
+    }
+    let noCompetencies = 0;
+    if (this.customerDriven > 0) noCompetencies++;
+    if (this.questForExcellence > 0) noCompetencies++;
+    if (this.teamWork > 0) noCompetencies++;
+    if (this.respectAndTrust > 0) noCompetencies++;
+    if (this.enterprising > 0) noCompetencies++;
+    if (this.communication > 0) noCompetencies++;
+    if (this.dependability > 0) noCompetencies++;
+    if (this.quantityOfWork > 0) noCompetencies++;
+    if (this.qualityOfWork > 0) noCompetencies++;
+
+    if (this.personalEfficiency > 0) noCompetencies++;
+    if (this.workforceScheduling > 0) noCompetencies++;
+    if (this.qualityManagement > 0) noCompetencies++;
+    if (this.performanceManagement > 0) noCompetencies++;
+    if (this.successionPlanning > 0) noCompetencies++;
+    if (this.managingConflicts > 0) noCompetencies++;
+    if (this.celebrateResults > 0) noCompetencies++;
+    if (this.leadWithVision > 0) noCompetencies++;
+    if (this.alignAndEngage > 0) noCompetencies++;
+    if (this.talentMagnet > 0) noCompetencies++;
+
+    this.subTotal1 = (noCompetencies == 0) ? 0 : (
+      this.customerDriven +
+      this.questForExcellence +
+      this.teamWork +
+      this.respectAndTrust +
+      this.enterprising +
+      this.communication +
+      this.dependability +
+      this.quantityOfWork +
+      this.qualityOfWork +
+
+      this.personalEfficiency +
+      this.workforceScheduling +
+      this.qualityManagement +
+      this.performanceManagement +
+      this.successionPlanning +
+      this.managingConflicts +
+      this.celebrateResults +
+
+      this.leadWithVision +
+      this.alignAndEngage +
+      this.talentMagnet)
+      / noCompetencies;
+
+    let noGoals = 0;
+    if (this.goal1 > 0) noGoals++;
+    if (this.goal2 > 0) noGoals++;
+    if (this.goal3 > 0) noGoals++;
+    if (this.goal4 > 0) noGoals++;
+    this.subTotal2 = (noGoals == 0) ? 0 : (this.goal1 + this.goal2 + this.goal3 + this.goal4) / noGoals;
+
+    this.conclusion = this.subTotal1 * 0.3 + this.subTotal2 * 0.7
+  }
+  // End of Generate conclusion
 }
 
 

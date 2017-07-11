@@ -148,31 +148,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="customerDriven1">1</label>
                     <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven1" name="customerDriven">
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven1" name="customerDriven" (change)="generateConclusion('customerDriven',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="customerDriven2">2</label>
                     <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven2" name="customerDriven">
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven2" name="customerDriven" (change)="generateConclusion('customerDriven',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="customerDriven3">3</label>
                     <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven3" name="customerDriven">
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.customerDriven" required id="customerDriven3" name="customerDriven" (change)="generateConclusion('customerDriven',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="customerDriven4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.customerDriven" required id="customerDriven4" name="customerDriven">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.customerDriven" required id="customerDriven4" name="customerDriven" (change)="generateConclusion('customerDriven',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="customerDriven5">5</label>
                     <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.customerDriven"  required id="customerDriven5" name="customerDriven">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.customerDriven" required id="customerDriven5" name="customerDriven" (change)="generateConclusion('customerDriven',5)"/>
                     </label>
                   </div>
                 </td>
@@ -193,31 +193,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="questForExcellence1">1</label>
                     <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence1" name="questForExcellence">
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence1" name="questForExcellence" (change)="generateConclusion('questForExcellence',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="questForExcellence2">2</label>
                     <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence2" name="questForExcellence">
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence2" name="questForExcellence" (change)="generateConclusion('questForExcellence',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="questForExcellence3">3</label>
                     <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence3" name="questForExcellence">
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence3" name="questForExcellence" (change)="generateConclusion('questForExcellence',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="questForExcellence4">4</label>
                     <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence4" name="questForExcellence">
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence4" name="questForExcellence" (change)="generateConclusion('questForExcellence',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="questForExcellence5">5</label>
                     <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence5" name="questForExcellence">
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.questForExcellence" required id="questForExcellence5" name="questForExcellence" (change)="generateConclusion('questForExcellence',5)"/>
                     </label>
                   </div>
                 </td>
@@ -238,31 +238,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="teamWork1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.teamWork" required id="teamWork1" name="teamWork">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.teamWork" required id="teamWork1" name="teamWork" (change)="generateConclusion('teamWork',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="teamWork2">2</label>
                     <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.teamWork" required id="teamWork2" name="teamWork">
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.teamWork" required id="teamWork2" name="teamWork" (change)="generateConclusion('teamWork',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="teamWork3">3</label>
                     <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.teamWork" required id="teamWork3" name="teamWork">
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.teamWork" required id="teamWork3" name="teamWork" (change)="generateConclusion('teamWork',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="teamWork4">4</label>
                     <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.teamWork" required id="teamWork4" name="teamWork">
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.teamWork" required id="teamWork4" name="teamWork" (change)="generateConclusion('teamWork',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="teamWork5">5</label>
                     <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.teamWork" required id="teamWork5" name="teamWork">
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.teamWork" required id="teamWork5" name="teamWork" (change)="generateConclusion('teamWork',5)"/>
                     </label>
                   </div>
                 </td>
@@ -283,31 +283,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="respectAndTrust1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust1" name="respectAndTrust">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust1" name="respectAndTrust" (change)="generateConclusion('respectAndTrust',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="respectAndTrust2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust2" name="respectAndTrust">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust2" name="respectAndTrust" (change)="generateConclusion('respectAndTrust',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="respectAndTrust3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust3" name="respectAndTrust">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust3" name="respectAndTrust" (change)="generateConclusion('respectAndTrust',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="respectAndTrust4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust4" name="respectAndTrust">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust4" name="respectAndTrust" (change)="generateConclusion('respectAndTrust',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="respectAndTrust5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust5" name="respectAndTrust">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.respectAndTrust" required id="respectAndTrust5" name="respectAndTrust" (change)="generateConclusion('respectAndTrust',5)"/>
                     </label>
                   </div>
                 </td>
@@ -328,31 +328,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="enterprising1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.enterprising" required id="enterprising1" name="enterprising">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.enterprising" required id="enterprising1" name="enterprising" (change)="generateConclusion('enterprising',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="enterprising2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.enterprising" required id="enterprising2" name="enterprising">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.enterprising" required id="enterprising2" name="enterprising" (change)="generateConclusion('enterprising',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="enterprising3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.enterprising" required id="enterprising3" name="enterprising">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.enterprising" required id="enterprising3" name="enterprising" (change)="generateConclusion('enterprising',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="enterprising4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.enterprising" required id="enterprising4" name="enterprising">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.enterprising" required id="enterprising4" name="enterprising" (change)="generateConclusion('enterprising',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="enterprising5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.enterprising" required id="enterprising5" name="enterprising">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.enterprising" required id="enterprising5" name="enterprising" (change)="generateConclusion('enterprising',5)"/>
                     </label>
                   </div>
                 </td>
@@ -373,31 +373,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="communication1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.communication" required id="communication1" name="communication">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.communication" required id="communication1" name="communication" (change)="generateConclusion('communication',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="communication2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.communication" required id="communication2" name="communication">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.communication" required id="communication2" name="communication" (change)="generateConclusion('communication',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="communication3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.communication" required id="communication3" name="communication">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.communication" required id="communication3" name="communication" (change)="generateConclusion('communication',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="communication4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.communication" required id="communication4" name="communication">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.communication" required id="communication4" name="communication" (change)="generateConclusion('communication',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="communication5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.communication" required id="communication5" name="communication">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.communication" required id="communication5" name="communication" (change)="generateConclusion('communication',5)"/>
                     </label>
                   </div>
                 </td>
@@ -418,31 +418,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="dependability1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.dependability" required id="dependability1" name="dependability">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.dependability" required id="dependability1" name="dependability" (change)="generateConclusion('dependability',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="dependability2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.dependability" required id="dependability2" name="dependability">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.dependability" required id="dependability2" name="dependability" (change)="generateConclusion('dependability',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="dependability3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.dependability" required id="dependability3" name="dependability">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.dependability" required id="dependability3" name="dependability" (change)="generateConclusion('dependability',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="dependability4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.dependability" required id="dependability4" name="dependability">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.dependability" required id="dependability4" name="dependability" (change)="generateConclusion('dependability',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="dependability5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.dependability" required id="dependability5" name="dependability">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.dependability" required id="dependability5" name="dependability" (change)="generateConclusion('dependability',5)"/>
                     </label>
                   </div>
                 </td>
@@ -462,31 +462,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="quantityOfWork1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork1" name="quantityOfWork">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork1" name="quantityOfWork" (change)="generateConclusion('quantityOfWork',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="quantityOfWork2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork2" name="quantityOfWork">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork2" name="quantityOfWork" (change)="generateConclusion('quantityOfWork',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="quantityOfWork3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork3" name="quantityOfWork">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork3" name="quantityOfWork" (change)="generateConclusion('quantityOfWork',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="quantityOfWork4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork4" name="quantityOfWork">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork4" name="quantityOfWork" (change)="generateConclusion('quantityOfWork',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="quantityOfWork5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork5" name="quantityOfWork">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.quantityOfWork" required id="quantityOfWork5" name="quantityOfWork" (change)="generateConclusion('quantityOfWork',5)"/>
                     </label>
                   </div>
                 </td>
@@ -506,31 +506,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="qualityOfWork1">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork1" name="qualityOfWork">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork1" name="qualityOfWork" (change)="generateConclusion('qualityOfWork',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityOfWork2">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork2" name="qualityOfWork">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork2" name="qualityOfWork" (change)="generateConclusion('qualityOfWork',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityOfWork3">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork3" name="qualityOfWork">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork3" name="qualityOfWork" (change)="generateConclusion('qualityOfWork',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityOfWork4">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork4" name="qualityOfWork">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork4" name="qualityOfWork" (change)="generateConclusion('qualityOfWork',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityOfWork5">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork5" name="qualityOfWork">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.qualityOfWork" required id="qualityOfWork5" name="qualityOfWork" (change)="generateConclusion('qualityOfWork',5)"/>
                     </label>
                   </div>
                 </td>
@@ -568,35 +568,35 @@
                   </div>
                   <em class="text-primary">Biết quản lý thời gian, biết lên kế hoạch và sắp xếp thứ tự ưu tiên trong công việc. </em>
                 </td>
-                <td class="form-group" >
+                <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="personalEfficiency1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null"  [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null"  [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency" (change)="generateConclusion('personalEfficiency',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="personalEfficiency2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.personalEfficiency"  [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.personalEfficiency"  [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency" (change)="generateConclusion('personalEfficiency',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="personalEfficiency3">3</label>
-                    <label >
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency"/>
+                    <label>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency" (change)="generateConclusion('personalEfficiency',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="personalEfficiency4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.personalEfficiency" id="personalEfficiency4" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.personalEfficiency" id="personalEfficiency4" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency" (change)="generateConclusion('personalEfficiency',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="personalEfficiency5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.personalEfficiency" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" name="personalEfficiency" (change)="generateConclusion('personalEfficiency',5)"/>
                     </label>
                   </div>
                 </td>
@@ -616,31 +616,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="workforceScheduling1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling1" name="workforceScheduling">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling1" name="workforceScheduling" (change)="generateConclusion('workforceScheduling',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="workforceScheduling2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling2" name="workforceScheduling">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling2" name="workforceScheduling" (change)="generateConclusion('workforceScheduling',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="workforceScheduling3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling3" name="workforceScheduling">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling3" name="workforceScheduling" (change)="generateConclusion('workforceScheduling',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="workforceScheduling4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling4" name="workforceScheduling">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling4" name="workforceScheduling" (change)="generateConclusion('workforceScheduling',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="workforceScheduling5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling5" name="workforceScheduling">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.workforceScheduling" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="workforceScheduling5" name="workforceScheduling" (change)="generateConclusion('workforceScheduling',5)"/>
                     </label>
                   </div>
                 </td>
@@ -660,31 +660,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="qualityManagement1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement1" name="qualityManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement1" name="qualityManagement" (change)="generateConclusion('qualityManagement',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityManagement2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement2" name="qualityManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement2" name="qualityManagement" (change)="generateConclusion('qualityManagement',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityManagement3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement3" name="qualityManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement3" name="qualityManagement" (change)="generateConclusion('qualityManagement',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityManagement4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement4" name="qualityManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement4" name="qualityManagement" (change)="generateConclusion('qualityManagement',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="qualityManagement5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement5" name="qualityManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.qualityManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="qualityManagement5" name="qualityManagement" (change)="generateConclusion('qualityManagement',5)"/>
                     </label>
                   </div>
                 </td>
@@ -704,31 +704,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="performanceManagement1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement1" name="performanceManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement1" name="performanceManagement" (change)="generateConclusion('performanceManagement',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="performanceManagement2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement2" name="performanceManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement2" name="performanceManagement" (change)="generateConclusion('performanceManagement',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="performanceManagement3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement3" name="performanceManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement3" name="performanceManagement" (change)="generateConclusion('performanceManagement',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="performanceManagement4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement4" name="performanceManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement4" name="performanceManagement" (change)="generateConclusion('performanceManagement',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="performanceManagement5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement5" name="performanceManagement">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.performanceManagement" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="performanceManagement5" name="performanceManagement" (change)="generateConclusion('performanceManagement',5)"/>
                     </label>
                   </div>
                 </td>
@@ -748,31 +748,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="successionPlanning1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning1" name="successionPlanning"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning1" name="successionPlanning" (change)="generateConclusion('successionPlanning',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="successionPlanning2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning2" name="successionPlanning"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning2" name="successionPlanning" (change)="generateConclusion('successionPlanning',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="successionPlanning3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning3" name="successionPlanning"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning3" name="successionPlanning" (change)="generateConclusion('successionPlanning',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="successionPlanning4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning4" name="successionPlanning"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning4" name="successionPlanning" (change)="generateConclusion('successionPlanning',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="successionPlanning5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning5" name="successionPlanning">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.successionPlanning" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="successionPlanning5" name="successionPlanning" (change)="generateConclusion('successionPlanning',5)"/>
                     </label>
                   </div>
                 </td>
@@ -792,31 +792,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="managingConflicts1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts1" name="managingConflicts">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts1" name="managingConflicts" (change)="generateConclusion('managingConflicts',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="managingConflicts2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts2" name="managingConflicts">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts2" name="managingConflicts" (change)="generateConclusion('managingConflicts',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="managingConflicts3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts3" name="managingConflicts">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts3" name="managingConflicts" (change)="generateConclusion('managingConflicts',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="managingConflicts4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts4" name="managingConflicts">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts4" name="managingConflicts" (change)="generateConclusion('managingConflicts',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="managingConflicts5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts5" name="managingConflicts">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.managingConflicts" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="managingConflicts5" name="managingConflicts" (change)="generateConclusion('managingConflicts',5)"/>
                     </label>
                   </div>
                 </td>
@@ -836,31 +836,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="celebrateResults1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults1" name="celebrateResults"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="1" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults1" name="celebrateResults" (change)="generateConclusion('celebrateResults',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="celebrateResults2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults2" name="celebrateResults"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="2" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults2" name="celebrateResults" (change)="generateConclusion('celebrateResults',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="celebrateResults3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults3" name="celebrateResults"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="3" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults3" name="celebrateResults" (change)="generateConclusion('celebrateResults',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="celebrateResults4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults4" name="celebrateResults"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="4" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults4" name="celebrateResults" (change)="generateConclusion('celebrateResults',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="celebrateResults5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults5" name="celebrateResults"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || null" [value]="5" [(ngModel)]="appraisal.celebrateResults" [required]="currentUser.userType == 'SV' || currentUser.userType == 'LD'" id="celebrateResults5" name="celebrateResults" (change)="generateConclusion('celebrateResults',5)"/>
                     </label>
                   </div>
                 </td>
@@ -903,31 +903,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="leadWithVision1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision1" name="leadWithVision">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision1" name="leadWithVision" (change)="generateConclusion('leadWithVision',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="leadWithVision2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision2" name="leadWithVision">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision2" name="leadWithVision" (change)="generateConclusion('leadWithVision',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="leadWithVision3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision3" name="leadWithVision">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision3" name="leadWithVision" (change)="generateConclusion('leadWithVision',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="leadWithVision4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision4" name="leadWithVision">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision4" name="leadWithVision" (change)="generateConclusion('leadWithVision',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="leadWithVision5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision5" name="leadWithVision">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.leadWithVision" [required]="currentUser.userType == 'LD'" id="leadWithVision5" name="leadWithVision" (change)="generateConclusion('leadWithVision',5)"/>
                     </label>
                   </div>
                 </td>
@@ -948,31 +948,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="alignAndEngage1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage1" name="alignAndEngage">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage1" name="alignAndEngage" (change)="generateConclusion('alignAndEngage',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="alignAndEngage2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage2" name="alignAndEngage">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage2" name="alignAndEngage" (change)="generateConclusion('alignAndEngage',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="alignAndEngage3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage3" name="alignAndEngage">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage3" name="alignAndEngage" (change)="generateConclusion('alignAndEngage',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="alignAndEngage4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage4" name="alignAndEngage">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage4" name="alignAndEngage" (change)="generateConclusion('alignAndEngage',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="alignAndEngage5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage5" name="alignAndEngage">
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.alignAndEngage" [required]="currentUser.userType == 'LD'" id="alignAndEngage5" name="alignAndEngage" (change)="generateConclusion('alignAndEngage',5)"/>
                     </label>
                   </div>
                 </td>
@@ -993,31 +993,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="talentMagnet1">1</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet1" name="talentMagnet"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="1" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet1" name="talentMagnet" (change)="generateConclusion('talentMagnet',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="talentMagnet2">2</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet2" name="talentMagnet"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="2" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet2" name="talentMagnet" (change)="generateConclusion('talentMagnet',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="talentMagnet3">3</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet3" name="talentMagnet"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="3" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet3" name="talentMagnet" (change)="generateConclusion('talentMagnet',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="talentMagnet4">4</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet4" name="talentMagnet"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="4" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet4" name="talentMagnet" (change)="generateConclusion('talentMagnet',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="talentMagnet5">5</label>
                     <label>
-                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet5" name="talentMagnet"/>
+                      <input type="radio" [attr.disabled]="currentUser.userType == 'WK' || currentUser.userType == 'SV' || null" [value]="5" [(ngModel)]="appraisal.talentMagnet" [required]="currentUser.userType == 'LD'" id="talentMagnet5" name="talentMagnet" (change)="generateConclusion('talentMagnet',5)"/>
                     </label>
                   </div>
                 </td>
@@ -1030,6 +1030,9 @@
                   <div class="text-right"><strong><em class="text-primary">Tổng điểm  = Tổng số điểm cho từng Năng lực / Số năng lực</em></strong></div>
                 </td>
                 <td class="total">
+                  <h4 class="text-center">
+                    <strong>{{subTotal1 | number:'1.0-2'}}</strong>
+                  </h4>
                 </td>
               </tr>
             </tfoot>
@@ -1074,31 +1077,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal11">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal1" id="goal11" name="goal1">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal1" id="goal11" name="goal1" (change)="generateConclusion('goal1',1)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal12">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal1" id="goal12" name="goal1">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal1" id="goal12" name="goal1" (change)="generateConclusion('goal1',2)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal13">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal1" id="goal13" name="goal1">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal1" id="goal13" name="goal1" (change)="generateConclusion('goal1',3)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal14">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal1" id="goal14" name="goal1">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal1" id="goal14" name="goal1" (change)="generateConclusion('goal1',4)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal15">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal1" id="goal15" name="goal1">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal1" id="goal15" name="goal1" (change)="generateConclusion('goal1',5)">
                     </label>
                   </div>
                 </td>
@@ -1114,31 +1117,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal21">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal2" id="goal21" name="goal2">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal2" id="goal21" name="goal2" (change)="generateConclusion('goal2',1)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal22">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal2" id="goal22" name="goal2">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal2" id="goal22" name="goal2" (change)="generateConclusion('goal2',2)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal23">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal2" id="goal23" name="goal2">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal2" id="goal23" name="goal2" (change)="generateConclusion('goal2',3)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal24">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal2" id="goal24" name="goal2">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal2" id="goal24" name="goal2" (change)="generateConclusion('goal2',4)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal25">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal2" id="goal25" name="goal2">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal2" id="goal25" name="goal2" (change)="generateConclusion('goal2',5)">
                     </label>
                   </div>
                 </td>
@@ -1155,31 +1158,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal31">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal3" id="goal31" name="goal3"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal3" id="goal31" name="goal3" (change)="generateConclusion('goal3',1)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal32">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal3" id="goal32" name="goal3"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal3" id="goal32" name="goal3" (change)="generateConclusion('goal3',2)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal33">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal3" id="goal33" name="goal3"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal3" id="goal33" name="goal3" (change)="generateConclusion('goal3',3)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal34">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal3" id="goal34" name="goal3"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal3" id="goal34" name="goal3" (change)="generateConclusion('goal3',4)"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal35">5</label>
                     <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.goal3" id="goal35" name="goal3"/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.goal3" id="goal35" name="goal3" (change)="generateConclusion('goal3',5)"/>
                     </label>
                   </div>
                 </td>
@@ -1195,31 +1198,31 @@
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal41">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal4" id="goal41" name="goal4">
+                      <input type="radio" [value]="1" [(ngModel)]="appraisal.goal4" id="goal41" name="goal4" (change)="generateConclusion('goal4',1)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal42">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal4" id="goal42" name="goal4">
+                      <input type="radio" [value]="2" [(ngModel)]="appraisal.goal4" id="goal42" name="goal4" (change)="generateConclusion('goal4',2)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal43">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal4" id="goal43" name="goal4">
+                      <input type="radio" [value]="3" [(ngModel)]="appraisal.goal4" id="goal43" name="goal4" (change)="generateConclusion('goal4',3)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal44">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal4" id="goal44" name="goal4">
+                      <input type="radio" [value]="4" [(ngModel)]="appraisal.goal4" id="goal44" name="goal4" (change)="generateConclusion('goal4',4)">
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal45">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal4" id="goal45" name="goal4">
+                      <input type="radio" [value]="5" [(ngModel)]="appraisal.goal4" id="goal45" name="goal4" (change)="generateConclusion('goal4',5)">
                     </label>
                   </div>
                 </td>
@@ -1232,6 +1235,9 @@
                   <div class="text-right"><strong><em class="text-primary">Tổng điểm = Tổng số điểm / số mục tiêu</em></strong></div>
                 </td>
                 <td class="total">
+                  <h4 class="text-center">
+                    <strong>{{subTotal2 | number:'1.0-2'}}</strong>
+                  </h4>
                 </td>
               </tr>
               <tr>
@@ -1260,6 +1266,9 @@
                   <div class="text-right"><strong><em class="text-primary">ĐIỂM TRUNG BÌNH TỔNG: = Tổng 1 * 30% + Tổng 2 * 70%</em></strong></div>
                 </td>
                 <td class="total">
+                  <h4 class="text-center">
+                    <strong>{{conclusion | number:'1.0-2'}}</strong>
+                  </h4>
                 </td>
               </tr>
             </tfoot>
