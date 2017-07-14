@@ -1,0 +1,570 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="text-center" style="margin-bottom: 2em">
+    <img src="/assets/images/logo.jpg" />
+  </div>
+
+  <h2 class="text-center noMargin" style="font-size:2em"><strong>S.M.A.R.T GOAL</strong></h2>
+  <h2 class="text-center" style="margin-bottom:1em; font-size:2em"><strong><em>MỤC TIÊU "THÔNG MINH" CỦA CÁ NHÂN</em></strong></h2>
+  <div class="clearfix"></div>
+  <div class="x_content">
+    <!-- Form -->
+    <div class="animate form">
+      <section class="login_content noPadding">
+        <form class="noMargin" #createSmartGoalForm="ngForm" novalidate (ngSubmit)="saveSmartGoal(createSmartGoalForm.valid)" *ngIf='smartGoal'>
+
+          <!-- Left Column -->
+          <div class="col-md-5 col-sm-12 col-xs-12">
+            <div class="item form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label  pull-right" for="associateName">Associate's Name - <em class="text-primary">Nhân viên:</em></label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="associateName" class="form-control inputMargin" #associateName="ngModel" [(ngModel)]="smartGoal.associateName"
+                  name="associateName" type="text" required />
+              </div>
+            </div>
+            <div class="item form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label  pull-right" for="associateTitle">Associate's Title - <em class="text-primary">Chức danh:</em></label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="asscociateTitle" class="form-control inputMargin" #associateTitle="ngModel" [(ngModel)]="smartGoal.associateTitle"
+                  name="asscociateTitle" type="text" required />
+              </div>
+            </div>
+            <div class="item form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label  pull-right" for="supervisor">Supervisor - <em class="text-primary">Cấp trên trực tiếp:</em></label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="supervisor" class="form-control inputMargin" #supervisor="ngModel" [(ngModel)]="smartGoal.supervisor" name="supervisor"
+                  type="text" readonly />
+              </div>
+            </div>
+            <div class="item form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label  pull-right" for="supervisorTitle">Supervisor's Title - <em class="text-primary">Chức danh:</em></label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="supervisorTitle" class="form-control inputMargin" #supervisorTitle="ngModel" [(ngModel)]="smartGoal.supervisorTitle"
+                  name="supervisorTitle" type="text" readonly />
+              </div>
+            </div>
+          </div>
+          <!-- /Left Column -->
+
+          <!-- Right Column -->
+          <div class="col-md-7 col-sm-12 col-xs-12">
+            <div class="item form-group">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <label class="control-label  pull-right" for="associateId">Associate ID - <em class="text-primary">Mã số nhân viên:</em></label>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12">
+                <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="smartGoal.associateId" name="asscociateId"
+                  type="text" required />
+              </div>
+            </div>
+            <div class="item form-group">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <label class="control-label  pull-right" for="department">Department - <em class="text-primary">Bộ phận:</em></label>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12">
+                <select class="form-control inputMargin" [(ngModel)]="smartGoal.departmentId" name="departmentId">
+                  <option *ngFor="let department of departmentList" [ngValue]="department.Value">{{department.Text}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12">
+              <div class="text-right noPadding"><label class="control-label">Goal set for period<br/><em class="text-primary">Mục tiêu cho giai đoạn:</em> </label></div>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs-12">
+              <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
+                <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
+                  <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
+                  <my-date-picker name="from" #from="ngModel" [options]="myDatePickerOptions" [(ngModel)]="appraisalFrom" required></my-date-picker>
+                </div>
+              </div>
+              <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
+                <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
+                  <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
+                  <my-date-picker name="to" #to="ngModel" [options]="myDatePickerOptions" [(ngModel)]="appraisalTo" required></my-date-picker>
+                </div>
+              </div>
+            </div>
+            <div class="item form-group">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <label class="control-label  pull-right" for="temporaryDate">Date / <em class="text-primary">Ngày :</em></label>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
+                  <my-date-picker name="temporaryDate" #temporaryDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="temporarydate"
+                    required></my-date-picker>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Right Column -->
+
+          <!-- Table Part 1 -->
+          <table class="table table-bordered noMargin">
+            <thead>
+              <tr class="part">
+                <th colspan=6>
+                  1. Business S.M.A.R.T. Goals/ Các Mục tiêu kinh doanh "THÔNG MINH"
+                </th>
+              </tr>
+              <tr>
+                <th class="abc">
+                  No.of goal<br/>
+                  <em>Thứ tự mục tiêu</em>
+                </th>
+                <th class="abc">
+                  Key Performance Area<br/>
+                  <em class="text-primary">Trọng tâm của mục tiêu</em>
+                </th>
+                <th class="abc">
+                  S.M.A.R.T. GOAL (What) and<br/> Action Plan (How)<br/>
+                  <em class="text-primary">MỤC TIÊU (Là gì) và<br/>
+                        Kế hoach Thực hiện (Như thế nào)</em>
+                </th>
+                <th class="abc">
+                  Completed date<br/>
+                  <em class="text-primary">Thời gian hoàn thành</em>
+                </th>
+                <th class="abc">
+                  Measure indicator<br/>
+                  <em class="text-primary">Chỉ tiêu đo lường</em>
+                </th>
+                <th class="abc col-md-2 col-sm-2 col-xs-2">
+                  Scoring for result<br/>
+                  <em class="text-primary">Điểm số đánh giá Kết quả</em>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center" style="vertical-align: middle">
+                  <strong>1</strong>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-2">
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
+                    </label>
+                </td>
+                <td>
+                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
+                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
+                  of staff salaries on time. - Prepare renewal labour contract on time.
+                </td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="form-group">
+                  <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <label class="text-left radioPadding" for="goal11">1</label>
+                    <label>
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',1)" id="goal11" name="goal1" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal12">2</label>
+                    <label>
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',2)" id="goal12" name="goal1" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal13">3</label>
+                    <label>
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',3)" id="goal13" name="goal1" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal14">4</label>
+                    <label>
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',4)" id="goal14" name="goal1" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal15">5</label>
+                    <label>
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',5)" id="goal15" name="goal1" />
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="vertical-align: middle">
+                  <strong>2</strong>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-2">
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                    </label>
+                </td>
+                <td>
+                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
+                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
+                  of staff salaries on time. - Prepare renewal labour contract on time.
+                </td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="form-group">
+                  <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <label class="text-left radioPadding" for="goal21">1</label>
+                    <label>
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',1)" id="goal21" name="goal2" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal22">2</label>
+                    <label>
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',2)" id="goal22" name="goal2" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal23">3</label>
+                    <label>
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',3)" id="goal23" name="goal2" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal24">4</label>
+                    <label>
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',4)" id="goal24" name="goal2" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal25">5</label>
+                    <label>
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',5)" id="goal25" name="goal2" />
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="vertical-align: middle">
+                  <strong>3</strong>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-2">
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                    </label>
+                </td>
+                <td>
+                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
+                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
+                  of staff salaries on time. - Prepare renewal labour contract on time.
+                </td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="form-group">
+                  <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <label class="text-left radioPadding" for="goal31">1</label>
+                    <label>
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',1)" id="goal31" name="goal3" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal32">2</label>
+                    <label>
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',2)" id="goal32" name="goal3" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal33">3</label>
+                    <label>
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',3)" id="goal33" name="goal3" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal34">4</label>
+                    <label>
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',4)" id="goal34" name="goal3" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal35">5</label>
+                    <label>
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',5)" id="goal35" name="goal3" />
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="vertical-align: middle">
+                  <strong>4</strong>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-2">
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                    </label>
+                  <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                    </label>
+                </td>
+                <td>
+                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
+                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
+                  of staff salaries on time. - Prepare renewal labour contract on time.
+                </td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="form-group">
+                  <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <label class="text-left radioPadding" for="goal41">1</label>
+                    <label>
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',1)" id="goal41" name="goal4" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal42">2</label>
+                    <label>
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal41" (click)="generateTotalScore('goal4',2)" id="goal42" name="goal4" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal43">3</label>
+                    <label>
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',3)" id="goal43" name="goal4" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal44">4</label>
+                    <label>
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',4)" id="goal44" name="goal4" />
+                    </label>
+                  </div>
+                  <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
+                    <label class="text-left radioPadding" for="goal45">5</label>
+                    <label>
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',5)" id="goal45" name="goal4" />
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5">
+                  <div class="text-right text-warning"><strong>Total of scores / number of goals<br/><em class="text-primary">Tổng điểm = Tổng số điểm / Số lượng mục tiêu</em></strong></div>
+                </td>
+                <td class="total">
+                  <h4 class="text-center">
+                    <strong>{{totalScore | number: '1.0-2'}}</strong>
+                  </h4>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <!-- /Table Part 1 -->
+
+          <!--  Table Part 1ab -->
+          <table class="table table-bordered noMargin">
+            <thead>
+              <tr class="abc">
+                <th colspan=4>
+                  a. Other business goals and contributions / <em style="color:darkblue">Các mục tiêu kinh doanh và đóng góp khác</em>
+                </th>
+              </tr>
+              <tr class="abc">
+                <th colspan=4>
+                  <textarea autosize class="my-textarea" name="goal1Content" style="width:100%"></textarea>
+                </th>
+              </tr>
+              <tr class="abc">
+                <th colspan=4>
+                  b. Personal Development Plan / <em style="color:darkblue"> Kế hoạch phát triển cả nhân.</em><br/> (*) Recommended
+                  but not compulsory and not included in the performance scoring / <em style="color:darkblue">Khuyến khích, không bắt buộc và không được cộng vào điểm hiệu quả công việc.</em>
+                </th>
+              </tr>
+              <tr>
+                <th class="abc">
+                  Personal Development Area<br/>
+                  <em>Trọng tâm phát triển cá nhân</em>
+                </th>
+                <th class="abc">
+                  S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
+                  <em>MỤC TIÊU (Là gì) và Kế hoạch Thực hiện (Như thế nào)</em>
+                </th>
+                <th class="abc">
+                  Completed date<br/>
+                  <em>Thời gian hoàn thành</em>
+                </th>
+                <th class="abc">
+                  Measure indicator<br/>
+                  <em>Chỉ tiêu đo lường</em>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- /Table Part 1ab -->
+
+          <!-- Table Part 2 3 -->
+          <table class="table table-bordered noMargin">
+            <thead>
+              <tr class="part">
+                <th>
+                  2. Midterm review comment or Goal adjustment (if any) / Đánh giá giữa kỳ thực hiện và Điêu chỉnh mục tiêu (nếu có):
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+              </tr>
+              <tr class="part">
+                <th>
+                  3. Final review / Đánh giá cuối kỳ thực hiện
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                </td>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="2">
+                  <div class="text-left"><strong>Signature of acknowledgement and Date / <em class="text-primary">Chữ ký xác nhận nội dung và Ngày:</em></strong></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <!-- /Table Part 2 3 -->
+
+          <!-- Table signature -->
+          <table class="table table-bordered text-left" style="border:none !important; border-spacing: 0 !important; border-collapse: collapse !important">
+            <tbody>
+              <tr>
+                <td style="border: none">
+                  GOAL SETTING
+                </td>
+                <td style="border: none"></td>
+                <td style="border: none">
+                  MIDTERM REVIEW
+                </td>
+                <td style="border: none"></td>
+                <td style="border: none">
+                  FINAL REVIEW
+                </td>
+                <td style="border: none"></td>
+              </tr>
+              <tr>
+                <td style="border: none">
+                  Associate
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Associate
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Associate
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+              </tr>
+              <tr>
+                <td style="border: none">
+                  Reviewer
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Reviewer
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Reviewer
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+              </tr>
+              <tr>
+                <td style="border: none">
+                  Department Head
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Department Head
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Department Head
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+              </tr>
+              <tr>
+                <td style="border: none">
+                  Director of HR
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Director of HR
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  Director of HR
+                </td>
+                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- /Table signature -->
+
+        </form>
+      </section>
+    </div>
+    <!-- /Form -->
+  </div>
+</div>

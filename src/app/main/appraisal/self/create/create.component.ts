@@ -79,6 +79,7 @@ export class CreateComponent implements OnInit {
   }
 
   saveAppraisal(valid: Boolean) {
+    if (!valid) return;
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
@@ -90,7 +91,7 @@ export class CreateComponent implements OnInit {
     // End date problem
 
     // alert(JSON.stringify(this.appraisal));
-    if (!valid) return;
+ 
     this.loading = true;
     this.appraisal.status = this.status;
     this._dataService.post('/api/appraisal/create', JSON.stringify(this.appraisal)).subscribe((response: any) => {

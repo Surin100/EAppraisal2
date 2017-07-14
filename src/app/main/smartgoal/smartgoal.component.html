@@ -1,0 +1,18 @@
+<div class="row" style="margin-right:0">
+    <div class="">
+        <div class="x_panel" style="padding-top:3px">
+            <div class="x_title" style="padding-bottom:0">
+                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager')">
+                    <a class="btn btn-success" routerLink="/main/smartgoal/selfgoal/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="selfGoalClick()">Your Goal</a>
+                    <a class="btn btn-success" routerLink="/main/smartgoal/goalapproval/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="goalApprovalClick()">Need Your Approval</a>
+                </div>
+                <div class="pull-left" *ngIf="selfGoalLoad">
+                    <a class="btn btn-danger" routerLink="/main/smartgoal/selfgoal/creategoal" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add Goal</a>
+                    
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

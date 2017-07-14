@@ -1,0 +1,39 @@
+.noPadding{
+    padding: 0 !important;
+}
+
+.noMargin{
+    margin: 0 !important;
+}
+
+.inputMargin{
+    margin: -0.5em 0 1em 0 !important;
+}
+
+.part {
+    background-color:brown !important; 
+    color: white !important;
+}
+
+.abc {
+    background-color: #26B99A;
+    color: white;
+    text-align: center;
+}
+
+th {
+    vertical-align: text-top !important;
+    /*text-align: center;*/
+}
+
+th em{
+    color: darkblue;
+}
+
+.radioPadding{
+    padding-left: 2px !important;
+}
+
+tfoot {
+    background-color: azure !important;
+}

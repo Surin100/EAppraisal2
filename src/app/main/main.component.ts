@@ -14,6 +14,7 @@ import { UrlConstants } from '../core/common/url.constants';
 export class MainComponent implements OnInit {
   user: LoggedInUser;
   selfLoad: Boolean;
+  selfGoalLoad: Boolean;
   constructor(private _authenService: AuthenService, private _router: Router) { }
 
   ngOnInit() {
@@ -34,8 +35,9 @@ export class MainComponent implements OnInit {
 
   }
 
-  goalClick() {
-
+  smartGoalClick() {
+    this.selfGoalLoad = true;
+    this._router.navigate([UrlConstants.SMARTGOAL]);
   }
 
   guidelineClick() {
