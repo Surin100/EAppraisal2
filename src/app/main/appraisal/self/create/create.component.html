@@ -1299,9 +1299,64 @@
           <div class="radio text-left recommend">
             <label><input type="radio" name="recommendation" disabled /><span>Salary Adjustment / Promotion/ <em class="text-primary">Điều chỉnh lương / Thăng chức</em></span></label>
           </div>
+          <div class="text-left" style="padding-left:4em">
+            (Please attach Associate Record Form) / <em class="text-primary">(Kèm theo Phiếu Thông tin Nhân viên)</em>
+          </div>
+          <table class="table" style="border:none !important; border-collapse: collapse !important">
+            <thead>
+              <tr>
+                <th style="border: none" colspan="2">
+                  ACKNOWLEDGEMENT – <em class="text-primary">XÁC NHẬN:</em>
+                </th>
+              </tr>
+
+              <tr>
+                <td style="border: none" colspan="2">
+                  The below signatures indicate that the reviewer and the associate have discussed and agreed on all contentsstated in this
+                  form and that the consequent decision is approved by the Department Head and verified by Human Resources
+                  and Administration.<br>
+                  <em class="text-primary">Các chữ ký dưới đây xác nhận rằng người đánh giá và người được đánh giá đã thảo luận và đồng ý tất cả các nội dung ghi trong bản đánh giá hiệu quả công việc này; quyết định do kết quả đánh giá đã được Trưởng Bộ phận duyệt và Phòng Hành chính – Nhân sự xác nhận.</em>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border:none">
+                  <u>Associate’s name &signature</u> - <em class="text-primary">Tên và chữ ký Nhân viên:</em>
+                </td>
+                <td style="border: none">
+                  <u>Division Head</u> - <em class="text-primary">Trưởng Bộ phận:</em>
+                </td>
+              </tr>
+              <tr>
+                <td style="border:none;padding-bottom: 8em">
+                  Ngày <em class="text-primary">date: ............................................... </em>
+                </td>
+                <td style="border:none" >
+                  Ngày <em class="text-primary">date: ............................................... </em>
+                </td>
+              </tr>
+              <tr>
+                <td style="border:none">
+                  <u>Reviewer’s name &signature</u> - <em class="text-primary">Tên và chữ ký người đánh giá:</em>
+                </td>
+                <td style="border: none">
+                  <u>Human Resources</u> - <em class="text-primary">Nhân Sự:</em>
+                </td>
+              </tr>
+              <tr>
+                <td style="border:none;padding-bottom: 8em">
+                  Ngày <em class="text-primary">date: ............................................... </em>
+                </td>
+                <td style="border:none" >
+                  Ngày <em class="text-primary">date: ............................................... </em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <div>
-            <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="status = 'N'" class="btn btn-primary" >Save Draft</button>
-            <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="status = 'S'" class="btn btn-danger" >Submit</button>
+            <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="status = 'N'" class="btn btn-primary">Save Draft</button>
+            <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="status = 'S'" class="btn btn-danger">Submit</button>
             <button routerLink="/main/appraisal" class="btn btn-info" type="button">Cancel</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
             />

@@ -29,21 +29,21 @@ export class NotificationService {
       // notifier defaults
       notifier: {
         // auto-dismiss wait time (in seconds)  
-        delay: 5,
+        delay: 10,
         // default position
         position: 'top-right',
         // adds a close button to notifier messages
-        closeButton: false
+        closeButton: true
       },
 
       // language resources 
       glossary: {
         // dialogs default title
-        title: 'Xác nhận',
+        title: 'Confirmation',
         // ok button text
-        ok: 'Đồng ý',
+        ok: 'Ok',
         // cancel button text
-        cancel: 'Hủy'
+        cancel: 'Cancel'
       },
 
       // theme settings

@@ -38,6 +38,10 @@
 .bottomMargin2{
     margin-bottom: 2em !important;
 }
+.bottomPadding4{
+    padding-bottom: 4em !important;
+    /* position: relative; */
+}
 
 .col15{
     width: 15% !important;
