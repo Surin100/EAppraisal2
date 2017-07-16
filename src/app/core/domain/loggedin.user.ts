@@ -16,12 +16,13 @@ export class LoggedInUser {
     public roles: string[];
     public departmentList;
     public companyList;
+    public categoryList;
 
 
     constructor(access_token: string, userName: string, email: string, fullName: string, lm1: string, lm2: string,
         job: string, userType: string, userTitle: string,
         departmentId: string, departmentEnName: string, companyId: string, companyName: string, roles: string[],
-        departmentList, companyList
+        departmentList, companyList, categoryList
     ) {
         this.access_token = access_token;
         this.userName = userName;
@@ -39,6 +40,7 @@ export class LoggedInUser {
         this.roles = roles;
         this.departmentList = departmentList;
         this.companyList = companyList;
+        this.categoryList = categoryList;
     }
 
 }

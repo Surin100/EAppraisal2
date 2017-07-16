@@ -22,8 +22,9 @@ export class CreateComponent implements OnInit {
   leadershipToggle = false;
   appraisal: any = {};
   departmentList = [];
+  categoryList = []
   currentUser: LoggedInUser;
-  status: string;
+  statusId: string;
   loading: Boolean;
 
   appraisalFrom = {
@@ -50,6 +51,8 @@ export class CreateComponent implements OnInit {
     this.currentUser = _authenService.getLoggedInUser();
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
+
+    this.categoryList = JSON.parse (this.currentUser.categoryList)
 
     this.appraisal = {
       associateName: this.currentUser.fullName,
@@ -93,10 +96,10 @@ export class CreateComponent implements OnInit {
     // alert(JSON.stringify(this.appraisal));
  
     this.loading = true;
-    this.appraisal.status = this.status;
+    this.appraisal.statusId = this.statusId;
     this._dataService.post('/api/appraisal/create', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      if (this.status == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
-      if (this.status == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
+      if (this.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
+      if (this.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this._utilityService.navigate('/main/appraisal');
     }, error => this._dataService.handleError(error));
   }
