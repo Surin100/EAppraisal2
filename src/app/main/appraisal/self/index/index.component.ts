@@ -23,13 +23,13 @@ export class IndexComponent implements OnInit {
   }
 
   loadData(){
-    this._dataService.get('/api/appraisal/getlistpaging?page='+this.pageIndex + '&pagesize='+this.pageSize+'&filter='+this.filter)
+    this._dataService.get('/api/appraisal/getlistpaging?pageIndex='+this.pageIndex + '&pagesize='+this.pageSize+'&filter='+this.filter)
     .subscribe((response:any)=>{
       this.appraisals = response.Items;
       // console.log(response);
       this.pageIndex = response.PageIndex;
       this.pageSize = response.PageSize;
-      this.totalRow = response.TotalRows;
+      this.totalRow = response.TotalRow;
     },error=>this._dataService.handleError(error));
   }
   pageChanged(event:any):void{
