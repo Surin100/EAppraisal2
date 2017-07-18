@@ -27,7 +27,7 @@ export class CreateComponent implements OnInit {
   currentUser: LoggedInUser;
   statusId: string;
   loading: Boolean;
-  public baseFolder : string = SystemConstants.BASE_API;
+  public baseFolder: string = SystemConstants.BASE_API;
 
   appraisalFrom = {
     jsdate: ''
@@ -248,7 +248,7 @@ export class CreateComponent implements OnInit {
     this.conclusion = this.subTotal1 * 0.3 + this.subTotal2 * 0.7
   }
 
-  exportExcel(valid:Boolean) {
+  exportExcel(valid: Boolean) {
     if (!valid) return;
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
@@ -262,11 +262,11 @@ export class CreateComponent implements OnInit {
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
     this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      // this._utilityService.navigate('/main/appraisal');
       window.open(this.baseFolder + response.Message);
+      // window.location.href = this.baseFolder + response.Message;
+      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response.Message).subscribe((response: Response) => { });
     }, error => this._dataService.handleError(error));
   }
-  // End of Generate conclusion
 }
 
 
