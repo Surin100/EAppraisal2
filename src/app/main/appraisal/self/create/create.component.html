@@ -1367,6 +1367,7 @@
             </div>
           </div>
           <div>
+            <button type="button" [disabled]="!createAppraisalForm.valid" (click)="exportExcel(createAppraisalForm.valid)" class="btn btn-primary">Export Excel</button>
             <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="statusId = 'N'" class="btn btn-primary">Save Draft</button>
             <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="statusId = 'S'" class="btn btn-danger">Submit</button>
             <button routerLink="/main/appraisal" class="btn btn-info" type="button">Cancel</button>

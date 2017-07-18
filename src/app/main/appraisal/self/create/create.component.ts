@@ -8,6 +8,7 @@ import { DataService } from '../../../../core/services/data.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { UtilityService } from '../../../../core/services/utility.service';
 import { MessageConstants } from '../../../../core/common/message.constants';
+import { SystemConstants } from '../../../../core/common/system.constants';
 
 @Component({
   selector: 'app-create',
@@ -26,6 +27,7 @@ export class CreateComponent implements OnInit {
   currentUser: LoggedInUser;
   statusId: string;
   loading: Boolean;
+  public baseFolder : string = SystemConstants.BASE_API;
 
   appraisalFrom = {
     jsdate: ''
@@ -52,7 +54,7 @@ export class CreateComponent implements OnInit {
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
 
-    this.categoryList = JSON.parse (this.currentUser.categoryList)
+    this.categoryList = JSON.parse(this.currentUser.categoryList)
 
     this.appraisal = {
       associateName: this.currentUser.fullName,
@@ -86,15 +88,15 @@ export class CreateComponent implements OnInit {
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
-    let _createDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
-    this.appraisal.createDate = new Date(_createDate);
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
+    this.appraisal.reviewDate = new Date(_reviewDate);
 
     this.appraisal.from = new Date(this.appraisalFrom.jsdate);
     this.appraisal.to = new Date(this.appraisalTo.jsdate);
     // End date problem
 
     // alert(JSON.stringify(this.appraisal));
- 
+
     this.loading = true;
     this.appraisal.statusId = this.statusId;
     this._dataService.post('/api/appraisal/create', JSON.stringify(this.appraisal)).subscribe((response: any) => {
@@ -244,6 +246,25 @@ export class CreateComponent implements OnInit {
     this.subTotal2 = (noGoals == 0) ? 0 : (this.goal1 + this.goal2 + this.goal3 + this.goal4) / noGoals;
 
     this.conclusion = this.subTotal1 * 0.3 + this.subTotal2 * 0.7
+  }
+
+  exportExcel(valid:Boolean) {
+    if (!valid) return;
+    // Date problem
+    let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
+    this.appraisal.reviewDate = new Date(_reviewDate);
+
+    this.appraisal.from = new Date(this.appraisalFrom.jsdate);
+    this.appraisal.to = new Date(this.appraisalTo.jsdate);
+    // End date problem
+
+    this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
+    this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
+      // this._utilityService.navigate('/main/appraisal');
+      window.open(this.baseFolder + response.Message);
+    }, error => this._dataService.handleError(error));
   }
   // End of Generate conclusion
 }
