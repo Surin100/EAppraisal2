@@ -1,0 +1,11 @@
+.noPadding{
+    padding: 0 !important;
+}
+
+.noMargin{
+    margin: 0 !important;
+}
+
+.inputMargin{
+    margin: -0.5em 0 1em 0 !important;
+}

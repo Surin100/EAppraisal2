@@ -3,11 +3,28 @@
     <div class="x_panel">
       <div class="x_title">
         <h2></h2>
-
         <div class="clearfix"></div>
       </div>
       <div class="x_content" style="min-height:500px">
-        Register work!
+        <div class="animate form">
+          <section class="login_content noPadding">
+            <form class="noMargin" #resetPasswordForm="ngForm" novalidate (ngSubmit)="resetPassword()">
+              <div class="item form-group col-md-5 col-sm-5 col-xs-12">
+                <div class=" col-md-2 col-sm-2 col-xs-12">
+                  <label class="control-label pull-right" for="userName">User ID:</label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" class="form-control inputMargin" id="userName" [(ngModel)]="user.userName" name="userName" />
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                  <button type="submit" class="pull-left">Reset Password</button>
+                  <img *ngIf="resetPasswordLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                  />
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
     </div>
   </div>
