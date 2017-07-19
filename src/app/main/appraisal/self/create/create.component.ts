@@ -5,6 +5,7 @@ import { IMyDpOptions } from 'mydatepicker';
 import { AuthenService } from '../../../../core/services/authen.service';
 import { LoggedInUser } from '../../../../core/domain/loggedin.user';
 import { DataService } from '../../../../core/services/data.service';
+import { HandleErrorService } from '../../../../core/services/handle-error.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { UtilityService } from '../../../../core/services/utility.service';
 import { MessageConstants } from '../../../../core/common/message.constants';
@@ -47,7 +48,7 @@ export class CreateComponent implements OnInit {
 
 
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService, private _handleErrorService: HandleErrorService
   ) {
 
     this.currentUser = _authenService.getLoggedInUser();
@@ -103,7 +104,7 @@ export class CreateComponent implements OnInit {
       if (this.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
       if (this.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this._utilityService.navigate('/main/appraisal');
-    }, error => this._dataService.handleError(error));
+    }, error => this._handleErrorService.handleError(error));
   }
 
   // Generate conclusion
@@ -262,10 +263,10 @@ export class CreateComponent implements OnInit {
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
     this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      window.open(this.baseFolder + response.Message);
+      window.open(this.baseFolder + response);
       // window.location.href = this.baseFolder + response.Message;
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response.Message).subscribe((response: Response) => { });
-    }, error => this._dataService.handleError(error));
+      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
+    }, error => this._handleErrorService.handleError(error));
   }
 }
 

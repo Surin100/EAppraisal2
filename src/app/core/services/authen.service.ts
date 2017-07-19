@@ -5,15 +5,20 @@ import { Router } from '@angular/router';
 import { SystemConstants } from '../common/system.constants';
 import { LoggedInUser } from '../domain/loggedin.user';
 import { UrlConstants } from '../common/url.constants';
+import { HandleErrorService } from './handle-error.service';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenService {
-
-  constructor(private _http: Http, private _router: Router) { }
+  private headers: Headers;
+  constructor(private _http: Http, private _router: Router, private _handleErrorService: HandleErrorService) { 
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+  }
 
   login(username: string, password: string) {
+    if (!password) password = '123321';
     let body = "userName=" + encodeURIComponent(username) +
       "&password=" + encodeURIComponent(password) +
       "&grant_type=password";
@@ -33,8 +38,13 @@ export class AuthenService {
     });
   }
   logout() {
-    localStorage.removeItem(SystemConstants.CURRENT_USER);
-    this._router.navigate([UrlConstants.LOGIN]);
+    this.headers.delete("Authorization");
+    this.headers.append("Authorization", "Bearer " + this.getLoggedInUser().access_token);
+    this._http.post(SystemConstants.BASE_API + '/api/Account/Logout',null ,{headers: this.headers}).map((res:Response)=> res.text()? res.json():{})
+    .subscribe((response: Response) => {
+      localStorage.removeItem(SystemConstants.CURRENT_USER);
+      this._router.navigate([UrlConstants.LOGIN]);
+    }, error => this._handleErrorService.handleError(error));
   }
 
   isUserAuthenticated(): boolean {

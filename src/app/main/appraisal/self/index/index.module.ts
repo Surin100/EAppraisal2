@@ -10,6 +10,7 @@ import { indexRoutes } from './index.routes';
 import { DataService } from '../../../../core/services/data.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { UtilityService } from '../../../../core/services/utility.service';
+import { HandleErrorService } from '../../../../core/services/handle-error.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { UtilityService } from '../../../../core/services/utility.service';
     PaginationModule.forRoot(),
     RouterModule.forChild(indexRoutes)
   ],
-  providers:[DataService, NotificationService, UtilityService],
+  providers:[DataService, NotificationService, UtilityService, HandleErrorService],
   declarations: [IndexComponent]
 })
 export class IndexModule { }

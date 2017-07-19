@@ -8,6 +8,6 @@ export const mainRoutes: Routes = [
         {path:'register', loadChildren:'./register/register.module#RegisterModule'},
         {path:'appraisal', loadChildren:'./appraisal/appraisal.module#AppraisalModule'},
         {path:'guideline', loadChildren:'./guideline/guideline.module#GuidelineModule'},
-        {path:'smartgoal', loadChildren:'./smartgoal/smartgoal.module#SmartGoalModule'}
+        {path:'smartgoal', loadChildren:'./smartgoal/smartgoal.module#SmartGoalModule'},
     ]}
 ]

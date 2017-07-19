@@ -10,6 +10,7 @@ import { CreateComponent } from './create.component';
 import { createRoutes } from './create.routes';
 
 import { DataService } from '../../../../core/services/data.service';
+import { HandleErrorService } from '../../../../core/services/handle-error.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import {UtilityService} from '../../../../core/services/utility.service';
 
@@ -21,7 +22,7 @@ import {UtilityService} from '../../../../core/services/utility.service';
     MyDatePickerModule,
     RouterModule.forChild(createRoutes)
   ],
-  providers: [DataService, NotificationService, UtilityService],
+  providers: [DataService, NotificationService, UtilityService, HandleErrorService],
   declarations: [CreateComponent, Autosize]
 })
 export class CreateModule { }
