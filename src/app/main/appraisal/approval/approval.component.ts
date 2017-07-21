@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./approval.component.css']
 })
 export class ApprovalComponent implements OnInit {
-
-  constructor() {  }
+  constructor(){}
 
   ngOnInit() {
 

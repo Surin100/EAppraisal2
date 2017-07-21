@@ -31,7 +31,7 @@
       <td>
         <button class="btn btn-primary" *ngIf="appraisal.StatusId == 'N'"><i class="fa fa-pencil" ></i></button>
         <button class="btn btn-danger" *ngIf="appraisal.StatusId == 'N'" (click)="deleteAppraisal(appraisal.Id)"><i class="fa fa-trash" ></i></button>
-        <button class="btn btn-primary" *ngIf="appraisal.StatusId == 'S'"><i class="fa fa-eye" ></i></button>
+        <button class="btn btn-primary" *ngIf="appraisal.StatusId != 'N'"><i class="fa fa-eye" ></i></button>
       </td>
     </tr>
   </tbody>

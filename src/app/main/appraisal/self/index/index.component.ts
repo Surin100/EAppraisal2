@@ -12,10 +12,10 @@ import { MessageConstants } from '../../../../core/common/message.constants';
 })
 export class IndexComponent implements OnInit {
   pageIndex: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   totalRow: number;
   filter: string = '';
-  pageDisplay: number = 10;
+  maxSize: number = 10;
   appraisals: any[];
   deleteAppraisalLoading:Boolean = false;
   constructor(private _handleErrorService: HandleErrorService, private _dataService: DataService, private _notificationService: NotificationService) {

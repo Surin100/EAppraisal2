@@ -22,6 +22,7 @@ export class AppraisalComponent implements OnInit {
   }
 
   selfClick() {
+    this.selfLoad = true;
   }
   approvalClick() {
     this.selfLoad = false;

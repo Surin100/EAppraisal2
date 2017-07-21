@@ -2,7 +2,7 @@
     <div class="">
         <div class="x_panel" style="padding-top:3px">
             <div class="x_title" style="padding-bottom:0">
-                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager')">
+                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager') || currentUser.roles.includes('HRExecutive')">
                     <a class="btn btn-success" routerLink="/main/appraisal/self/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="selfClick()">Your Appraisal</a>
                     <a class="btn btn-success" routerLink="/main/appraisal/approval/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="approvalClick()">Need Your Approval</a>
                 </div>

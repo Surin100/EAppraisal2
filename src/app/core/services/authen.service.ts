@@ -28,7 +28,7 @@ export class AuthenService {
 
     return this._http.post(SystemConstants.BASE_API + '/token', body, options).map((response: Response) => {
       let user: LoggedInUser = response.json();
-      // console.log(JSON.stringify(user));
+      // console.log(user);
       if (user.access_token) {
         localStorage.removeItem(SystemConstants.CURRENT_USER);
         localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
@@ -37,6 +37,7 @@ export class AuthenService {
 
     });
   }
+  
   logout() {
     this.headers.delete("Authorization");
     this.headers.append("Authorization", "Bearer " + this.getLoggedInUser().access_token);
