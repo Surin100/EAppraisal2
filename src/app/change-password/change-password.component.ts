@@ -33,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
   changePassword(valid: Boolean) {
     if (!valid) return;
     this.loading = true;
-    if(this.currentUser.roles.includes('NewUser')) this.model.oldPassword = '123321';
+    if(this.currentUser.roles.includes('NewUser')) this.model.oldPassword = "";
     this._dataService.post('/api/Account/ChangePassword', this.model).subscribe((response: any) => {
       this._notificationService.printSuccessMessage(MessageConstants.CHANGEPASSWORD_SUCCESS);
       localStorage.removeItem(SystemConstants.CURRENT_USER);

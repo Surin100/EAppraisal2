@@ -13,7 +13,6 @@ import { SystemConstants } from '../../../../core/common/system.constants';
 
 @Component({
   selector: 'app-create',
-
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
@@ -26,7 +25,6 @@ export class CreateComponent implements OnInit {
   departmentList = [];
   categoryList = []
   currentUser: LoggedInUser;
-  statusId: string;
   loading: Boolean;
   public baseFolder: string = SystemConstants.BASE_API;
 
@@ -65,11 +63,11 @@ export class CreateComponent implements OnInit {
     }
     // alert(JSON.stringify(this.currentUser.depart));
     // debugger 
-    if (this.currentUser.userType == 'WK') {
+    if (this.currentUser.userTypeId == 'WK') {
       this.supervisoryToggle = true;
       this.leadershipToggle = true;
     }
-    else if (this.currentUser.userType == 'SV') {
+    else if (this.currentUser.userTypeId == 'SV') {
       this.leadershipToggle = true;
     }
   }
@@ -99,12 +97,23 @@ export class CreateComponent implements OnInit {
     // alert(JSON.stringify(this.appraisal));
 
     this.loading = true;
-    this.appraisal.statusId = this.statusId;
     this._dataService.post('/api/appraisal/create', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      if (this.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
-      if (this.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
+      // debugger
+      if (this.appraisal.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
+      if (this.appraisal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this._utilityService.navigate('/main/appraisal');
-    }, error => this._handleErrorService.handleError(error));
+    }, error => {
+      // alert(JSON.stringify(error));
+      // debugger
+      if (JSON.parse(error._body).Message == "Your appraisal has been submitted but we cannot send email.") {
+        this._notificationService.printSuccessMessage("Your appraisal has been submitted but we cannot send email.");
+        this._utilityService.navigate('/main/appraisal');
+      }
+      else {
+        this._handleErrorService.handleError(error);
+        this.loading = false;
+      }
+    });
   }
 
   // Generate conclusion
@@ -254,7 +263,7 @@ export class CreateComponent implements OnInit {
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
-    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T15:00:00Z'
     this.appraisal.reviewDate = new Date(_reviewDate);
 
     this.appraisal.from = new Date(this.appraisalFrom.jsdate);
@@ -267,6 +276,30 @@ export class CreateComponent implements OnInit {
       // window.location.href = this.baseFolder + response.Message;
       this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
     }, error => this._handleErrorService.handleError(error));
+  }
+
+  uncheckGoal(name: string){
+    switch (name) {
+      case 'goal1':
+        this.goal1 = 0; this.appraisal.goal1=0; this.generateConclusion('goal1', 0); break;
+      case 'goal2':
+        this.goal2 = 0; this.appraisal.goal2=0; this.generateConclusion('goal2', 0); break;
+      case 'goal3':
+        this.goal3 = 0; this.appraisal.goal3=0; this.generateConclusion('goal3', 0); break;
+      case 'goal4':
+        this.goal4 = 0; this.appraisal.goal4=0; this.generateConclusion('goal4', 0); break;
+      default: return;
+    }
+
+  }
+
+  goalIsValid():Boolean{
+    let valid = true;
+    if(this.appraisal.goal1 == 0 && this.appraisal.goal1Content) valid =false;
+    else if(this.appraisal.goal2 == 0 && this.appraisal.goal2Content) valid =false;
+    else if(this.appraisal.goal3 == 0 && this.appraisal.goal3Content) valid =false;
+    else if(this.appraisal.goal4 == 0 && this.appraisal.goal4Content) valid =false;
+    return valid;
   }
 }
 

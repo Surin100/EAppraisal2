@@ -7,7 +7,7 @@ export class LoggedInUser {
     public lm1: string;
     public lm2: string;
     public job: string;
-    public userType: string;
+    public userTypeId: string;
     public userTitle: string;
     public departmentId: string;
     public departmentEnName: string;
@@ -17,12 +17,13 @@ export class LoggedInUser {
     public departmentList;
     public companyList;
     public categoryList;
+    public statusList;
 
 
     constructor(access_token: string, userName: string, email: string, fullName: string, lm1: string, lm2: string,
-        job: string, userType: string, userTitle: string,
+        job: string, userTypeId: string, userTitle: string,
         departmentId: string, departmentEnName: string, companyId: string, companyName: string, roles: string[],
-        departmentList, companyList, categoryList
+        departmentList, companyList, categoryList, statusList
     ) {
         this.access_token = access_token;
         this.userName = userName;
@@ -31,7 +32,7 @@ export class LoggedInUser {
         this.lm1 = lm1;
         this.lm2 = lm2;
         this.job = job;
-        this.userType = userType;
+        this.userTypeId = userTypeId;
         this.userTitle = userTitle;
         this.departmentId = departmentId;
         this.departmentEnName = departmentEnName;
@@ -41,6 +42,7 @@ export class LoggedInUser {
         this.departmentList = departmentList;
         this.companyList = companyList;
         this.categoryList = categoryList;
+        this.statusList = statusList;
     }
 
 }

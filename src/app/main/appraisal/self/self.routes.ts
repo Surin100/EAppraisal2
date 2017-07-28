@@ -8,6 +8,6 @@ export const selfRoutes: Routes = [
             { path: 'index', loadChildren: './index/index.module#IndexModule' },
             { path: 'create', loadChildren: './create/create.module#CreateModule' }
         ]
-    },
+    }
 
 ]

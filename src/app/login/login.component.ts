@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   returnUrl: string;
   constructor(private _authenService: AuthenService, private _notificationService: NotificationService,
-  private _router: Router, private _handleErrorService:HandleErrorService
+    private _router: Router, private _handleErrorService: HandleErrorService
   ) { }
 
   ngOnInit() {
@@ -32,5 +32,4 @@ export class LoginComponent implements OnInit {
       this.loading = false;
     });
   }
-
 }

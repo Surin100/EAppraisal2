@@ -12,20 +12,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenService {
   private headers: Headers;
-  constructor(private _http: Http, private _router: Router, private _handleErrorService: HandleErrorService) { 
+  constructor(private _http: Http, private _router: Router, private _handleErrorService: HandleErrorService) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
   }
 
   login(username: string, password: string) {
-    if (!password) password = '123321';
     let body = "userName=" + encodeURIComponent(username) +
-      "&password=" + encodeURIComponent(password) +
-      "&grant_type=password";
+      "&password=" + encodeURIComponent(password) + "&grant_type=password";
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let options = new RequestOptions({ headers: headers });
-
     return this._http.post(SystemConstants.BASE_API + '/token', body, options).map((response: Response) => {
       let user: LoggedInUser = response.json();
       // console.log(user);
@@ -37,15 +34,15 @@ export class AuthenService {
 
     });
   }
-  
+
   logout() {
     this.headers.delete("Authorization");
     this.headers.append("Authorization", "Bearer " + this.getLoggedInUser().access_token);
-    this._http.post(SystemConstants.BASE_API + '/api/Account/Logout',null ,{headers: this.headers}).map((res:Response)=> res.text()? res.json():{})
-    .subscribe((response: Response) => {
-      localStorage.removeItem(SystemConstants.CURRENT_USER);
-      this._router.navigate([UrlConstants.LOGIN]);
-    }, error => this._handleErrorService.handleError(error));
+    this._http.post(SystemConstants.BASE_API + '/api/Account/Logout', null, { headers: this.headers }).map((res: Response) => res.text() ? res.json() : {})
+      .subscribe((response: Response) => {
+        localStorage.removeItem(SystemConstants.CURRENT_USER);
+        this._router.navigate([UrlConstants.LOGIN]);
+      }, error => this._handleErrorService.handleError(error));
   }
 
   isUserAuthenticated(): boolean {
@@ -63,8 +60,8 @@ export class AuthenService {
       var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
       // debugger;
       user = new LoggedInUser(userData.access_token, userData.userName, userData.email, userData.fullName, userData.lm1, userData.lm2,
-        userData.job, userData.userType, userData.userTitle, userData.departmentId, userData.departmentEnName, userData.companyId, userData.companyName,
-        userData.roles, userData.departmentList, userData.companyList, userData.categoryList);
+        userData.job, userData.userTypeId, userData.userTitle, userData.departmentId, userData.departmentEnName, userData.companyId, userData.companyName,
+        userData.roles, userData.departmentList, userData.companyList, userData.categoryList, userData.statusList);
     }
     else
       user = null;

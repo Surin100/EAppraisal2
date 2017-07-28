@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApprovalIndexComponent } from './approval-index.component';
+import { ApprovalViewComponent } from './approval-view.component';
 
-describe('ApprovalIndexComponent', () => {
-  let component: ApprovalIndexComponent;
-  let fixture: ComponentFixture<ApprovalIndexComponent>;
+describe('ApprovalViewComponent', () => {
+  let component: ApprovalViewComponent;
+  let fixture: ComponentFixture<ApprovalViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApprovalIndexComponent ]
+      declarations: [ ApprovalViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApprovalIndexComponent);
+    fixture = TestBed.createComponent(ApprovalViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

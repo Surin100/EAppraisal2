@@ -26,7 +26,9 @@
       <td>{{appraisal.CreateDate | date:'dd/MM/yyyy'}}</td>
       <td>{{appraisal.SubmitDate | date:'dd/MM/yyyy'}}</td>
       <td>{{appraisal.CategoryName}}</td>
-      <td>{{appraisal.Conclusion | number: '1.0-2'}}</td>
+      <td>
+        {{appraisal.Conclusion | number: '1.0-2'}}
+      </td>
       <td>{{appraisal.StatusName}}</td>
       <td>
         <button class="btn btn-primary" *ngIf="appraisal.StatusId == 'N'"><i class="fa fa-pencil" ></i></button>
@@ -36,5 +38,5 @@
     </tr>
   </tbody>
 </table>
-<pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex"
-  class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+<pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
+  [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
