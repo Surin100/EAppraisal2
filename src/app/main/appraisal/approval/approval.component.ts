@@ -56,8 +56,7 @@ export class ApprovalComponent implements OnInit {
         this.appraisals.forEach(element => {
           element.StatusName = JSON.parse(this.currentUser.statusList).filter(a => a.Value == element.StatusId)[0].Text;
         });
-        console.log(this.appraisals);
-
+        // console.log(this.appraisals);
         this.pageIndex = response.PageIndex;
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
@@ -86,7 +85,6 @@ export class ApprovalComponent implements OnInit {
       this.appraisal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
       let reviewDate = new Date(this.appraisal.ReviewDate)
       this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-
 
       // alert(this.appraisal.From);
     }, error => this._handleErrorService.handleError(error));

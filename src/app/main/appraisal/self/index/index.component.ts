@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { HandleErrorService } from '../../../../core/services/handle-error.service';
 import { DataService } from '../../../../core/services/data.service';
+import { AuthenService } from '../../../../core/services/authen.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { MessageConstants } from '../../../../core/common/message.constants';
+import { LoggedInUser } from '../../../../core/domain/loggedin.user';
 
 @Component({
   selector: 'app-index',
@@ -18,10 +20,14 @@ export class IndexComponent implements OnInit {
   maxSize: number = 10;
   appraisals: any[];
   deleteAppraisalLoading:Boolean = false;
-  constructor(private _handleErrorService: HandleErrorService, private _dataService: DataService, private _notificationService: NotificationService) {
+  currentUser: LoggedInUser;
+
+  constructor(private _handleErrorService: HandleErrorService, private _dataService: DataService, private _notificationService: NotificationService,
+    private _authenService: AuthenService) {
   }
 
   ngOnInit() {
+    this.currentUser = this._authenService.getLoggedInUser();
     this.loadData();
   }
 
@@ -29,6 +35,10 @@ export class IndexComponent implements OnInit {
     this._dataService.get('/api/appraisal/getlistpaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize + '&filter=' + this.filter)
       .subscribe((response: any) => {
         this.appraisals = response.Items;
+        this.appraisals.forEach(element => {
+          element.statusName = JSON.parse(this.currentUser.statusList).filter(s => s.Value == element.StatusId)[0].Text;
+          element.categoryName = JSON.parse(this.currentUser.categoryList).filter(s => s.Value == element.CategoryId)[0].Text;
+        });
         // console.log(response);
         this.pageIndex = response.PageIndex;
         this.pageSize = response.PageSize;

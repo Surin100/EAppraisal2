@@ -27,6 +27,9 @@ export class AppraisalComponent implements OnInit {
   approvalClick() {
     this.selfLoad = false;
   }
+  approvedClick() {
+    this.selfLoad = false;
+  }
 
 
 

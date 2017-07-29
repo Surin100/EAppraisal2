@@ -6,6 +6,9 @@
           <th class="text-center">
             Submit Date
           </th>
+          <th class="text-center">
+            Review Date
+          </th>
           <th>
             Employee ID
           </th>
@@ -27,15 +30,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let appraisal of appraisals">
-          <td class="text-center">{{appraisal.SubmitDate | date:'dd/MM/yyyy'}}</td>
-          <td>{{appraisal.AssociateId}}</td>
-          <td>{{appraisal.AssociateName}}</td>
-          <td>{{appraisal.AssociateTitle}}</td>
-          <td class="text-center">{{appraisal.Conclusion | number: '1.0-2'}}</td>
-          <td>{{appraisal.StatusName}}</td>
+        <tr *ngFor="let approved of approvedList">
+          <td class="text-center">{{approved.SubmitDate | date:'dd/MM/yyyy'}}</td>
+          <td class="text-center">{{approved.ReviewDate | date:'dd/MM/yyyy'}}</td>
+          <td>{{approved.AssociateId}}</td>
+          <td>{{approved.AssociateName}}</td>
+          <td>{{approved.AssociateTitle}}</td>
+          <td class="text-center">{{approved.Conclusion | number: '1.0-2'}}</td>
+          <td>{{approved.StatusName}}</td>
           <td>
-            <button class="btn btn-primary" (click)="showApproveAppraisalModal(appraisal.Id)"><i class="fa fa-check" ></i></button>
+            <button class="btn btn-primary" (click)="showApprovedAppraisal(approved.Id)"><i class="fa fa-eye" ></i></button>
           </td>
         </tr>
       </tbody>
@@ -45,14 +49,14 @@
       lastText="&raquo;"></pagination>
   </div>
 
-  <!--Approve modal-->
-  <div bsModal #approveAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  <!--View modal-->
+  <div bsModal #approvedAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg noMargin" style="width:100%">
       <div class="modal-content">
         <div class="modal-header">
           <!-- <h4 class="modal-title pull-left">Approve Modal</h4> -->
-          <button type="button" class="close pull-right" (click)='approveAppraisalModal.hide()' aria-label="Close">
+          <button type="button" class="close pull-right" (click)='approvedAppraisalModal.hide()' aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         </div>
@@ -65,8 +69,7 @@
           <!-- Form -->
           <div class="animate form">
             <section class="login_content noPadding">
-              <form class="noMargin form-label-right" #approveAppraisalForm="ngForm" novalidate (ngSubmit)="approveAppraisal(approveAppraisalForm.valid)"
-                *ngIf='appraisal'>
+              <form class="noMargin form-label-right" #approvedAppraisalForm="ngForm" novalidate *ngIf='appraisalApproval'>
                 <!-- Left Column -->
                 <div class="col-md-5 col-sm-12 col-xs-12">
                   <div class="item form-group">
@@ -74,7 +77,7 @@
                       <label class="control-label  pull-right" for="associateName">Associate's Name - <em class="text-primary">Nhân viên:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="associateName" class="form-control inputMargin" #associateName="ngModel" [(ngModel)]="appraisal.AssociateName"
+                      <input id="associateName" class="form-control inputMargin" #associateName="ngModel" [(ngModel)]="appraisalApproval.AssociateName"
                         name="associateName" type="text" required readonly />
                     </div>
                   </div>
@@ -83,7 +86,7 @@
                       <label class="control-label  pull-right" for="associateTitle">Associate's Title - <em class="text-primary">Chức danh:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="asscociateTitle" class="form-control inputMargin" #associateTitle="ngModel" [(ngModel)]="appraisal.AssociateTitle"
+                      <input id="asscociateTitle" class="form-control inputMargin" #associateTitle="ngModel" [(ngModel)]="appraisalApproval.AssociateTitle"
                         name="asscociateTitle" type="text" required readonly/>
                     </div>
                   </div>
@@ -92,8 +95,8 @@
                       <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewer" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="appraisalApproval.reviewerName" name="reviewer"
-                        type="text" required />
+                      <input id="reviewer" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="appraisalApproval.ReviewerName" name="reviewer"
+                        type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group">
@@ -101,8 +104,8 @@
                       <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title - <em class="text-primary">Chức danh:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="appraisalApproval.reviewerTitle"
-                        name="reviewerTitle" type="text" required />
+                      <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="appraisalApproval.ReviewerTitle"
+                        name="reviewerTitle" type="text" required readonly />
                     </div>
                   </div>
                 </div>
@@ -115,8 +118,8 @@
                       <label class="control-label  pull-right" for="associateId">Associate ID - <em class="text-primary">Mã số nhân viên:</em></label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisal.AssociateId" name="asscociateId"
-                        type="text" required readonly/>
+                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisalApproval.AssociateId"
+                        name="asscociateId" type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group">
@@ -124,7 +127,7 @@
                       <label class="control-label  pull-right" for="department">Department - <em class="text-primary">Bộ phận:</em></label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input id="departmentEnName" class="form-control inputMargin" #departmentEnName="ngModel" [(ngModel)]="appraisal.departmentEnName"
+                      <input id="departmentEnName" class="form-control inputMargin" #departmentEnName="ngModel" [(ngModel)]="appraisalApproval.departmentEnName"
                         name="departmentEnName" type="text" required readonly/>
                     </div>
                   </div>
@@ -137,7 +140,7 @@
                         <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                        <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisal.From" type="text" required readonly/>
+                        <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisalApproval.From" type="text" required readonly/>
                       </div>
                     </div>
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
@@ -145,7 +148,7 @@
                         <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                        <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisal.To" type="text" required readonly />
+                        <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisalApproval.To" type="text" required readonly />
                       </div>
                     </div>
                   </div>
@@ -155,8 +158,8 @@
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
-                        <my-date-picker name="temporaryDate" #temporaryDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="temporarydate"
-                          required></my-date-picker>
+                        <input name="temporaryDate" #temporaryDate="ngModel" class="form-control" [(ngModel)]="appraisalApproval.ReviewDate" type="text"
+                          required readonly/>
                       </div>
                     </div>
                   </div>
@@ -202,31 +205,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="customerDriven1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven1" name="customerDriven" disabled/>
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven1" name="customerDriven" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven2" name="customerDriven" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven2" name="customerDriven" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven3" name="customerDriven" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven3" name="customerDriven" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven4" name="customerDriven" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven4" name="customerDriven" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven5" name="customerDriven" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven5" name="customerDriven" disabled/>
                     </label>
                         </div>
                       </td>
@@ -247,31 +250,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="questForExcellence1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence1" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence1" name="questForExcellence" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence2" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence2" name="questForExcellence" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence3" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence3" name="questForExcellence" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence4" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence4" name="questForExcellence" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence5" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence5" name="questForExcellence" disabled/>
                     </label>
                         </div>
                       </td>
@@ -292,31 +295,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="teamWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.TeamWork" required id="teamWork1" name="teamWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork1" name="teamWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.TeamWork" required id="teamWork2" name="teamWork" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork2" name="teamWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.TeamWork" required id="teamWork3" name="teamWork" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork3" name="teamWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.TeamWork" required id="teamWork4" name="teamWork" disabled/>
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork4" name="teamWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.TeamWork" required id="teamWork5" name="teamWork" disabled/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork5" name="teamWork" disabled/>
                     </label>
                         </div>
                       </td>
@@ -337,31 +340,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust" disabled/>
                     </label>
                         </div>
                       </td>
@@ -382,31 +385,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="enterprising1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Enterprising" required id="enterprising1" name="enterprising" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising1" name="enterprising" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Enterprising" required id="enterprising2" name="enterprising" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising2" name="enterprising" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Enterprising" required id="enterprising3" name="enterprising" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising3" name="enterprising" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Enterprising" required id="enterprising4" name="enterprising" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising4" name="enterprising" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Enterprising" required id="enterprising5" name="enterprising" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising5" name="enterprising" disabled/>
                     </label>
                         </div>
                       </td>
@@ -427,31 +430,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="communication1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Communication" required id="communication1" name="communication" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Communication" required id="communication1" name="communication" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Communication" required id="communication2" name="communication" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Communication" required id="communication2" name="communication" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Communication" required id="communication3" name="communication" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Communication" required id="communication3" name="communication" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Communication" required id="communication4" name="communication" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Communication" required id="communication4" name="communication" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Communication" required id="communication5" name="communication" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Communication" required id="communication5" name="communication" disabled/>
                     </label>
                         </div>
                       </td>
@@ -472,31 +475,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="dependability1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Dependability" required id="dependability1" name="dependability" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Dependability" required id="dependability1" name="dependability" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Dependability" required id="dependability2" name="dependability" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Dependability" required id="dependability2" name="dependability" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Dependability" required id="dependability3" name="dependability" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Dependability" required id="dependability3" name="dependability" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Dependability" required id="dependability4" name="dependability" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Dependability" required id="dependability4" name="dependability" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Dependability" required id="dependability5" name="dependability" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Dependability" required id="dependability5" name="dependability" disabled/>
                     </label>
                         </div>
                       </td>
@@ -516,31 +519,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork" disabled/>
                     </label>
                         </div>
                       </td>
@@ -560,31 +563,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork" disabled/>
                     </label>
                         </div>
                       </td>
@@ -625,31 +628,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency1">1</label>
                           <label>
-                      <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisalApproval.PersonalEfficiency"   name="personalEfficiency" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency2">2</label>
                           <label>
-                      <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.PersonalEfficiency"    name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisalApproval.PersonalEfficiency"    name="personalEfficiency" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency3">3</label>
                           <label>
-                      <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisalApproval.PersonalEfficiency"   name="personalEfficiency" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.personalEfficiency" id="PersonalEfficiency4"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.personalEfficiency" id="PersonalEfficiency4"   name="personalEfficiency" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency5">5</label>
                           <label>
-                      <input type="radio" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisalApproval.PersonalEfficiency"   name="personalEfficiency" disabled/>
                     </label>
                         </div>
                       </td>
@@ -669,31 +672,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling"/>
                     </label>
                         </div>
                       </td>
@@ -713,31 +716,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityManagement1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement1" name="qualityManagement"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement1" name="qualityManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement2" name="qualityManagement"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement2" name="qualityManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement3" name="qualityManagement"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement3" name="qualityManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement4" name="qualityManagement"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement4" name="qualityManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement5" name="qualityManagement"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement5" name="qualityManagement"/>
                     </label>
                         </div>
                       </td>
@@ -757,31 +760,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="performanceManagement1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement1" name="performanceManagement"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement1" name="performanceManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement2" name="performanceManagement"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement2" name="performanceManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement3" name="performanceManagement"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement3" name="performanceManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement4" name="performanceManagement"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement4" name="performanceManagement"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement5" name="performanceManagement"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement5" name="performanceManagement"/>
                     </label>
                         </div>
                       </td>
@@ -801,31 +804,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="successionPlanning1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning1" name="successionPlanning"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning1" name="successionPlanning"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning2" name="successionPlanning"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning2" name="successionPlanning"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning3" name="successionPlanning"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning3" name="successionPlanning"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning4" name="successionPlanning"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning4" name="successionPlanning"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning5" name="successionPlanning"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning5" name="successionPlanning"/>
                     </label>
                         </div>
                       </td>
@@ -845,31 +848,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="managingConflicts1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts1" name="managingConflicts"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts1" name="managingConflicts"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts2" name="managingConflicts"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts2" name="managingConflicts"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts3" name="managingConflicts"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts3" name="managingConflicts"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts4" name="managingConflicts"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts4" name="managingConflicts"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts5" name="managingConflicts"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts5" name="managingConflicts"/>
                     </label>
                         </div>
                       </td>
@@ -889,31 +892,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="celebrateResults1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults1" name="celebrateResults"/>
+                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults1" name="celebrateResults"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults2" name="celebrateResults"/>
+                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults2" name="celebrateResults"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults3" name="celebrateResults"/>
+                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults3" name="celebrateResults"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults4" name="celebrateResults"/>
+                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults4" name="celebrateResults"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults5" name="celebrateResults"/>
+                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults5" name="celebrateResults"/>
                     </label>
                         </div>
                       </td>
@@ -955,31 +958,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="leadWithVision1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision1" name="leadWithVision"/>
+                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision1" name="leadWithVision"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision2" name="leadWithVision"/>
+                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision2" name="leadWithVision"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision3" name="leadWithVision"/>
+                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision3" name="leadWithVision"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision4" name="leadWithVision"/>
+                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision4" name="leadWithVision"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision5" name="leadWithVision"/>
+                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision5" name="leadWithVision"/>
                     </label>
                         </div>
                       </td>
@@ -1000,31 +1003,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage"/>
+                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage"/>
+                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage"/>
+                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage"/>
+                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage"/>
+                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage"/>
                     </label>
                         </div>
                       </td>
@@ -1045,31 +1048,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="talentMagnet1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet1" name="talentMagnet"/>
+                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet1" name="talentMagnet"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet2" name="talentMagnet"/>
+                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet2" name="talentMagnet"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet3" name="talentMagnet"/>
+                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet3" name="talentMagnet"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet4" name="talentMagnet"/>
+                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet4" name="talentMagnet"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet5" name="talentMagnet"/>
+                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet5" name="talentMagnet"/>
                     </label>
                         </div>
                       </td>
@@ -1082,7 +1085,7 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.SubTotal1 | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.SubTotal1 | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
@@ -1122,37 +1125,37 @@
                         <strong>Goal 1/ <em class="text-primary">Mục tiêu 1</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal1Content" name="goal1Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal1Content" name="goal1Content" readonly></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="goal11">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal1" id="goal11" name="goal1" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal1" id="goal11" name="goal1" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal12">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal1" id="goal12" name="goal1" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal1" id="goal12" name="goal1" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal13">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal1" id="goal13" name="goal1" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal1" id="goal13" name="goal1" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal14">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal1" id="goal14" name="goal1" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal1" id="goal14" name="goal1" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal15">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal1" id="goal15" name="goal1" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal1" id="goal15" name="goal1" disabled/>
                     </label>
                         </div>
                       </td>
@@ -1162,37 +1165,37 @@
                         <strong>Goal 2/ <em class="text-primary">Mục tiêu 2</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal2Content" name="goal2Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal2Content" name="goal2Content" readonly></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="goal21">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal2" id="goal21" name="goal2" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal2" id="goal21" name="goal2" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal22">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal2" id="goal22" name="goal2" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal2" id="goal22" name="goal2" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal23">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal2" id="goal23" name="goal2" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal2" id="goal23" name="goal2" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal24">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal2" id="goal24" name="goal2" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal2" id="goal24" name="goal2" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal25">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal2" id="goal25" name="goal2" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal2" id="goal25" name="goal2" disabled/>
                     </label>
                         </div>
                       </td>
@@ -1203,37 +1206,37 @@
                         <strong>Goal 3/ <em class="text-primary">Mục tiêu 3</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal3Content" name="goal3Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal3Content" name="goal3Content" readonly></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="goal31">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal3" id="goal31" name="goal3" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal3" id="goal31" name="goal3" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal32">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal3" id="goal32" name="goal3" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal3" id="goal32" name="goal3" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal33">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal3" id="goal33" name="goal3" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal3" id="goal33" name="goal3" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal34">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal3" id="goal34" name="goal3" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal3" id="goal34" name="goal3" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal35">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.Goal3" id="goal35" name="goal3" disabled/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.Goal3" id="goal35" name="goal3" disabled/>
                     </label>
                         </div>
                       </td>
@@ -1243,37 +1246,37 @@
                         <strong>Goal 4/ <em class="text-primary">Mục tiêu 4</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal4Content" name="goal4Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal4Content" name="goal4Content" readonly></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="goal41">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal4" id="goal41" name="goal4" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal4" id="goal41" name="goal4" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal42">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal4" id="goal42" name="goal4" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal4" id="goal42" name="goal4" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal43">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal4" id="goal43" name="goal4" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal4" id="goal43" name="goal4" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal44">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal4" id="goal44" name="goal4" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal4" id="goal44" name="goal4" disabled/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal45">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal4" id="goal45" name="goal4" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal4" id="goal45" name="goal4" disabled/>
                     </label>
                         </div>
                       </td>
@@ -1286,20 +1289,20 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.SubTotal2 | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.SubTotal2 | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="3">
                         Appraisee's comments - <em class="text-primary">Nhận xét của người được đánh giá</em>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.AppraiseeComment" name="appraiseeComment" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.AppraiseeComment" name="appraiseeComment" readonly></textarea>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="3">
                         Appraisor's comments - <em class="text-primary">Nhận xét của người đánh giá</em>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.appraisorComment" name="appraisorComment"></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.AppraisorComment" name="appraisorComment" readonly></textarea>
                       </td>
                     </tr>
                   </tfoot>
@@ -1322,7 +1325,7 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.Conclusion | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.Conclusion | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
@@ -1346,16 +1349,16 @@
                 </h4>
 
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="1" [(ngModel)]="appraisalApproval.recommendation"/><span>Contract to be issued/ <em class="text-primary">Ký hợp đồng chính thức</em></span></label>
+                  <label><input type="radio" name="recommendation" disabled [value]="1" [(ngModel)]="appraisalApproval.Recommendation" readonly/><span>Contract to be issued/ <em class="text-primary">Ký hợp đồng chính thức</em></span></label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="2" [(ngModel)]="appraisalApproval.recommendation"/><span>Contract to be renewed/ <em class="text-primary">Ký tiếp hợp đồng</em></span></label>
+                  <label><input type="radio" name="recommendation" disabled [value]="2" [(ngModel)]="appraisalApproval.Recommendation" readonly/><span>Contract to be renewed/ <em class="text-primary">Ký tiếp hợp đồng</em></span></label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="3" [(ngModel)]="appraisalApproval.recommendation"/><span>End employment/ <em class="text-primary">Chấm dứt hợp đồng lao động</em></span></label>
+                  <label><input type="radio" name="recommendation" disabled [value]="3" [(ngModel)]="appraisalApproval.Recommendation" readonly/><span>End employment/ <em class="text-primary">Chấm dứt hợp đồng lao động</em></span></label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="4" [(ngModel)]="appraisalApproval.recommendation"/><span>Salary Adjustment / Promotion/ <em class="text-primary">Điều chỉnh lương / Thăng chức</em></span></label>
+                  <label><input type="radio" name="recommendation" disabled [value]="4" [(ngModel)]="appraisalApproval.Recommendation" readonly/><span>Salary Adjustment / Promotion/ <em class="text-primary">Điều chỉnh lương / Thăng chức</em></span></label>
                 </div>
                 <div class="text-left" style="padding-left:4em">
                   (Please attach Associate Record Form) / <em class="text-primary">(Kèm theo Phiếu Thông tin Nhân viên)</em>
@@ -1396,7 +1399,7 @@
                     </tr>
                     <tr>
                       <td style="border:none">
-                        <u>Reviewer’s name &signature</u> - <em class="text-primary">Tên và chữ ký người đánh giá:</em>
+                        <u>Reviewer’s name & signature</u> - <em class="text-primary">Tên và chữ ký người đánh giá:</em>
                       </td>
                       <td style="border: none">
                         <u>Human Resources</u> - <em class="text-primary">Nhân Sự:</em>
@@ -1418,19 +1421,13 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="categoryName" class="form-control inputMargin" #category="ngModel" [(ngModel)]="appraisal.categoryName" name="categoryName"
-                        type="text" required readonly />
+                      <input id="categoryName" class="form-control inputMargin" #category="ngModel" [(ngModel)]="appraisalApproval.categoryName"
+                        name="categoryName" type="text" required readonly />
                     </div>
                   </div>
                 </div>
                 <div>
-                  <!-- <button type="button" [disabled]="!createAppraisalForm.valid" (click)="exportExcel(createAppraisalForm.valid)" class="btn btn-primary">Export Excel</button> -->
-                  <!-- <button type="submit" [disabled]="!createAppraisalForm.valid" (click)="statusId = 'N'" class="btn btn-primary">Save Draft</button> -->
-                  <button type="submit" [disabled]="!approveAppraisalForm.valid" (click)="appraisalApproval.statusId = undefined" class="btn btn-danger">Approve</button>
-                  <button type="submit" [disabled]="!approveAppraisalForm.valid" (click)="appraisalApproval.statusId = 'V'" class="btn btn-danger">Reject</button>
-                  <button (click)="approveAppraisalModal.hide()" class="btn btn-info" type="button">Cancel</button>
-                  <img *ngIf="approveLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                  />
+                  <button (click)="approvedAppraisalModal.hide()" class="btn btn-info pull-right" type="button"><i class="fa fa-arrow-left"></i> Back </button>
                 </div>
 
               </form>

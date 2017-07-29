@@ -83,7 +83,7 @@ tfoot {
     background-color: azure !important;
 }
 
-.modal td {text-align: left;} 
+.modal td {text-align: left !important;}
 
 .modal td:nth-child(3){
     width: 15% !important;

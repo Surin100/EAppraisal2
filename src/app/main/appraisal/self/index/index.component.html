@@ -1,16 +1,16 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>
+      <th class="text-center">
         Create Date
       </th>
-      <th>
+      <th class="text-center">
         Submit Date
       </th>
       <th>
         Category
       </th>
-      <th>
+      <th class="text-center">
         Overall
       </th>
       <th>
@@ -23,13 +23,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let appraisal of appraisals">
-      <td>{{appraisal.CreateDate | date:'dd/MM/yyyy'}}</td>
-      <td>{{appraisal.SubmitDate | date:'dd/MM/yyyy'}}</td>
-      <td>{{appraisal.CategoryName}}</td>
-      <td>
+      <td class="text-center">{{appraisal.CreateDate | date:'dd/MM/yyyy'}}</td>
+      <td class="text-center">{{appraisal.SubmitDate | date:'dd/MM/yyyy'}}</td>
+      <td>{{appraisal.categoryName}}</td>
+      <td class="text-center">
         {{appraisal.Conclusion | number: '1.0-2'}}
       </td>
-      <td>{{appraisal.StatusName}}</td>
+      <td>{{appraisal.statusName}}</td>
       <td>
         <button class="btn btn-primary" *ngIf="appraisal.StatusId == 'N'"><i class="fa fa-pencil" ></i></button>
         <button class="btn btn-danger" *ngIf="appraisal.StatusId == 'N'" (click)="deleteAppraisal(appraisal.Id)"><i class="fa fa-trash" ></i></button>
