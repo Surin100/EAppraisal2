@@ -21,7 +21,7 @@ export class CreateGoalComponent implements OnInit {
 
     this.smartGoal = {
       associateName: this.currentUser.fullName,
-      associateTitle: this.currentUser.userTitle,
+      associateTitle: this.currentUser.jobTitle,
       associateId: this.currentUser.userName,
       departmentId: this.currentUser.departmentId
     }

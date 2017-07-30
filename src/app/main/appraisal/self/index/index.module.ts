@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { PaginationModule } from 'ngx-bootstrap';
+import { PaginationModule, ModalModule } from 'ngx-bootstrap';
+import { MyDatePickerModule } from 'mydatepicker';
 
 import { IndexComponent } from './index.component';
 import { indexRoutes } from './index.routes';
@@ -16,6 +17,8 @@ import { HandleErrorService } from '../../../../core/services/handle-error.servi
   imports: [
     CommonModule,
     FormsModule,
+    MyDatePickerModule,
+    ModalModule.forRoot(),
     PaginationModule.forRoot(),
     RouterModule.forChild(indexRoutes)
   ],

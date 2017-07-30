@@ -26,14 +26,16 @@ export class CreateComponent implements OnInit {
   categoryList = []
   currentUser: LoggedInUser;
   loading: Boolean;
+  appraisalFrom;
+  appraisalTo;
   public baseFolder: string = SystemConstants.BASE_API;
 
-  appraisalFrom = {
-    jsdate: ''
-  };
-  appraisalTo = {
-    jsdate: ''
-  };
+  // appraisalFrom = {
+  //   jsdate: ''
+  // };
+  // appraisalTo = {
+  //   jsdate: ''
+  // };
 
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -42,8 +44,6 @@ export class CreateComponent implements OnInit {
   private today = new Date();
   // Initialized to specific date (09.10.2018).
   temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
-
-
 
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _handleErrorService: HandleErrorService
@@ -57,22 +57,52 @@ export class CreateComponent implements OnInit {
 
     this.appraisal = {
       associateName: this.currentUser.fullName,
-      associateTitle: this.currentUser.userTitle,
+      associateTitle: this.currentUser.jobTitle,
       associateId: this.currentUser.userName,
       departmentId: this.currentUser.departmentId
     }
     // alert(JSON.stringify(this.currentUser.depart));
     // debugger 
-    if (this.currentUser.userTypeId == 'WK') {
+    if (this.currentUser.employeeLvId == 'WK') {
       this.supervisoryToggle = true;
       this.leadershipToggle = true;
     }
-    else if (this.currentUser.userTypeId == 'SV') {
+    else if (this.currentUser.employeeLvId == 'SV') {
       this.leadershipToggle = true;
     }
   }
 
   ngOnInit() {
+    this.appraisal.subTotal1 = 0;
+    this.appraisal.subTotal2 = 0;
+    this.appraisal.conclusion = 0;
+
+    this.appraisal.customerDriven = 0;
+    this.appraisal.questForExcellence = 0;
+    this.appraisal.teamWork = 0;
+    this.appraisal.respectAndTrust = 0;
+    this.appraisal.enterprising = 0;
+    this.appraisal.communication = 0;
+    this.appraisal.dependability = 0;
+    this.appraisal.quantityOfWork = 0;
+    this.appraisal.qualityOfWork = 0;
+
+    this.appraisal.personalEfficiency = 0;
+    this.appraisal.workforceScheduling = 0;
+    this.appraisal.qualityManagement = 0;
+    this.appraisal.performanceManagement = 0;
+    this.appraisal.successionPlanning = 0;
+    this.appraisal.managingConflicts = 0;
+    this.appraisal.celebrateResults = 0;
+
+    this.appraisal.leadWithVision = 0;
+    this.appraisal.alignAndEngage = 0;
+    this.appraisal.talentMagnet = 0;
+
+    this.appraisal.goal1 = 0;
+    this.appraisal.goal2 = 0;
+    this.appraisal.goal3 = 0;
+    this.appraisal.goal4 = 0;
   }
 
   supervisoryClick() {
@@ -90,8 +120,15 @@ export class CreateComponent implements OnInit {
     let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
     this.appraisal.reviewDate = new Date(_reviewDate);
 
-    this.appraisal.from = new Date(this.appraisalFrom.jsdate);
-    this.appraisal.to = new Date(this.appraisalTo.jsdate);
+    let _fromMonth = this.appraisalFrom.date.month.toString().length < 2 ? '0' + this.appraisalFrom.date.month : this.appraisalFrom.date.month;
+    let _fromDay = this.appraisalFrom.date.day.toString().length < 2 ? '0' + this.appraisalFrom.date.day : this.appraisalFrom.date.day;
+    let _fromDate: string = this.appraisalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    this.appraisal.From = new Date(_fromDate);
+
+    let _toMonth = this.appraisalTo.date.month.toString().length < 2 ? '0' + this.appraisalTo.date.month : this.appraisalTo.date.month;
+    let _toDay = this.appraisalTo.date.day.toString().length < 2 ? '0' + this.appraisalTo.date.day : this.appraisalTo.date.day;
+    let _toDate: string = this.appraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    this.appraisal.To = new Date(_toDate);
     // End date problem
 
     // alert(JSON.stringify(this.appraisal));
@@ -104,7 +141,6 @@ export class CreateComponent implements OnInit {
       this._utilityService.navigate('/main/appraisal');
     }, error => {
       // alert(JSON.stringify(error));
-      // debugger
       if (JSON.parse(error._body).Message == "Your appraisal has been submitted but we cannot send email.") {
         this._notificationService.printSuccessMessage("Your appraisal has been submitted but we cannot send email.");
         this._utilityService.navigate('/main/appraisal');
@@ -117,188 +153,118 @@ export class CreateComponent implements OnInit {
   }
 
   // Generate conclusion
-  subTotal1 = 0;
-  subTotal2 = 0;
-  conclusion = 0;
 
-  customerDriven = 0;
-  questForExcellence = 0;
-  teamWork = 0;
-  respectAndTrust = 0;
-  enterprising = 0;
-  communication = 0;
-  dependability = 0;
-  quantityOfWork = 0;
-  qualityOfWork = 0;
-
-  personalEfficiency = 0;
-  workforceScheduling = 0;
-  qualityManagement = 0;
-  performanceManagement = 0;
-  successionPlanning = 0;
-  managingConflicts = 0;
-  celebrateResults = 0;
-
-  leadWithVision = 0;
-  alignAndEngage = 0;
-  talentMagnet = 0;
-
-  goal1 = 0;
-  goal2 = 0;
-  goal3 = 0;
-  goal4 = 0;
-
-  generateConclusion(name: string, value: number) {
-    // debugger;
-    switch (name) {
-      case 'customerDriven':
-        this.customerDriven = value; break;
-      case 'questForExcellence':
-        this.questForExcellence = value; break;
-      case 'teamWork':
-        this.teamWork = value; break;
-      case 'respectAndTrust':
-        this.respectAndTrust = value; break;
-      case 'enterprising':
-        this.enterprising = value; break;
-      case 'communication':
-        this.communication = value; break;
-      case 'dependability':
-        this.dependability = value; break;
-      case 'quantityOfWork':
-        this.quantityOfWork = value; break;
-      case 'qualityOfWork':
-        this.qualityOfWork = value; break;
-
-      case 'personalEfficiency':
-        this.personalEfficiency = value; break;
-      case 'workforceScheduling':
-        this.workforceScheduling = value; break;
-      case 'qualityManagement':
-        this.qualityManagement = value; break;
-      case 'performanceManagement':
-        this.performanceManagement = value; break;
-      case 'successionPlanning':
-        this.successionPlanning = value; break;
-      case 'managingConflicts':
-        this.managingConflicts = value; break;
-      case 'celebrateResults':
-        this.celebrateResults = value; break;
-
-      case 'leadWithVision':
-        this.leadWithVision = value; break;
-      case 'alignAndEngage':
-        this.alignAndEngage = value; break;
-      case 'talentMagnet':
-        this.talentMagnet = value; break;
-
-      case 'goal1':
-        this.goal1 = value; break;
-      case 'goal2':
-        this.goal2 = value; break;
-      case 'goal3':
-        this.goal3 = value; break;
-      case 'goal4':
-        this.goal4 = value; break;
-      default: return;
-    }
+  generateSubTotal1() {
     let noCompetencies = 0;
-    if (this.customerDriven > 0) noCompetencies++;
-    if (this.questForExcellence > 0) noCompetencies++;
-    if (this.teamWork > 0) noCompetencies++;
-    if (this.respectAndTrust > 0) noCompetencies++;
-    if (this.enterprising > 0) noCompetencies++;
-    if (this.communication > 0) noCompetencies++;
-    if (this.dependability > 0) noCompetencies++;
-    if (this.quantityOfWork > 0) noCompetencies++;
-    if (this.qualityOfWork > 0) noCompetencies++;
+    if (this.appraisal.customerDriven > 0) noCompetencies++;
+    if (this.appraisal.questForExcellence > 0) noCompetencies++;
+    if (this.appraisal.teamWork > 0) noCompetencies++;
+    if (this.appraisal.respectAndTrust > 0) noCompetencies++;
+    if (this.appraisal.enterprising > 0) noCompetencies++;
+    if (this.appraisal.communication > 0) noCompetencies++;
+    if (this.appraisal.dependability > 0) noCompetencies++;
+    if (this.appraisal.quantityOfWork > 0) noCompetencies++;
+    if (this.appraisal.qualityOfWork > 0) noCompetencies++;
 
-    if (this.personalEfficiency > 0) noCompetencies++;
-    if (this.workforceScheduling > 0) noCompetencies++;
-    if (this.qualityManagement > 0) noCompetencies++;
-    if (this.performanceManagement > 0) noCompetencies++;
-    if (this.successionPlanning > 0) noCompetencies++;
-    if (this.managingConflicts > 0) noCompetencies++;
-    if (this.celebrateResults > 0) noCompetencies++;
-    if (this.leadWithVision > 0) noCompetencies++;
-    if (this.alignAndEngage > 0) noCompetencies++;
-    if (this.talentMagnet > 0) noCompetencies++;
+    if (this.appraisal.personalEfficiency > 0) noCompetencies++;
+    if (this.appraisal.workforceScheduling > 0) noCompetencies++;
+    if (this.appraisal.qualityManagement > 0) noCompetencies++;
+    if (this.appraisal.performanceManagement > 0) noCompetencies++;
+    if (this.appraisal.successionPlanning > 0) noCompetencies++;
+    if (this.appraisal.managingConflicts > 0) noCompetencies++;
+    if (this.appraisal.celebrateResults > 0) noCompetencies++;
+    if (this.appraisal.leadWithVision > 0) noCompetencies++;
+    if (this.appraisal.alignAndEngage > 0) noCompetencies++;
+    if (this.appraisal.talentMagnet > 0) noCompetencies++;
 
-    this.subTotal1 = (noCompetencies == 0) ? 0 : (
-      this.customerDriven +
-      this.questForExcellence +
-      this.teamWork +
-      this.respectAndTrust +
-      this.enterprising +
-      this.communication +
-      this.dependability +
-      this.quantityOfWork +
-      this.qualityOfWork +
+    this.appraisal.subTotal1 = (noCompetencies == 0) ? 0 : (
+      this.appraisal.customerDriven +
+      this.appraisal.questForExcellence +
+      this.appraisal.teamWork +
+      this.appraisal.respectAndTrust +
+      this.appraisal.enterprising +
+      this.appraisal.communication +
+      this.appraisal.dependability +
+      this.appraisal.quantityOfWork +
+      this.appraisal.qualityOfWork +
 
-      this.personalEfficiency +
-      this.workforceScheduling +
-      this.qualityManagement +
-      this.performanceManagement +
-      this.successionPlanning +
-      this.managingConflicts +
-      this.celebrateResults +
+      this.appraisal.personalEfficiency +
+      this.appraisal.workforceScheduling +
+      this.appraisal.qualityManagement +
+      this.appraisal.performanceManagement +
+      this.appraisal.successionPlanning +
+      this.appraisal.managingConflicts +
+      this.appraisal.celebrateResults +
 
-      this.leadWithVision +
-      this.alignAndEngage +
-      this.talentMagnet)
+      this.appraisal.leadWithVision +
+      this.appraisal.alignAndEngage +
+      this.appraisal.talentMagnet)
       / noCompetencies;
 
-    let noGoals = 0;
-    if (this.goal1 > 0) noGoals++;
-    if (this.goal2 > 0) noGoals++;
-    if (this.goal3 > 0) noGoals++;
-    if (this.goal4 > 0) noGoals++;
-    this.subTotal2 = (noGoals == 0) ? 0 : (this.goal1 + this.goal2 + this.goal3 + this.goal4) / noGoals;
-
-    this.conclusion = this.subTotal1 * 0.3 + this.subTotal2 * 0.7
+    this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
   }
 
-  exportExcel(valid: Boolean) {
-    if (!valid) return;
+  generateSubTotal2() {
+    let noGoals = 0;
+    if (this.appraisal.goal1 > 0) noGoals++;
+    if (this.appraisal.goal2 > 0) noGoals++;
+    if (this.appraisal.goal3 > 0) noGoals++;
+    if (this.appraisal.goal4 > 0) noGoals++;
+    this.appraisal.subTotal2 = (noGoals == 0) ? 0 : (this.appraisal.goal1 + this.appraisal.goal2 + this.appraisal.goal3 + this.appraisal.goal4) / noGoals;
+
+    this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
+  }
+
+  exportExcel() {
+      //  alert(JSON.stringify(this.appraisalFrom));
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
-    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T15:00:00Z'
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
     this.appraisal.reviewDate = new Date(_reviewDate);
 
-    this.appraisal.from = new Date(this.appraisalFrom.jsdate);
-    this.appraisal.to = new Date(this.appraisalTo.jsdate);
+    let _fromMonth = this.appraisalFrom.date.month.toString().length < 2 ? '0' + this.appraisalFrom.date.month : this.appraisalFrom.date.month;
+    let _fromDay = this.appraisalFrom.date.day.toString().length < 2 ? '0' + this.appraisalFrom.date.day : this.appraisalFrom.date.day;
+    let _fromDate: string = this.appraisalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    this.appraisal.From = new Date(_fromDate);
+
+    let _toMonth = this.appraisalTo.date.month.toString().length < 2 ? '0' + this.appraisalTo.date.month : this.appraisalTo.date.month;
+    let _toDay = this.appraisalTo.date.day.toString().length < 2 ? '0' + this.appraisalTo.date.day : this.appraisalTo.date.day;
+    let _toDate: string = this.appraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    this.appraisal.To = new Date(_toDate);
     // End date problem
+
+ 
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
     this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      window.open(this.baseFolder + response);
+      window.open(SystemConstants.BASE_API + response);
       // window.location.href = this.baseFolder + response.Message;
       this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
     }, error => this._handleErrorService.handleError(error));
   }
 
-  uncheckGoal(name: string){
+  uncheckGoal(name: string) {
     switch (name) {
       case 'goal1':
-        this.goal1 = 0; this.appraisal.goal1=0; this.generateConclusion('goal1', 0); break;
+        this.appraisal.goal1 = 0; this.generateSubTotal2(); break;
       case 'goal2':
-        this.goal2 = 0; this.appraisal.goal2=0; this.generateConclusion('goal2', 0); break;
+        this.appraisal.goal2 = 0; this.generateSubTotal2(); break;
       case 'goal3':
-        this.goal3 = 0; this.appraisal.goal3=0; this.generateConclusion('goal3', 0); break;
+        this.appraisal.goal3 = 0; this.generateSubTotal2(); break;
       case 'goal4':
-        this.goal4 = 0; this.appraisal.goal4=0; this.generateConclusion('goal4', 0); break;
+        this.appraisal.goal4 = 0; this.generateSubTotal2(); break;
       default: return;
     }
 
   }
 
-  goalIsValid():Boolean{
+  goalIsValid(): Boolean {
     let valid = true;
-    if(this.appraisal.goal1 == 0 && this.appraisal.goal1Content) valid =false;
-    else if(this.appraisal.goal2 == 0 && this.appraisal.goal2Content) valid =false;
-    else if(this.appraisal.goal3 == 0 && this.appraisal.goal3Content) valid =false;
-    else if(this.appraisal.goal4 == 0 && this.appraisal.goal4Content) valid =false;
+    if (this.appraisal.goal1 == 0 && this.appraisal.goal1Content) valid = false;
+    else if (this.appraisal.goal2 == 0 && this.appraisal.goal2Content) valid = false;
+    else if (this.appraisal.goal3 == 0 && this.appraisal.goal3Content) valid = false;
+    else if (this.appraisal.goal4 == 0 && this.appraisal.goal4Content) valid = false;
     return valid;
   }
 }

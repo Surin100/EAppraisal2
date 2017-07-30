@@ -26,8 +26,8 @@ export class ApprovalComponent implements OnInit {
   filter: string = '';
   maxSize: number = 10;
   appraisals: any[];
-  appraisal: any = {};
-  appraisalApproval: any = {};
+  appraisal: any;
+  appraisalApproval: any;
   currentUser: LoggedInUser;
   departmentList = [];
   categoryList = [];
@@ -72,11 +72,11 @@ export class ApprovalComponent implements OnInit {
   loadAppraisal(Id: any) {
     this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
       // alert(JSON.stringify(this.currentUser.categoryList) + JSON.stringify(this.appraisal.categoryId));
+      this.appraisal = {};
+      this.appraisalApproval ={};
       this.appraisal = response;
-      this.appraisalApproval.appraisorComment = '';
-      this.appraisalApproval.recommendation = null;
       this.appraisalApproval.reviewerName = this.currentUser.fullName;
-      this.appraisalApproval.reviewerTitle = this.currentUser.userTitle;
+      this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
       this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisal.DepartmentId)[0].Text;
       this.appraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisal.CategoryId)[0].Text;
       let fromDate = new Date(this.appraisal.From);
@@ -134,10 +134,12 @@ export class ApprovalComponent implements OnInit {
     }, error => {
       if (JSON.parse(error._body).Message == "Approve succeeded but we cannot send mail.") {
         this._notificationService.printSuccessMessage("Approve succeeded but we cannot send mail.");
+        this.loadData();
         this.approveAppraisalModal.hide();
       }
-      if (JSON.parse(error._body).Message == "Reject succeeded but we cannot send mail.") {
+      else if (JSON.parse(error._body).Message == "Reject succeeded but we cannot send mail.") {
         this._notificationService.printSuccessMessage("Reject succeeded but we cannot send mail.");
+        this.loadData();
         this.approveAppraisalModal.hide();
       }
       else {
