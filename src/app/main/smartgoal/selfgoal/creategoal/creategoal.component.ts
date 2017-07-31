@@ -14,7 +14,7 @@ export class CreateGoalComponent implements OnInit {
   departmentList = [];
   currentUser: LoggedInUser;
 
-  constructor(private _authenService: AuthenService) { 
+  constructor(private _authenService: AuthenService) {
     this.currentUser = _authenService.getLoggedInUser();
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
@@ -27,6 +27,17 @@ export class CreateGoalComponent implements OnInit {
     }
   }
 
+  
+  ngOnInit() {
+    this.smartGoal.totalScore = 0;
+
+    this.smartGoal.goal1 = 0;
+    this.smartGoal.goal2 = 0;
+    this.smartGoal.goal3 = 0;
+    this.smartGoal.goal4 = 0;
+  }
+
+
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
@@ -35,40 +46,18 @@ export class CreateGoalComponent implements OnInit {
   temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
 
   // Generate conclusion
-  totalScore = 0;
-
-  goal1 = 0;
-  goal2 = 0;
-  goal3 = 0;
-  goal4 = 0;
-
-  generateTotalScore(name: string, value: number) {
+  generateTotalScore() {
     // debugger;
-    switch (name) {
-      case 'goal1':
-        this.goal1 = value; break;
-      case 'goal2':
-        this.goal2 = value; break;
-      case 'goal3':
-        this.goal3 = value; break;
-      case 'goal4':
-        this.goal4 = value; break;
-      default: return;
-    }
-
     let noGoals = 0;
-    if (this.goal1 > 0) noGoals++;
-    if (this.goal2 > 0) noGoals++;
-    if (this.goal3 > 0) noGoals++;
-    if (this.goal4 > 0) noGoals++;
-    this.totalScore = (noGoals == 0) ? 0 : (this.goal1 + this.goal2 + this.goal3 + this.goal4) / noGoals;
+    if (this.smartGoal.goal1 > 0) noGoals++;
+    if (this.smartGoal.goal2 > 0) noGoals++;
+    if (this.smartGoal.goal3 > 0) noGoals++;
+    if (this.smartGoal.goal4 > 0) noGoals++;
+    this.smartGoal.totalScore = (noGoals == 0) ? 0 : (this.smartGoal.goal1 + this.smartGoal.goal2 + this.smartGoal.goal3 + this.smartGoal.goal4) / noGoals;
   }
   // End of Generate conclusion
-  
-  ngOnInit() {
-  }
 
-  saveSmartGoal(){
+  saveSmartGoal() {
 
   }
 }
