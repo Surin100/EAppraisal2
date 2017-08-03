@@ -110,7 +110,7 @@
           <!-- Right Column -->
 
           <!-- Table Part 1 -->
-          <table class="table table-bordered noMargin">
+          <table class="table table-bordered noMargin tablePart1">
             <thead>
               <tr class="part">
                 <th colspan=6>
@@ -118,7 +118,7 @@
                 </th>
               </tr>
               <tr>
-                <th class="abc">
+                <th class="abc" style="width:3%">
                   No.of goal<br/>
                   <em>Thứ tự mục tiêu</em>
                 </th>
@@ -126,20 +126,29 @@
                   Key Performance Area<br/>
                   <em class="text-primary">Trọng tâm của mục tiêu</em>
                 </th>
-                <th class="abc">
-                  S.M.A.R.T. GOAL (What) and<br/> Action Plan (How)<br/>
-                  <em class="text-primary">MỤC TIÊU (Là gì) và<br/>
-                        Kế hoach Thực hiện (Như thế nào)</em>
+                <th class="noPadding" colspan="3" id="goalTableHeader">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <thead>
+                      <tr id="goalContentTableHeader">
+                        <th class="abc">
+                          S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
+                          <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào)</em>
+                        </th>
+                        <th class="abc col-md-2 col-sm-2 col-xs-2">
+                          Completed date<br/>
+                          <em class="text-primary">Thời gian hoàn thành</em>
+                        </th>
+                        <th class="abc col-md-2 col-sm-2 col-xs-2">
+                          Measure indicator<br/>
+                          <em class="text-primary">Chỉ tiêu đo lường</em>
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+
                 </th>
                 <th class="abc">
-                  Completed date<br/>
-                  <em class="text-primary">Thời gian hoàn thành</em>
-                </th>
-                <th class="abc">
-                  Measure indicator<br/>
-                  <em class="text-primary">Chỉ tiêu đo lường</em>
-                </th>
-                <th class="abc col-md-2 col-sm-2 col-xs-2">
                   Scoring for result<br/>
                   <em class="text-primary">Điểm số đánh giá Kết quả</em>
                 </th>
@@ -151,229 +160,326 @@
                   <strong>1</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
-                  <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                  <div>
+                    <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Customer" name="goal1Customer"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
-                  <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                    <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Finance" name="goal1Finance"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
-                  <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                    <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Employee" name="goal1Employee"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
-                  <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
+                    <label class="pull-left" style="cursor:pointer">
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Operating" name="goal1Operating"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
                     </label>
+                  </div>
                 </td>
-                <td>
-                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
-                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
-                  of staff salaries on time. - Prepare renewal labour contract on time.
+                <td colspan="3" class="noPadding">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <tbody>
+                      <tr *ngFor="let content of goal1Contents; let in=index">
+                        <td>
+                          <textarea autosize name="goal1ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="removeContent('goal1', in)"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal1ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal1ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <textarea autosize name="goal1ContentPlan" id="goal1ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal1Content.plan"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal1ContentDate" class="my-textarea" [(ngModel)]="goal1Content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal1ContentMeasure" class="my-textarea" [(ngModel)]="goal1Content.measure" (keyup.enter)="addContent('goal1')"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                 </td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal11">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',1)" id="goal11" name="goal1" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal11" name="goal1" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal12">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',2)" id="goal12" name="goal1" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal12" name="goal1" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal13">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',3)" id="goal13" name="goal1" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal13" name="goal1" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal14">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',4)" id="goal14" name="goal1" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal14" name="goal1" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal15">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal1" (click)="generateTotalScore('goal1',5)" id="goal15" name="goal1" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal15" name="goal1" />
                     </label>
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <td class="text-center" style="vertical-align: middle">
                   <strong>2</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Customer" name="goal2Customer"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Finance" name="goal2Finance"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Employee" name="goal2Employee"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Internal" name="goal2Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
-                <td>
-                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
-                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
-                  of staff salaries on time. - Prepare renewal labour contract on time.
+                <td colspan="3" class="noPadding">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <tbody>
+                      <tr *ngFor="let content of goal2Contents; let in=index">
+                        <td>
+                          <textarea autosize name="goal2ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="removeContent('goal2', in)"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal2ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal2ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <textarea autosize name="goal2ContentPlan" id="goal2ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal2Content.plan"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal2ContentDate" class="my-textarea" [(ngModel)]="goal2Content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal2ContentMeasure" class="my-textarea" [(ngModel)]="goal2Content.measure" (keyup.enter)="addContent('goal2')"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                 </td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal21">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',1)" id="goal21" name="goal2" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal21" name="goal2" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal22">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',2)" id="goal22" name="goal2" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal22" name="goal2" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal23">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',3)" id="goal23" name="goal2" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal23" name="goal2" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal24">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',4)" id="goal24" name="goal2" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal24" name="goal2" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal25">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal2" (click)="generateTotalScore('goal2',5)" id="goal25" name="goal2" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal25" name="goal2" />
                     </label>
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <td class="text-center" style="vertical-align: middle">
                   <strong>3</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Customer" name="goal3Customer"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Finance" name="goal3Finance"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Employee" name="goal3Employee"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Internal" name="goal3Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
-                <td>
-                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
-                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
-                  of staff salaries on time. - Prepare renewal labour contract on time.
+                <td colspan="3" class="noPadding">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <tbody>
+                      <tr *ngFor="let content of goal3Contents; let in=index">
+                        <td>
+                          <textarea autosize name="goal3ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="removeContent('goal3', in)"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal3ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal3ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <textarea autosize name="goal3ContentPlan" id="goal3ContentPlan" class="my-textarea" [(ngModel)]="goal3Content.plan"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal3ContentDate" class="my-textarea" [(ngModel)]="goal3Content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal3ContentMeasure" class="my-textarea" [(ngModel)]="goal3Content.measure" (keyup.enter)="addContent('goal3')"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                 </td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal31">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',1)" id="goal31" name="goal3" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal31" name="goal3" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal32">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',2)" id="goal32" name="goal3" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal32" name="goal3" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal33">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',3)" id="goal33" name="goal3" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal33" name="goal3" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal34">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',4)" id="goal34" name="goal3" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal34" name="goal3" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal35">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal3" (click)="generateTotalScore('goal3',5)" id="goal35" name="goal3" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal35" name="goal3" />
                     </label>
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <td class="text-center" style="vertical-align: middle">
                   <strong>4</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Customer" name="goal4Customer"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Finance" name="goal4Finance"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Employee" name="goal4Employee"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Internal" name="goal4Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
-                <td>
-                  . Complete tasks related to C&B Function Action plan: 1.1 Payroll and Contract: - Check employee attendance record to match
-                  with the time clock machine’s data for the correctly payment. - Calculate the payroll and monitor the transfer
-                  of staff salaries on time. - Prepare renewal labour contract on time.
+                <td colspan="3" class="noPadding">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <tbody>
+                      <tr *ngFor="let content of goal4Contents; let in=index">
+                        <td>
+                          <textarea autosize name="goal4ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="removeContent('goal4', in)"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal4ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal4ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <textarea autosize name="goal4ContentPlan" id="goal4ContentPlan" class="my-textarea" [(ngModel)]="goal4Content.plan"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal4ContentDate" class="my-textarea" [(ngModel)]="goal4Content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="goal4ContentMeasure" class="my-textarea" [(ngModel)]="goal4Content.measure" (keyup.enter)="addContent('goal4')"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                 </td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
-                <td class="col-md-1 col-sm-1 col-xs-1"></td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                     <label class="text-left radioPadding" for="goal41">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',1)" id="goal41" name="goal4" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal41" name="goal4" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal42">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal41" (click)="generateTotalScore('goal4',2)" id="goal42" name="goal4" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal42" name="goal4" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal43">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',3)" id="goal43" name="goal4" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal43" name="goal4" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal44">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',4)" id="goal44" name="goal4" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal44" name="goal4" />
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal45">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal4" (click)="generateTotalScore('goal4',5)" id="goal45" name="goal4" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal45" name="goal4" />
                     </label>
                   </div>
                 </td>
@@ -386,7 +492,7 @@
                 </td>
                 <td class="total">
                   <h4 class="text-center">
-                    <strong>{{totalScore | number: '1.0-2'}}</strong>
+                    <strong>{{smartGoal.totalScore | number: '1.0-2'}}</strong>
                   </h4>
                 </td>
               </tr>
@@ -395,16 +501,16 @@
           <!-- /Table Part 1 -->
 
           <!--  Table Part 1ab -->
-          <table class="table table-bordered noMargin">
+          <table class="table table-bordered noMargin tablePart1ab">
             <thead>
               <tr class="abc">
                 <th colspan=4>
                   a. Other business goals and contributions / <em style="color:darkblue">Các mục tiêu kinh doanh và đóng góp khác</em>
                 </th>
               </tr>
-              <tr class="abc">
+              <tr>
                 <th colspan=4>
-                  <textarea autosize class="my-textarea" name="goal1Content" style="width:100%"></textarea>
+                  <textarea autosize class="my-textarea" name="otherGoals" [(ngModel)]="smartGoal.otherGoals"></textarea>
                 </th>
               </tr>
               <tr class="abc">
@@ -418,33 +524,66 @@
                   Personal Development Area<br/>
                   <em>Trọng tâm phát triển cá nhân</em>
                 </th>
-                <th class="abc">
-                  S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
-                  <em>MỤC TIÊU (Là gì) và Kế hoạch Thực hiện (Như thế nào)</em>
-                </th>
-                <th class="abc">
-                  Completed date<br/>
-                  <em>Thời gian hoàn thành</em>
-                </th>
-                <th class="abc">
-                  Measure indicator<br/>
-                  <em>Chỉ tiêu đo lường</em>
+                <th class="noPadding" colspan="3" id="goalTableHeader">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <thead>
+                      <tr id="goalContentTableHeader">
+                        <th class="abc">
+                          S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
+                          <em>MỤC TIÊU (Là gì) và Kế hoạch Thực hiện (Như thế nào)</em>
+                        </th>
+                        <th class="abc col-md-2 col-sm-2 col-xs-2">
+                          Completed date<br/>
+                          <em>Thời gian hoàn thành</em>
+                        </th>
+                        <th class="abc col-md-2 col-sm-2 col-xs-2">
+                          Measure indicator<br/>
+                          <em>Chỉ tiêu đo lường</em>
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                  <textarea autosize name="personalDevelopmentArea" [(ngModel)]="smartGoal.personalDevelopmentArea" class="my-textarea"></textarea>
                 </td>
-                <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
-                </td>
-                <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
-                </td>
-                <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                <td colspan="3" class="noPadding">
+
+                  <table class="table table-bordered noMargin noPadding">
+                    <tbody>
+                      <tr *ngFor="let content of personalDevelopmentContents; let in=index">
+                        <td>
+                          <textarea autosize name="personalDevelopmentContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="removePersonalDevelopmentContent(in)"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="personalDevelopmentContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="personalDevelopmentContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <textarea autosize name="personalDevelopmentContentPlan" id="personalDevelopmentContentPlan" [(ngModel)]="personalDevelopmentContent.plan"
+                            class="my-textarea"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="personalDevelopmentContentDate" [(ngModel)]="personalDevelopmentContent.date" class="my-textarea"></textarea>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                          <textarea autosize name="personalDevelopmentContentMeasure" [(ngModel)]="personalDevelopmentContent.measure" class="my-textarea"
+                            (keyup.enter)="addPersonalDevelopmentContent()"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                 </td>
               </tr>
             </tbody>
@@ -461,7 +600,7 @@
               </tr>
               <tr>
                 <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                  <textarea autosize class="my-textarea" name="midtermReview" [(ngModel)]="smartGoal.midtermReview"></textarea>
                 </td>
               </tr>
               <tr class="part">
@@ -471,7 +610,7 @@
               </tr>
               <tr>
                 <td>
-                  <textarea autosize class="my-textarea" style="width:100%"></textarea>
+                  <textarea autosize class="my-textarea" name="finalReview" [(ngModel)]="smartGoal.finalReview"></textarea>
                 </td>
               </tr>
             </thead>
@@ -506,62 +645,93 @@
                 <td style="border: none">
                   Associate
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Associate
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Associate
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
               </tr>
               <tr>
                 <td style="border: none">
                   Reviewer
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Reviewer
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Reviewer
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
               </tr>
               <tr>
                 <td style="border: none">
                   Department Head
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Department Head
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Department Head
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
               </tr>
               <tr>
                 <td style="border: none">
                   Director of HR
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Director of HR
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
                 <td style="border: none">
                   Director of HR
                 </td>
-                <td style="border: none"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                <td style="border: none">
+                  <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                </td>
               </tr>
             </tbody>
           </table>
           <!-- /Table signature -->
-
+          <div>
+            <button type="button" [disabled]="!createSmartGoalForm.valid || !goalIsValid()" (click)="exportExcel()" class="btn btn-primary">Export Excel</button>
+            <button type="submit" [disabled]="!createSmartGoalForm.valid || !goalIsValid()" (click)="smartGoal.statusId = 'N'" class="btn btn-primary">Save Draft</button>
+            <button type="submit" [disabled]="!createSmartGoalForm.valid || !goalIsValid()" (click)="smartGoal.statusId = 'S'" class="btn btn-danger">Submit</button>
+            <button routerLink="/main/smartgoal" class="btn btn-info" type="button">Cancel</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+          </div>
         </form>
       </section>
     </div>

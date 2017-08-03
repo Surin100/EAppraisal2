@@ -9,12 +9,14 @@ import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 import { ApprovalComponent } from './approval.component';
 import { DataService } from '../../../core/services/data.service';
 import { approvalRoutes } from './approval.routes';
+import {AutosizeModule } from '../../autosize/autosize.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MyDatePickerModule,
+    AutosizeModule,
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forChild(approvalRoutes)

@@ -15,7 +15,7 @@
     color: white !important;
 }
 
-.abc {
+.abc{
     background-color: #26B99A;
     color: white;
     text-align: center;
@@ -36,4 +36,24 @@ th em{
 
 tfoot {
     background-color: azure !important;
+}
+
+.tablePart1 td:nth-child(4){
+    text-align: left !important;
+    vertical-align: middle; 
+    width: 15% !important;
+}
+
+.tablePart1 td:nth-child(2), .tablePart1 td:nth-child(3), .tablePart1ab td{
+    text-align: left !important;
+    vertical-align: middle;
+}
+
+.bottomMargin05 {
+    margin-bottom: 0.5em !important;
+}
+
+textarea {
+    width: 100% !important;
+    border: none;
 }

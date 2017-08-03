@@ -4,6 +4,7 @@ export class MessageConstants {
 
     public static SAVE_DRAFT_SUCCESS = "Your draft is saved.";
     public static SUBMIT_APPRAISAL_SUCCESS = "Your appraisal has been submitted.";
+    public static SUBMIT_GOAL_SUCCESS = "Your goal has been submitted.";
     public static UPDATED_OK_MSG = "Update succeeded.";
     public static DELETED_OK_MSG = "Delete succeeded.";
     public static CHANGEPASSWORD_SUCCESS = 'Your password has been changed.';

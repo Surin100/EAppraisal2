@@ -30,13 +30,6 @@ export class CreateComponent implements OnInit {
   appraisalTo;
   public baseFolder: string = SystemConstants.BASE_API;
 
-  // appraisalFrom = {
-  //   jsdate: ''
-  // };
-  // appraisalTo = {
-  //   jsdate: ''
-  // };
-
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
