@@ -46,7 +46,7 @@ export class CreateComponent implements OnInit {
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
 
-    this.categoryList = JSON.parse(this.currentUser.categoryList)
+    this.categoryList = JSON.parse(this.currentUser.categoryList);
 
     this.appraisal = {
       associateName: this.currentUser.fullName,
@@ -226,8 +226,6 @@ export class CreateComponent implements OnInit {
     let _toDate: string = this.appraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
     this.appraisal.To = new Date(_toDate);
     // End date problem
-
- 
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
     this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {

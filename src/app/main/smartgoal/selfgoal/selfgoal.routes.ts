@@ -5,7 +5,7 @@ export const selfGoalRoutes: Routes = [
     {
         path: '', component: SelfGoalComponent, children: [
             {path:'', redirectTo:'index', pathMatch:'full'},
-            {path: 'index', component: SelfGoalComponent },
+            {path: 'index', loadChildren:'./goalindex/goalindex.module#GoalIndexModule' },
             {path:'creategoal', loadChildren:'./creategoal/creategoal.module#CreateGoalModule'}
         ]
     },

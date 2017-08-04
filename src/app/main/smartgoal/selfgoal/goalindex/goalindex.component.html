@@ -1,0 +1,40 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="text-center">
+        Create Date
+      </th>
+      <th class="text-center">
+        Submit Date
+      </th>
+      <th>
+        Category
+      </th>
+      <th class="text-center">
+        Overall
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Action
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let smartGoal of smartGoals">
+      <td class="text-center">{{smartGoal.CreateDate | date:'dd/MM/yyyy'}}</td>
+      <td class="text-center">{{smartGoal.SubmitDate | date:'dd/MM/yyyy'}}</td>
+      <td>{{smartGoal.categoryName}}</td>
+      <td class="text-center">
+        {{smartGoal.Conclusion | number: '1.0-2'}}
+      </td>
+      <td>{{smartGoal.statusName}}</td>
+      <td>
+        <button class="btn btn-primary" *ngIf="smartGoal.StatusId == 'N'" (click)="showModifySmartGoalModal(smartGoal.Id)"><i class="fa fa-pencil" ></i></button>
+        <button class="btn btn-danger" *ngIf="smartGoal.StatusId == 'N'" (click)="deleteSmartGoal(smartGoal.Id)"><i class="fa fa-trash" ></i></button>
+        <button class="btn btn-primary" *ngIf="smartGoal.StatusId != 'N'"><i class="fa fa-eye" ></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

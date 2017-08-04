@@ -30,6 +30,7 @@ export class CreateGoalComponent implements OnInit {
   personalDevelopmentContents = [];
   personalDevelopmentContent: any = {};
   departmentList = [];
+  categoryList = [];
   currentUser: LoggedInUser;
   saveGoalLoading: Boolean = false;
 
@@ -38,8 +39,8 @@ export class CreateGoalComponent implements OnInit {
     this.currentUser = _authenService.getLoggedInUser();
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
+    this.categoryList = JSON.parse(this.currentUser.categoryList);
   }
-
 
   ngOnInit() {
     this.smartGoal = {
@@ -54,11 +55,6 @@ export class CreateGoalComponent implements OnInit {
     this.smartGoal.goal2 = 0;
     this.smartGoal.goal3 = 0;
     this.smartGoal.goal4 = 0;
-
-
-
-    // this.goal1Content.plan = "ABC";
-    // this.goal1Contents.push(this.goal1Content);
   }
 
   ngAfterViewInit() {
@@ -103,11 +99,11 @@ export class CreateGoalComponent implements OnInit {
     let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
     this.smartGoal.To = new Date(_toDate);
     // End date problem
-    if(this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
-    if(this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
-    if(this.goal3Content.plan) this.goal3Contents.push(this.goal3Content);
-    if(this.goal4Content.plan) this.goal4Contents.push(this.goal4Content);
-    if(this.personalDevelopmentContent.plan) this.personalDevelopmentContents.push(this.personalDevelopmentContent);
+    if (this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
+    if (this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
+    if (this.goal3Content.plan) this.goal3Contents.push(this.goal3Content);
+    if (this.goal4Content.plan) this.goal4Contents.push(this.goal4Content);
+    if (this.personalDevelopmentContent.plan) this.personalDevelopmentContents.push(this.personalDevelopmentContent);
 
     this.smartGoal.goal1Content = JSON.stringify(this.goal1Contents);
     this.smartGoal.goal2Content = JSON.stringify(this.goal2Contents);
@@ -120,13 +116,12 @@ export class CreateGoalComponent implements OnInit {
       if (this.smartGoal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this._utilityService.navigate('/main/smartgoal');
     }, error => {
-              alert(error);
+      // alert(error);
       if (JSON.parse(error._body).Message == "Your goal has been submitted but we cannot send email.") {
         this._notificationService.printSuccessMessage("Your goal has been submitted but we cannot send email.");
         this._utilityService.navigate('/main/smartgoal');
       }
       else {
-
         this._handleErrorService.handleError(error);
         this.saveGoalLoading = false;
       }
@@ -233,16 +228,16 @@ export class CreateGoalComponent implements OnInit {
     }
   }
 
-  goalIsValid():Boolean{
-    let IsValid:Boolean = true;
-    if(this.smartGoal.goal1 == 0 && this.goal1Contents.length > 0 ) IsValid = false;
-    if(this.smartGoal.goal2 == 0 && this.goal2Contents.length > 0 ) IsValid = false;
-    if(this.smartGoal.goal3 == 0 && this.goal3Contents.length > 0 ) IsValid = false;
-    if(this.smartGoal.goal4 == 0 && this.goal4Contents.length > 0 ) IsValid = false;
-    if(this.smartGoal.goal1 == 0 && this.goal1Content.plan ) IsValid = false;
-    if(this.smartGoal.goal2 == 0 && this.goal2Content.plan ) IsValid = false;
-    if(this.smartGoal.goal3 == 0 && this.goal3Content.plan ) IsValid = false;
-    if(this.smartGoal.goal4 == 0 && this.goal4Content.plan ) IsValid = false;
+  goalIsValid(): Boolean {
+    let IsValid: Boolean = true;
+    if (this.smartGoal.goal1 == 0 && this.goal1Contents.length > 0) IsValid = false;
+    if (this.smartGoal.goal2 == 0 && this.goal2Contents.length > 0) IsValid = false;
+    if (this.smartGoal.goal3 == 0 && this.goal3Contents.length > 0) IsValid = false;
+    if (this.smartGoal.goal4 == 0 && this.goal4Contents.length > 0) IsValid = false;
+    if (this.smartGoal.goal1 == 0 && this.goal1Content.plan) IsValid = false;
+    if (this.smartGoal.goal2 == 0 && this.goal2Content.plan) IsValid = false;
+    if (this.smartGoal.goal3 == 0 && this.goal3Content.plan) IsValid = false;
+    if (this.smartGoal.goal4 == 0 && this.goal4Content.plan) IsValid = false;
     return IsValid;
   }
 }

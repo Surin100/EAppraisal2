@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { selfGoalRoutes } from './selfgoal.routes';
 import { SelfGoalComponent } from './selfgoal.component';
+import { GoalIndexComponent } from './goalindex/goalindex.component';
 
 @NgModule({
   imports: [

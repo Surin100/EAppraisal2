@@ -276,13 +276,10 @@ export class IndexComponent implements OnInit {
     this.appraisal.To = new Date(_toDate);
     // End date problem
 
- 
-
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.DepartmentId)[0].Text;
     this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
       window.open(SystemConstants.BASE_API + response);
       this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
     }, error => this._handleErrorService.handleError(error));
   }
-
 }
