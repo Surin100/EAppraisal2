@@ -238,6 +238,55 @@ export class CreateGoalComponent implements OnInit {
     if (this.smartGoal.goal2 == 0 && this.goal2Content.plan) IsValid = false;
     if (this.smartGoal.goal3 == 0 && this.goal3Content.plan) IsValid = false;
     if (this.smartGoal.goal4 == 0 && this.goal4Content.plan) IsValid = false;
+    if (this.goal1Contents.length == 0 && this.goal1Contents.length == 0 && this.goal1Contents.length == 0 && this.goal1Contents.length == 0
+      && !this.goal1Content.plan && !this.goal2Content.plan && !this.goal3Content.plan && !this.goal4Content.plan) IsValid = false;
     return IsValid;
+  }
+
+  uncheckGoal(name: string) {
+    // alert('b')
+    switch (name) {
+      case 'goal1':
+        this.smartGoal.goal1 = 0; this.generateTotalScore(); break;
+      case 'goal2':
+        this.smartGoal.goal2 = 0; this.generateTotalScore(); break;
+      case 'goal3':
+        this.smartGoal.goal3 = 0; this.generateTotalScore(); break;
+      case 'goal4':
+        this.smartGoal.goal4 = 0; this.generateTotalScore(); break;
+      default: return;
+    }
+  }
+
+  uncheckKeyPerformance(name: string): Boolean {
+    // alert('a');
+    // debugger;
+    switch (name) {
+      case 'goal1':
+        this.smartGoal.goal1Customer = false;
+        this.smartGoal.goal1Finance = false;
+        this.smartGoal.goal1Employee = false;
+        this.smartGoal.goal1Operating = false;
+        break;
+      case 'goal2':
+        this.smartGoal.goal2Customer = false;
+        this.smartGoal.goal2Finance = false;
+        this.smartGoal.goal2Employee = false;
+        this.smartGoal.goal2Internal = false;
+        break;
+      case 'goal3':
+        this.smartGoal.goal3Customer = false;
+        this.smartGoal.goal3Finance = false;
+        this.smartGoal.goal3Employee = false;
+        this.smartGoal.goal3Internal = false;
+        break;
+      case 'goal4':
+        this.smartGoal.goal4Customer = false;
+        this.smartGoal.goal4Finance = false;
+        this.smartGoal.goal4Employee = false;
+        this.smartGoal.goal4Internal = false;
+        break;
+    }
+    return false;
   }
 }

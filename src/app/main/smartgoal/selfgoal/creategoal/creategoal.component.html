@@ -161,23 +161,24 @@
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
                   <div>
+                    <input hidden type="checkbox"  [checked]="(!goal1Content.plan && goal1Contents.length == 0)? uncheckKeyPerformance('goal1'): ''" *ngIf = "smartGoal.goal1Customer || smartGoal.goal1Finance || smartGoal.goal1Employee || smartGoal.goal1Operating"/>
                     <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Customer" name="goal1Customer"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Customer" name="goal1Customer" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                     <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Finance" name="goal1Finance"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Finance" name="goal1Finance" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                     <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Employee" name="goal1Employee"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Employee" name="goal1Employee" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                     <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Operating" name="goal1Operating"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Operating" name="goal1Operating" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
                     </label>
                   </div>
                 </td>
                 <td colspan="3" class="noPadding">
 
-                  <table class="table table-bordered noMargin noPadding">
+                  <table class="table table-bordered noMargin noPadding tableContent">
                     <tbody>
                       <tr *ngFor="let content of goal1Contents; let in=index">
                         <td>
@@ -207,33 +208,35 @@
                 </td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <input hidden type="radio" id="goal10" name="goal1" [checked]="!goal1Content.plan && goal1Contents.length == 0? uncheckGoal('goal1'):false" *ngIf="smartGoal.goal1"
+                    /> 
                     <label class="text-left radioPadding" for="goal11">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal11" name="goal1" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal11" name="goal1" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" [required] = "goal1Content.plan || goal1Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal12">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal12" name="goal1" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal12" name="goal1" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" [required] = "goal1Content.plan || goal1Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal13">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal13" name="goal1" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal13" name="goal1" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" [required] = "goal1Content.plan || goal1Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal14">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal14" name="goal1" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal14" name="goal1" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" [required] = "goal1Content.plan || goal1Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal15">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal15" name="goal1" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal1" (change)="generateTotalScore()" id="goal15" name="goal1" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" [required] = "goal1Content.plan || goal1Contents.length > 0"/>
                     </label>
                   </div>
                 </td>
@@ -244,22 +247,23 @@
                   <strong>2</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
+                  <input hidden type="checkbox"  [checked]="(!goal2Content.plan && goal2Contents.length == 0)? uncheckKeyPerformance('goal2'): ''" *ngIf = "smartGoal.goal2Customer || smartGoal.goal2Finance || smartGoal.goal2Employee || smartGoal.goal2Internal"/>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Customer" name="goal2Customer"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Customer" name="goal2Customer" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Finance" name="goal2Finance"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Finance" name="goal2Finance" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Employee" name="goal2Employee"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Employee" name="goal2Employee" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Internal" name="goal2Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Internal" name="goal2Internal" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">
 
-                  <table class="table table-bordered noMargin noPadding">
+                  <table class="table table-bordered noMargin noPadding tableContent">
                     <tbody>
                       <tr *ngFor="let content of goal2Contents; let in=index">
                         <td>
@@ -289,33 +293,35 @@
                 </td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <input hidden type="radio" id="goal20" name="goal2" [checked]="!goal2Content.plan && goal2Contents.length == 0? uncheckGoal('goal2'):false" *ngIf="smartGoal.goal2"
+                    /> 
                     <label class="text-left radioPadding" for="goal21">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal21" name="goal2" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal21" name="goal2" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null" [required] = "goal2Content.plan || goal2Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal22">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal22" name="goal2" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal22" name="goal2"  [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null" [required] = "goal2Content.plan || goal2Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal23">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal23" name="goal2" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal23" name="goal2"  [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null" [required] = "goal2Content.plan || goal2Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal24">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal24" name="goal2" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal24" name="goal2"  [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null" [required] = "goal2Content.plan || goal2Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal25">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal25" name="goal2" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal2" (change)="generateTotalScore()" id="goal25" name="goal2"  [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null" [required] = "goal2Content.plan || goal2Contents.length > 0"/>
                     </label>
                   </div>
                 </td>
@@ -326,22 +332,23 @@
                   <strong>3</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
+                  <input hidden type="checkbox"  [checked]="(!goal3Content.plan && goal3Contents.length == 0)? uncheckKeyPerformance('goal3'): ''" *ngIf = "smartGoal.goal3Customer || smartGoal.goal3Finance || smartGoal.goal3Employee || smartGoal.goal3Internal"/>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Customer" name="goal3Customer"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Customer" name="goal3Customer" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Finance" name="goal3Finance"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Finance" name="goal3Finance" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Employee" name="goal3Employee"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Employee" name="goal3Employee" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Internal" name="goal3Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Internal" name="goal3Internal" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">
 
-                  <table class="table table-bordered noMargin noPadding">
+                  <table class="table table-bordered noMargin noPadding tableContent">
                     <tbody>
                       <tr *ngFor="let content of goal3Contents; let in=index">
                         <td>
@@ -371,33 +378,35 @@
                 </td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <input hidden type="radio" id="goal30" name="goal3" [checked]="!goal3Content.plan && goal3Contents.length == 0? uncheckGoal('goal3'):false" *ngIf="smartGoal.goal3"
+                    /> 
                     <label class="text-left radioPadding" for="goal31">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal31" name="goal3" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal31" name="goal3" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null" [required] = "goal3Content.plan || goal3Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal32">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal32" name="goal3" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal32" name="goal3" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null" [required] = "goal3Content.plan || goal3Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal33">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal33" name="goal3" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal33" name="goal3" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null" [required] = "goal3Content.plan || goal3Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal34">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal34" name="goal3" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal34" name="goal3" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null" [required] = "goal3Content.plan || goal3Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal35">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal35" name="goal3" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal3" (change)="generateTotalScore()" id="goal35" name="goal3" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null" [required] = "goal3Content.plan || goal3Contents.length > 0"/>
                     </label>
                   </div>
                 </td>
@@ -408,22 +417,23 @@
                   <strong>4</strong>
                 </td>
                 <td class="col-md-2 col-sm-2 col-xs-2">
+                  <input hidden type="checkbox"  [checked]="(!goal4Content.plan && goal4Contents.length == 0)? uncheckKeyPerformance('goal4'): ''" *ngIf = "smartGoal.goal4Customer || smartGoal.goal4Finance || smartGoal.goal4Employee || smartGoal.goal4Internal"/>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Customer" name="goal4Customer"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Customer" name="goal4Customer" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Finance" name="goal4Finance"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Finance" name="goal4Finance" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Employee" name="goal4Employee"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Employee" name="goal4Employee" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Internal" name="goal4Internal"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Internal" name="goal4Internal" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">
 
-                  <table class="table table-bordered noMargin noPadding">
+                  <table class="table table-bordered noMargin noPadding tableContent">
                     <tbody>
                       <tr *ngFor="let content of goal4Contents; let in=index">
                         <td>
@@ -453,33 +463,35 @@
                 </td>
                 <td class="form-group">
                   <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                    <input hidden type="radio" id="goal40" name="goal4" [checked]="!goal4Content.plan && goal4Contents.length == 0? uncheckGoal('goal4'):false" *ngIf="smartGoal.goal4"
+                    /> 
                     <label class="text-left radioPadding" for="goal41">1</label>
                     <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal41" name="goal4" />
+                      <input type="radio" [value]="1" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal41" name="goal4" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null" [required] = "goal4Content.plan || goal4Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal42">2</label>
                     <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal42" name="goal4" />
+                      <input type="radio" [value]="2" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal42" name="goal4" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null" [required] = "goal4Content.plan || goal4Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal43">3</label>
                     <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal43" name="goal4" />
+                      <input type="radio" [value]="3" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal43" name="goal4" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null" [required] = "goal4Content.plan || goal4Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal44">4</label>
                     <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal44" name="goal4" />
+                      <input type="radio" [value]="4" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal44" name="goal4" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null" [required] = "goal4Content.plan || goal4Contents.length > 0"/>
                     </label>
                   </div>
                   <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                     <label class="text-left radioPadding" for="goal45">5</label>
                     <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal45" name="goal4" />
+                      <input type="radio" [value]="5" [(ngModel)]="smartGoal.goal4" (change)="generateTotalScore()" id="goal45" name="goal4" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null" [required] = "goal4Content.plan || goal4Contents.length > 0"/>
                     </label>
                   </div>
                 </td>

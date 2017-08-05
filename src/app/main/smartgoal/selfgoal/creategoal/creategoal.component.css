@@ -44,7 +44,7 @@ tfoot {
     width: 15% !important;
 }
 
-.tablePart1 td:nth-child(2), .tablePart1 td:nth-child(3), .tablePart1ab td{
+.tablePart1 td:nth-child(2), .tablePart1 td:nth-child(3),.tablePart1ab td, .tableContent td{
     text-align: left !important;
     vertical-align: middle;
 }
