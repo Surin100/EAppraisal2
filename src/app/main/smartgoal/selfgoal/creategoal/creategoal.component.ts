@@ -68,7 +68,7 @@ export class CreateGoalComponent implements OnInit {
   private today = new Date();
   temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
 
-  // Generate conclusion
+  // Generate Total Score
   generateTotalScore() {
     // debugger;
     let noGoals = 0;
@@ -78,7 +78,7 @@ export class CreateGoalComponent implements OnInit {
     if (this.smartGoal.goal4 > 0) noGoals++;
     this.smartGoal.totalScore = (noGoals == 0) ? 0 : (this.smartGoal.goal1 + this.smartGoal.goal2 + this.smartGoal.goal3 + this.smartGoal.goal4) / noGoals;
   }
-  // End of Generate conclusion
+  // End of Total Score
 
   saveSmartGoal(valid) {
     if (!valid) return;
@@ -116,9 +116,9 @@ export class CreateGoalComponent implements OnInit {
       if (this.smartGoal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this._utilityService.navigate('/main/smartgoal');
     }, error => {
-      // alert(error);
-      if (JSON.parse(error._body).Message == "Your goal has been submitted but we cannot send email.") {
-        this._notificationService.printSuccessMessage("Your goal has been submitted but we cannot send email.");
+      // alert(JSON.stringify(error));
+      if (JSON.parse(error._body).Message == "Your smart goal has been submitted but we cannot send email.") {
+        this._notificationService.printSuccessMessage("Your smart goal has been submitted but we cannot send email.");
         this._utilityService.navigate('/main/smartgoal');
       }
       else {
@@ -226,6 +226,11 @@ export class CreateGoalComponent implements OnInit {
       this.personalDevelopmentContents.splice(index, 1);
       document.getElementById('personalDevelopmentContentPlan').focus();
     }
+  }
+
+  removePersonalDevelopment() {
+    this.personalDevelopmentContents = [];
+    this.personalDevelopmentContent = {};
   }
 
   goalIsValid(): Boolean {

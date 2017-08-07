@@ -36,7 +36,10 @@ export class ApprovedComponent implements OnInit {
       this.approvedList.forEach(element => {
         element.StatusName = element.StatusId == 'V' ? 'Rejected' : 'Approved';
       });
-    });
+      this.pageIndex = response.PageIndex;
+      this.pageSize = response.PageSize;
+      this.totalRow = response.TotalRow;
+    },error => this._handleErrorService.handleError(error));
   }
 
   pageChanged(event: any): void {
@@ -56,8 +59,8 @@ export class ApprovedComponent implements OnInit {
       let toDate = new Date(this.appraisalApproval.To);
       this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
       let reviewDate = new Date(this.appraisalApproval.ReviewDate)
-      this.appraisalApproval.ReviewDate = reviewDate.getDate()+'/'+ (reviewDate.getMonth()+1) + '/' + reviewDate.getFullYear();
-      
+      this.appraisalApproval.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+
 
     }, error => this._handleErrorService.handleError(error));
   }

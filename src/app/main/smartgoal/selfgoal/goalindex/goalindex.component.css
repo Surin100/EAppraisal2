@@ -1,0 +1,93 @@
+.noPadding{
+    padding: 0 !important;
+}
+
+.noMargin{
+    margin: 0 !important;
+}
+
+.titlePadding{
+    padding-right: 2em !important;
+}
+
+.inputMargin{
+    margin: -0.5em 0 1em 0 !important;
+}
+
+.part {
+    background-color:brown !important; 
+    color: white !important;
+}
+
+.abc{
+    background-color: #26B99A;
+    color: white;
+    text-align: center;
+}
+
+th {
+    vertical-align: text-top !important;
+}
+
+th em{
+    color: darkblue;
+}
+
+.tablePart1 td:nth-child(4){
+    text-align: left !important;
+    vertical-align: middle;
+    width: 15% !important;
+}
+
+.tablePart1 td:nth-child(1){
+    text-align: center !important;
+}
+
+.tablePart1 td:nth-child(2), .tablePart1 td:nth-child(3), .tablePart1ab td, .tableContent td{
+    text-align: left !important;
+    vertical-align: middle;
+}
+
+
+.radioPadding{
+    padding-left: 2px !important;
+}
+
+.total {width: 15%;}
+
+.bottomMargin1 {
+    margin-bottom: 1em !important;
+}
+
+.bottomMargin2{
+    margin-bottom: 2em !important;
+}
+.bottomPadding4{
+    padding-bottom: 4em !important;
+    /* position: relative; */
+}
+
+.col15{
+    width: 15% !important;
+}
+
+.col3{
+    width: 3%;
+}
+
+tfoot {
+    background-color: azure !important;
+}
+
+ .modal td {text-align: left;}  
+
+textarea {
+    width: 100% !important;
+    border: none;
+}
+
+button {
+    margin-left: 2em !important; 
+}
+
+

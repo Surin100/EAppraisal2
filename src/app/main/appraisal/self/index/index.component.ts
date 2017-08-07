@@ -182,7 +182,6 @@ export class IndexComponent implements OnInit {
     this.appraisal.Conclusion = this.appraisal.SubTotal1 * 0.3 + this.appraisal.SubTotal2 * 0.7
   }
 
-
   generateSubTotal2() {
     let noGoals = 0;
     if (this.appraisal.Goal1 > 0) noGoals++;

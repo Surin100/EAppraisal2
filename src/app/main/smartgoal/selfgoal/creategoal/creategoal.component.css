@@ -23,7 +23,6 @@
 
 th {
     vertical-align: text-top !important;
-    /*text-align: center;*/
 }
 
 th em{
@@ -56,4 +55,8 @@ tfoot {
 textarea {
     width: 100% !important;
     border: none;
+}
+
+.col3{
+    width: 3%;
 }

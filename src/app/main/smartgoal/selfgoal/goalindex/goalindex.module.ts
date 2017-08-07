@@ -1,15 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoalIndexComponent } from './goalindex.component';
 import { RouterModule } from '@angular/router';
-import { goalIndexRoutes } from './goalindex.routes';
+import { FormsModule } from '@angular/forms';
 
+import { PaginationModule, ModalModule } from 'ngx-bootstrap';
+import { MyDatePickerModule } from 'mydatepicker';
+
+import { AutosizeModule } from '../../../autosize/autosize.module';
+import { goalIndexRoutes } from './goalindex.routes';
+import { GoalIndexComponent } from './goalindex.component';
 import { DataService } from '../../../../core/services/data.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(goalIndexRoutes)
+    FormsModule,
+    AutosizeModule,
+    MyDatePickerModule,
+    RouterModule.forChild(goalIndexRoutes),
+    ModalModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   declarations: [GoalIndexComponent],
   providers: [ DataService ]
