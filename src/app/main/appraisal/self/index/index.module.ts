@@ -12,11 +12,13 @@ import { DataService } from '../../../../core/services/data.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { UtilityService } from '../../../../core/services/utility.service';
 import { HandleErrorService } from '../../../../core/services/handle-error.service';
+import {AutosizeModule } from '../../../autosize/autosize.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    AutosizeModule,
     MyDatePickerModule,
     ModalModule.forRoot(),
     PaginationModule.forRoot(),

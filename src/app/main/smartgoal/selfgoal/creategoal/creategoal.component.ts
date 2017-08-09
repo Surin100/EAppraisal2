@@ -8,6 +8,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { UtilityService } from '../../../../core/services/utility.service';
 import { HandleErrorService } from '../../../../core/services/handle-error.service';
 import { MessageConstants } from '../../../../core/common/message.constants';
+import { SystemConstants } from '../../../../core/common/system.constants';
 
 @Component({
   selector: 'app-creategoal',
@@ -49,12 +50,12 @@ export class CreateGoalComponent implements OnInit {
       associateId: this.currentUser.userName,
       departmentId: this.currentUser.departmentId
     }
-    this.smartGoal.totalScore = 0;
+    // this.smartGoal.totalScore = 0;
 
-    this.smartGoal.goal1 = 0;
-    this.smartGoal.goal2 = 0;
-    this.smartGoal.goal3 = 0;
-    this.smartGoal.goal4 = 0;
+    // this.smartGoal.goal1 = 0;
+    // this.smartGoal.goal2 = 0;
+    // this.smartGoal.goal3 = 0;
+    // this.smartGoal.goal4 = 0;
   }
 
   ngAfterViewInit() {
@@ -69,15 +70,15 @@ export class CreateGoalComponent implements OnInit {
   temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
 
   // Generate Total Score
-  generateTotalScore() {
-    // debugger;
-    let noGoals = 0;
-    if (this.smartGoal.goal1 > 0) noGoals++;
-    if (this.smartGoal.goal2 > 0) noGoals++;
-    if (this.smartGoal.goal3 > 0) noGoals++;
-    if (this.smartGoal.goal4 > 0) noGoals++;
-    this.smartGoal.totalScore = (noGoals == 0) ? 0 : (this.smartGoal.goal1 + this.smartGoal.goal2 + this.smartGoal.goal3 + this.smartGoal.goal4) / noGoals;
-  }
+  // generateTotalScore() {
+  //   // debugger;
+  //   let noGoals = 0;
+  //   if (this.smartGoal.goal1 > 0) noGoals++;
+  //   if (this.smartGoal.goal2 > 0) noGoals++;
+  //   if (this.smartGoal.goal3 > 0) noGoals++;
+  //   if (this.smartGoal.goal4 > 0) noGoals++;
+  //   this.smartGoal.totalScore = (noGoals == 0) ? 0 : (this.smartGoal.goal1 + this.smartGoal.goal2 + this.smartGoal.goal3 + this.smartGoal.goal4) / noGoals;
+  // }
   // End of Total Score
 
   saveSmartGoal(valid) {
@@ -235,33 +236,33 @@ export class CreateGoalComponent implements OnInit {
 
   goalIsValid(): Boolean {
     let IsValid: Boolean = true;
-    if (this.smartGoal.goal1 == 0 && this.goal1Contents.length > 0) IsValid = false;
-    if (this.smartGoal.goal2 == 0 && this.goal2Contents.length > 0) IsValid = false;
-    if (this.smartGoal.goal3 == 0 && this.goal3Contents.length > 0) IsValid = false;
-    if (this.smartGoal.goal4 == 0 && this.goal4Contents.length > 0) IsValid = false;
-    if (this.smartGoal.goal1 == 0 && this.goal1Content.plan) IsValid = false;
-    if (this.smartGoal.goal2 == 0 && this.goal2Content.plan) IsValid = false;
-    if (this.smartGoal.goal3 == 0 && this.goal3Content.plan) IsValid = false;
-    if (this.smartGoal.goal4 == 0 && this.goal4Content.plan) IsValid = false;
-    if (this.goal1Contents.length == 0 && this.goal1Contents.length == 0 && this.goal1Contents.length == 0 && this.goal1Contents.length == 0
+    // if (this.smartGoal.goal1 == 0 && this.goal1Contents.length > 0) IsValid = false;
+    // if (this.smartGoal.goal2 == 0 && this.goal2Contents.length > 0) IsValid = false;
+    // if (this.smartGoal.goal3 == 0 && this.goal3Contents.length > 0) IsValid = false;
+    // if (this.smartGoal.goal4 == 0 && this.goal4Contents.length > 0) IsValid = false;
+    // if (this.smartGoal.goal1 == 0 && this.goal1Content.plan) IsValid = false;
+    // if (this.smartGoal.goal2 == 0 && this.goal2Content.plan) IsValid = false;
+    // if (this.smartGoal.goal3 == 0 && this.goal3Content.plan) IsValid = false;
+    // if (this.smartGoal.goal4 == 0 && this.goal4Content.plan) IsValid = false;
+    if (this.goal1Contents.length == 0 && this.goal2Contents.length == 0 && this.goal3Contents.length == 0 && this.goal4Contents.length == 0
       && !this.goal1Content.plan && !this.goal2Content.plan && !this.goal3Content.plan && !this.goal4Content.plan) IsValid = false;
     return IsValid;
   }
 
-  uncheckGoal(name: string) {
-    // alert('b')
-    switch (name) {
-      case 'goal1':
-        this.smartGoal.goal1 = 0; this.generateTotalScore(); break;
-      case 'goal2':
-        this.smartGoal.goal2 = 0; this.generateTotalScore(); break;
-      case 'goal3':
-        this.smartGoal.goal3 = 0; this.generateTotalScore(); break;
-      case 'goal4':
-        this.smartGoal.goal4 = 0; this.generateTotalScore(); break;
-      default: return;
-    }
-  }
+  // uncheckGoal(name: string) {
+  //   // alert('b')
+  //   switch (name) {
+  //     case 'goal1':
+  //       this.smartGoal.goal1 = 0; this.generateTotalScore(); break;
+  //     case 'goal2':
+  //       this.smartGoal.goal2 = 0; this.generateTotalScore(); break;
+  //     case 'goal3':
+  //       this.smartGoal.goal3 = 0; this.generateTotalScore(); break;
+  //     case 'goal4':
+  //       this.smartGoal.goal4 = 0; this.generateTotalScore(); break;
+  //     default: return;
+  //   }
+  // }
 
   uncheckKeyPerformance(name: string): Boolean {
     // alert('a');
@@ -293,5 +294,37 @@ export class CreateGoalComponent implements OnInit {
         break;
     }
     return false;
+  }
+
+  exportExcel(valid) {
+      //  alert(JSON.stringify(this.appraisalFrom));
+    if (!valid) return;
+    this.saveGoalLoading = true;
+    // Date problem
+    let _reviewMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    let _reviewDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _reviewMonth + '-' + _reviewDay + 'T12:00:00Z'
+    this.smartGoal.reviewDate = new Date(_reviewDate);
+
+    let _fromMonth = this.smartGoalFrom.date.month.toString().length < 2 ? '0' + this.smartGoalFrom.date.month : this.smartGoalFrom.date.month;
+    let _fromDay = this.smartGoalFrom.date.day.toString().length < 2 ? '0' + this.smartGoalFrom.date.day : this.smartGoalFrom.date.day;
+    let _fromDate: string = this.smartGoalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    this.smartGoal.From = new Date(_fromDate);
+
+    let _toMonth = this.smartGoalTo.date.month.toString().length < 2 ? '0' + this.smartGoalTo.date.month : this.smartGoalTo.date.month;
+    let _toDay = this.smartGoalTo.date.day.toString().length < 2 ? '0' + this.smartGoalTo.date.day : this.smartGoalTo.date.day;
+    let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    this.smartGoal.To = new Date(_toDate);
+
+    this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.departmentId)[0].Text;
+    this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
+      window.open(SystemConstants.BASE_API + response);
+      // window.location.href = this.baseFolder + response.Message;
+      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
+      this.saveGoalLoading = false;
+    }, error => {
+      this._handleErrorService.handleError(error);
+      this.saveGoalLoading = false;
+    });
   }
 }
