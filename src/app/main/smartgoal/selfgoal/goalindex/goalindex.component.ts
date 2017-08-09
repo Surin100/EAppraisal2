@@ -70,7 +70,7 @@ export class GoalIndexComponent implements OnInit {
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
       }, error => {
-        // alert(error);
+        // alert(JSON.stringify(error));
         this._handleErrorService.handleError(error);
       });
   }

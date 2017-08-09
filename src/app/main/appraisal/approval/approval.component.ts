@@ -37,17 +37,18 @@ export class ApprovalComponent implements OnInit {
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _handleErrorService: HandleErrorService,
     private _utilityService: UtilityService, private _notificationService: NotificationService
   ) {
+    this.currentUser = _authenService.getLoggedInUser();
+  }
+
+  ngOnInit() {
+
+    this.loadData();
   }
 
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
   };
-
-  ngOnInit() {
-    this.currentUser = this._authenService.getLoggedInUser();
-    this.loadData();
-  }
 
   loadData() {
     this._dataService.get('/api/appraisal/GetNeedYourAppraisalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize + '&filter=' + this.filter)
@@ -73,7 +74,7 @@ export class ApprovalComponent implements OnInit {
     this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
       // alert(JSON.stringify(this.currentUser.categoryList) + JSON.stringify(this.appraisal.categoryId));
       this.appraisal = {};
-      this.appraisalApproval ={};
+      this.appraisalApproval = {};
       this.appraisal = response;
       this.appraisalApproval.reviewerName = this.currentUser.fullName;
       this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
@@ -98,7 +99,7 @@ export class ApprovalComponent implements OnInit {
 
   approveAppraisal(valid: Boolean) {
     if (!valid || this.appraisal.Id == undefined) return;
-    
+
     if (this.appraisalApproval.statusId == 'V') {
       this._notificationService.printConfirmationDialog(MessageConstants.CONFIRM_REJECT_APPRAISAL_MSG, () => {
         this.approveLoading = true;

@@ -1,3 +1,47 @@
-<p>
-  goalapproval works!
-</p>
+<div class="x_content" style="min-height:800px">
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">
+            Submit Date
+          </th>
+          <th>
+            Employee ID
+          </th>
+          <th>
+            Employee Name
+          </th>
+          <th>
+            Position
+          </th>
+          <th class="text-center">
+            Overall
+          </th>
+          <th>
+            Status
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of smartGoals">
+          <td class="text-center">{{goal.SubmitDate | date:'dd/MM/yyyy'}}</td>
+          <td>{{goal.AssociateId}}</td>
+          <td>{{goal.AssociateName}}</td>
+          <td>{{goal.AssociateTitle}}</td>
+          <td class="text-center">{{goal.TotalScore | number: '1.0-2'}}</td>
+          <td>{{goal.StatusName}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="showApproveSmartGoalModal(goal.Id)"><i class="fa fa-check" ></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
+      [(ngModel)]="pageIndex" [maxSize]="maxSize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+      lastText="&raquo;"></pagination>
+  </div>
+</div>
