@@ -1,8 +1,8 @@
 
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-	'./style.css',
-	'./main.js'
+	'/style.css',
+	'/main.js'
 ];
 
 self.addEventListener('install', function (event) {
