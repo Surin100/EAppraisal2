@@ -297,7 +297,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   exportExcel(valid) {
-      //  alert(JSON.stringify(this.appraisalFrom));
+    //  alert(JSON.stringify(this.appraisalFrom));
     if (!valid) return;
     this.saveGoalLoading = true;
     // Date problem
@@ -315,6 +315,24 @@ export class CreateGoalComponent implements OnInit {
     let _toDay = this.smartGoalTo.date.day.toString().length < 2 ? '0' + this.smartGoalTo.date.day : this.smartGoalTo.date.day;
     let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
     this.smartGoal.To = new Date(_toDate);
+
+    if (this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
+    if (this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
+    if (this.goal3Content.plan) this.goal3Contents.push(this.goal3Content);
+    if (this.goal4Content.plan) this.goal4Contents.push(this.goal4Content);
+    if (this.personalDevelopmentContent.plan) this.personalDevelopmentContents.push(this.personalDevelopmentContent);
+
+    this.goal1Content = {};
+    this.goal2Content = {};
+    this.goal3Content = {};
+    this.goal4Content = {};
+    this.personalDevelopmentContent={};
+
+    this.smartGoal.goal1Content = JSON.stringify(this.goal1Contents);
+    this.smartGoal.goal2Content = JSON.stringify(this.goal2Contents);
+    this.smartGoal.goal3Content = JSON.stringify(this.goal3Contents);
+    this.smartGoal.goal4Content = JSON.stringify(this.goal4Contents);
+    this.smartGoal.personalDevelopmentContent = JSON.stringify(this.personalDevelopmentContents);
 
     this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.departmentId)[0].Text;
     this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {

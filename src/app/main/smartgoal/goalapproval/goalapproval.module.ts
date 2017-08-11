@@ -7,12 +7,14 @@ import { DataService } from '../../../core/services/data.service';
 import { goalApprovalRoutes} from './goalapproval.routes';
 import { GoalApprovalComponent } from './goalapproval.component';
 import { PaginationModule, ModalModule } from 'ngx-bootstrap';
+import { MyDatePickerModule } from 'mydatepicker';
 
 
 @NgModule({
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
+    MyDatePickerModule,
     FormsModule,
     ModalModule.forRoot(),
     RouterModule.forChild(goalApprovalRoutes)

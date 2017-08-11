@@ -2,7 +2,7 @@
     <div class="">
         <div class="x_panel" style="padding-top:3px">
             <div class="x_title" style="padding-bottom:0">
-                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager')">
+                <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager') || currentUser.roles.includes('HRExecutive')">
                     <a class="btn btn-success" routerLink="/main/smartgoal/selfgoal/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="selfGoalClick()">Your Goal</a>
                     <a class="btn btn-success" routerLink="/main/smartgoal/goalapproval/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="goalApprovalClick()">Need Your Approval</a>
                 </div>
