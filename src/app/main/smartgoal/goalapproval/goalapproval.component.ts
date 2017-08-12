@@ -7,6 +7,8 @@ import { DataService } from '../../../core/services/data.service';
 import { AuthenService } from '../../../core/services/authen.service';
 import { LoggedInUser } from '../../../core/domain/loggedin.user';
 import { HandleErrorService } from '../../../core/services/handle-error.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { MessageConstants } from '../../../core/common/message.constants';
 
 @Component({
   selector: 'app-goalapproval',
@@ -23,6 +25,7 @@ export class GoalApprovalComponent implements OnInit {
   maxSize: number = 10;
   smartGoals: any[];
   smartGoal: any;
+  smartGoalApproval: any;
   currentUser: LoggedInUser;
   goal1Contents = [];
   goal1Content: any = {};
@@ -40,7 +43,8 @@ export class GoalApprovalComponent implements OnInit {
   departmentList;
   categoryList;
 
-  constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService) {
+  constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService,
+    private _notificationService: NotificationService) {
     this.currentUser = _authenService.getLoggedInUser();
   }
 
@@ -88,15 +92,16 @@ export class GoalApprovalComponent implements OnInit {
 
     this._dataService.get('/api/SmartGoal/getSmartGoal/' + Id).subscribe((response: any) => {
       this.smartGoal = response;
-      this.smartGoal.Reviewer = this.currentUser.fullName;
-      this.smartGoal.ReviewerTitle = this.currentUser.jobTitle;
+      this.smartGoalApproval = {};
+      this.smartGoalApproval.reviewerName = this.currentUser.fullName;
+      this.smartGoalApproval.reviewerTitle = this.currentUser.jobTitle;
       // console.log(this.smartGoal);
       this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoal.DepartmentId)[0].Text;
       this.smartGoal.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoal.CategoryId)[0].Text;
       let fromDate = new Date(response.From);
-      this.smartGoalFrom = fromDate.getDate() +'/'+ (fromDate.getMonth() + 1) +'/'+ fromDate.getFullYear();
+      this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
       let toDate = new Date(response.To);
-      this.smartGoalTo =  toDate.getDate() +'/'+ (toDate.getMonth() + 1) +'/'+ toDate.getFullYear();
+      this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
       let reviewDate = new Date(response.ReviewDate)
       this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
 
@@ -122,5 +127,56 @@ export class GoalApprovalComponent implements OnInit {
     if (this.goal1Contents.length == 0 && this.goal2Contents.length == 0 && this.goal3Contents.length == 0 && this.goal4Contents.length == 0
       && !this.goal1Content.plan && !this.goal2Content.plan && !this.goal3Content.plan && !this.goal4Content.plan) IsValid = false;
     return IsValid;
+  }
+
+  approveSmartGoal(valid: Boolean) {
+    if (!valid || this.smartGoal.Id == undefined) return;
+
+    if (this.smartGoalApproval.statusId == 'V') {
+      this._notificationService.printConfirmationDialog(MessageConstants.CONFIRM_REJECT_SMARTGOAL_MSG, () => {
+        this.approveLoading = true;
+        this.saveApproval();
+      });
+    } else {
+      this.approveLoading = true;
+      this.saveApproval();
+    }
+  }
+
+  saveApproval() {
+    this.smartGoalApproval.smartGoalId = this.smartGoal.Id;
+    this.smartGoalApproval.UserId = this.smartGoal.UserId;
+    // Date problem
+    let _reviewMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    let _reviewDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _reviewMonth + '-' + _reviewDay + 'T15:00:00Z'
+    this.smartGoalApproval.reviewDate = new Date(_reviewDate);
+    // End Date problem
+    this._dataService.post('/api/SmartGoalApproval/SaveSmartGoalApproval', this.smartGoalApproval).subscribe((response: any) => {
+      if (this.smartGoalApproval.statusId == 'V') {
+        this._notificationService.printSuccessMessage(MessageConstants.REJECT_SUCCESS);
+      } else {
+        this._notificationService.printSuccessMessage(MessageConstants.APPROVE_SUCCESS);
+      }
+      this.approveLoading = false;
+      this.approveSmartGoalModal.hide();
+      this.loadData();
+    }, error => {
+      // alert(JSON.stringify(error));
+      if (JSON.parse(error._body).Message == "Approve succeeded but we cannot send mail.") {
+        this._notificationService.printSuccessMessage("Approve succeeded but we cannot send mail.");
+        this.loadData();
+        this.approveSmartGoalModal.hide();
+      }
+      else if (JSON.parse(error._body).Message == "Reject succeeded but we cannot send mail.") {
+        this._notificationService.printSuccessMessage("Reject succeeded but we cannot send mail.");
+        this.loadData();
+        this.approveSmartGoalModal.hide();
+      }
+      else {
+        this._handleErrorService.handleError(error);
+      }
+      this.approveLoading = false;
+    });
   }
 }

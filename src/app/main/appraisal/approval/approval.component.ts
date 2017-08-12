@@ -113,8 +113,6 @@ export class ApprovalComponent implements OnInit {
 
   saveApproval() {
     this.appraisalApproval.appraisalId = this.appraisal.Id;
-    this.appraisalApproval.companyId = this.appraisal.CompanyId;
-    this.appraisalApproval.DepartmentId = this.appraisal.DepartmentId;
     this.appraisalApproval.UserId = this.appraisal.UserId;
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;

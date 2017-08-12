@@ -67,7 +67,7 @@
           <!-- Form -->
           <div class="animate form">
             <section class="login_content noPadding">
-              <form class="noMargin" #approveSmartGoalForm="ngForm" novalidate (ngSubmit)="saveSmartGoalApproval(approveSmartGoalForm.valid)"
+              <form class="noMargin" #approveSmartGoalForm="ngForm" novalidate (ngSubmit)="approveSmartGoal(approveSmartGoalForm.valid)"
                 *ngIf='smartGoal'>
 
                 <!-- Left Column -->
@@ -95,7 +95,7 @@
                       <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewer" class="form-control inputMargin" #reviewerr="ngModel" [(ngModel)]="smartGoal.Reviewer" name="reviewer"
+                      <input id="reviewer" class="form-control inputMargin" #reviewerr="ngModel" [(ngModel)]="smartGoalApproval.reviewerName" name="reviewer"
                         type="text" required />
                     </div>
                   </div>
@@ -104,7 +104,7 @@
                       <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title - <em class="text-primary">Chức danh:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="smartGoal.ReviewerTitle"
+                      <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="smartGoalApproval.reviewerTitle"
                         name="reviewerTitle" type="text" required />
                     </div>
                   </div>
@@ -750,12 +750,12 @@
                   </div>
                 </div>
                 <div>
-                  <button type="button" [disabled]="!approveSmartGoalForm.valid || !goalIsValid()" (click)="exportExcel(approveSmartGoalForm.valid)"
-                    class="btn btn-primary">Export Excel</button>
-                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid()" (click)="smartGoal.statusId = 'N'" class="btn btn-primary">Update</button>
-                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid()" (click)="smartGoal.statusId = 'S'" class="btn btn-danger">Submit</button>
-                  <button (click)='approveSmartGoalModal.hide()' class="btn btn-info" type="button">Cancel</button>
-                  <img *ngIf="approveGoalLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                  <!-- <button type="button" [disabled]="!approveSmartGoalForm.valid || !goalIsValid()" (click)="exportExcel(approveSmartGoalForm.valid)"
+                    class="btn btn-primary">Export Excel</button> -->
+                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || approveLoading==true" (click)="smartGoalApproval.statusId = underfined" class="btn btn-primary">Approve</button>
+                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || approveLoading==true" (click)="smartGoalApproval.statusId = 'V'" class="btn btn-danger">Reject</button>
+                  <button (click)='approveSmartGoalModal.hide()' [disabled]="approveLoading==true" class="btn btn-info" type="button">Cancel</button>
+                  <img *ngIf="approveLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                   />
                 </div>
               </form>

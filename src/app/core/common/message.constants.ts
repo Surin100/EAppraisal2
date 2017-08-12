@@ -13,4 +13,5 @@ export class MessageConstants {
 
     public static CONFIRM_DELETE_MSG = "Do you want to delete this item?";
     public static CONFIRM_REJECT_APPRAISAL_MSG = "Do you want to reject this appraisal?";
+    public static CONFIRM_REJECT_SMARTGOAL_MSG = "Do you want to reject this smart goal?";
 }
