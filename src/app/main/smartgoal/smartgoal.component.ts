@@ -24,4 +24,8 @@ export class SmartGoalComponent implements OnInit {
   goalApprovalClick(){
     this.selfGoalLoad = false;
   }
+  goalApprovedClick(){
+    this.selfGoalLoad = false;
+  }
+
 }

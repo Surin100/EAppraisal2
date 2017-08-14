@@ -7,7 +7,8 @@ export const smartGoalRoutes: Routes = [
         path: '', component: SmartGoalComponent, children: [
             { path: '', redirectTo: 'selfgoal', pathMatch: 'full' },
             { path: 'selfgoal', loadChildren: './selfgoal/selfgoal.module#SelfGoalModule' },
-            { path: 'goalapproval', loadChildren: './goalapproval/goalapproval.module#GoalApprovalModule' }
+            { path: 'goalapproval', loadChildren: './goalapproval/goalapproval.module#GoalApprovalModule' },
+            { path: 'ApprovedGoal', loadChildren: './approved-goal/approved-goal.module#ApprovedGoalModule' }
         ]
     }
 ]

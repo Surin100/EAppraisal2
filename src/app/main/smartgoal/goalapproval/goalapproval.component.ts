@@ -112,7 +112,7 @@ export class GoalApprovalComponent implements OnInit {
       this.personalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
       // alert(this.goal1Contents.length);
     }, error => this._handleErrorService.handleError(error));
-  }
+  } 
 
   goalIsValid() {
     let IsValid: Boolean = true;

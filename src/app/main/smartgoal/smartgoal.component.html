@@ -5,6 +5,7 @@
                 <div class="pull-right" *ngIf="currentUser.roles.includes('LineManager') || currentUser.roles.includes('HRExecutive')">
                     <a class="btn btn-success" routerLink="/main/smartgoal/selfgoal/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="selfGoalClick()">Your Goal</a>
                     <a class="btn btn-success" routerLink="/main/smartgoal/goalapproval/index" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="goalApprovalClick()">Need Your Approval</a>
+                    <a class="btn btn-success" routerLink="/main/smartgoal/ApprovedGoal" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="goalApprovedClick()">Approved</a>
                 </div>
                 <div class="pull-left" *ngIf="selfGoalLoad">
                     <a class="btn btn-danger" routerLink="/main/smartgoal/selfgoal/creategoal" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add Goal</a>

@@ -743,9 +743,7 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select class="form-control inputMargin" [(ngModel)]="smartGoal.CategoryId" name="categoryId" required>
-                  <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
-                </select>
+                      <input class="form-control inputMargin" type="text" [(ngModel)]="smartGoal.categoryName" name="categoryName" required readonly/>
                     </div>
                   </div>
                 </div>
