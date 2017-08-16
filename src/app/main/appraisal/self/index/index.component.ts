@@ -75,8 +75,8 @@ export class IndexComponent implements OnInit {
         this.pageIndex = response.PageIndex;
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
+        console.log(this.appraisals);
       }, error => this._handleErrorService.handleError(error));
-    // console.log(this.appraisals);
   }
 
   pageChanged(event: any): void {
@@ -129,12 +129,7 @@ export class IndexComponent implements OnInit {
       this.appraisalto = { date: { year: toDate.getFullYear(), month: toDate.getMonth() + 1, day: toDate.getDate() } };
       let reviewDate = new Date(response.ReviewDate)
       this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-      // alert(JSON.stringify(this.appraisal));
-      this.viewAppraisal = this.appraisal;
-      this.viewAppraisal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
-      this.viewAppraisal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
-      this.viewAppraisal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
-      // console.log(this.viewAppraisal);
+
     }, error => this._handleErrorService.handleError(error));
   }
 
@@ -268,7 +263,7 @@ export class IndexComponent implements OnInit {
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
     let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
-    this.appraisal.reviewDate = new Date(_reviewDate);
+    this.appraisal.ReviewDate = new Date(_reviewDate);
 
     let _fromMonth = this.appraisalfrom.date.month.toString().length < 2 ? '0' + this.appraisalfrom.date.month : this.appraisalfrom.date.month;
     let _fromDay = this.appraisalfrom.date.day.toString().length < 2 ? '0' + this.appraisalfrom.date.day : this.appraisalfrom.date.day;
@@ -298,26 +293,44 @@ export class IndexComponent implements OnInit {
 
   loadViewAppraisal(Id, StatusId) {
     if (StatusId == 'S') {
-      this.loadAppraisal(Id);
+      this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
+        this.viewAppraisal = response;
+
+        this.viewAppraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewAppraisal.DepartmentId)[0].Text;
+        this.viewAppraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewAppraisal.CategoryId)[0].Text;
+
+        let fromDate = new Date(this.viewAppraisal.From);
+        this.appraisalfrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.viewAppraisal.To);
+        this.appraisalto = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.viewAppraisal.ReviewDate);
+        this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+      }, error => this._handleErrorService.handleError(error));
     }
     else {
       this._dataService.get('/api/AppraisalApproval/getViewAppraisalApproval?_appraisalId=' + Id + '&statusId=' + StatusId).subscribe((response: any) => {
         this.viewAppraisal = response;
-        // console.log(this.appraisalApproval);
-        this.viewAppraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == response.DepartmentId)[0].Text;
-        this.viewAppraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == response.CategoryId)[0].Text;
-        let fromDate = new Date(response.From);
-        this.viewAppraisal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
-        let toDate = new Date(response.To);
-        this.viewAppraisal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
-        let reviewDate = new Date(response.ReviewDate)
-        this.viewAppraisal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
 
+        this.viewAppraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewAppraisal.DepartmentId)[0].Text;
+        this.viewAppraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewAppraisal.CategoryId)[0].Text;
 
+        let fromDate = new Date(this.viewAppraisal.From);
+        this.appraisalfrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.viewAppraisal.To);
+        this.appraisalto = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.viewAppraisal.ReviewDate);
+        this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+        // console.log(this.viewAppraisal);
       }, error => this._handleErrorService.handleError(error));
     }
-    // alert(JSON.stringify(this.viewAppraisal));
   }
 
+  exportViewAppraisalToExcel(StatusId) {
+    this.viewAppraisal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewAppraisal.DepartmentId)[0].Text;
+    this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewAppraisal)).subscribe((response: any) => {
+      window.open(SystemConstants.BASE_API + response);
+      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
+    }, error => this._handleErrorService.handleError(error));
+  }
   // End of View Appraisal
 }

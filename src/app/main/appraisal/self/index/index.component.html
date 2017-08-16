@@ -1496,7 +1496,7 @@
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="reviewer" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="viewAppraisal.ReviewerName" name="reviewer"
-                      type="text" required readonly/>
+                      type="text" readonly/>
                   </div>
                 </div>
                 <div class="item form-group">
@@ -1505,7 +1505,7 @@
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="viewAppraisal.ReviewerTitle"
-                      name="reviewerTitle" type="text" required readonly />
+                      name="reviewerTitle" type="text" readonly />
                   </div>
                 </div>
               </div>
@@ -1540,7 +1540,7 @@
                       <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                      <input name="from" #from="ngModel" class="form-control" [(ngModel)]="viewAppraisal.From" type="text" required readonly/>
+                      <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisalfrom" type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
@@ -1548,7 +1548,7 @@
                       <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                      <input name="to" #to="ngModel" class="form-control" [(ngModel)]="viewAppraisal.To" type="text" required readonly />
+                      <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisalto" type="text" required readonly />
                     </div>
                   </div>
                 </div>
@@ -1558,7 +1558,7 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
-                      <input name="temporaryDate" #temporaryDate="ngModel" class="form-control" [(ngModel)]="viewAppraisal.ReviewDate" type="text"
+                      <input name="temporaryDate" #temporaryDate="ngModel" class="form-control" [(ngModel)]="temporarydate" type="text"
                         required readonly/>
                     </div>
                   </div>
@@ -2821,12 +2821,13 @@
                 </div>
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="categoryName" class="form-control inputMargin" #category="ngModel" [(ngModel)]="viewAppraisal.categoryName"
-                      name="categoryName" type="text" required readonly />
+                    <input id="categoryName" class="form-control inputMargin" #category="ngModel" [(ngModel)]="viewAppraisal.categoryName" name="categoryName"
+                      type="text" required readonly />
                   </div>
                 </div>
               </div>
               <div>
+                <button type="button" [disabled]="!viewAppraisalForm.valid || !goalIsValid()" (click)="exportViewAppraisalToExcel()" class="btn btn-primary">Export Excel</button>
                 <button (click)="viewAppraisalModal.hide()" class="btn btn-info pull-right" type="button"><i class="fa fa-arrow-left"></i> Back </button>
               </div>
 
