@@ -75,7 +75,7 @@ export class IndexComponent implements OnInit {
         this.pageIndex = response.PageIndex;
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
-        console.log(this.appraisals);
+        // console.log(this.appraisals);
       }, error => this._handleErrorService.handleError(error));
   }
 

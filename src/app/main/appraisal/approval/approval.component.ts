@@ -131,6 +131,7 @@ export class ApprovalComponent implements OnInit {
       this.approveAppraisalModal.hide();
       this.loadData();
     }, error => {
+      // alert(JSON.stringify(error));
       if (JSON.parse(error._body).Message == "Approve succeeded but we cannot send mail.") {
         this._notificationService.printSuccessMessage("Approve succeeded but we cannot send mail.");
         this.loadData();
