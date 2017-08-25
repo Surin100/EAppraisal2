@@ -171,6 +171,8 @@ export class GoalIndexComponent implements OnInit {
 
     this._dataService.get('/api/SmartGoal/getSmartGoal/' + Id).subscribe((response: any) => {
       this.smartGoal = response;
+      this.smartGoal.ReviewerName = this.currentUser.reviewerName;
+      this.smartGoal.ReviewerTitle = this.currentUser.reviewerTitle;
       // console.log(this.smartGoal);
       this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoal.DepartmentId)[0].Text;
       this.smartGoal.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoal.CategoryId)[0].Text;

@@ -6,6 +6,10 @@
     margin: 0 !important;
 }
 
-.inputMargin{
-    margin: -0.5em 0 1em 0 !important;
+.labelMargin{
+    margin-top: 0.5em;
+}
+
+.inputMargin {
+    margin-bottom: 1em !important;
 }

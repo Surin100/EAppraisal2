@@ -10,6 +10,8 @@ export class LoggedInUser {
     public departmentEnName: string;
     public companyId: string;
     public companyName: string;
+    public reviewerName: string;
+    public reviewerTitle: string;
     public roles: string[];
     public departmentList;
     public companyList;
@@ -18,8 +20,8 @@ export class LoggedInUser {
 
 
     constructor(access_token: string, userName: string, email: string, fullName: string,employeeLvId: string, jobTitle: string,
-        departmentId: string, departmentEnName: string, companyId: string, companyName: string, roles: string[],
-        departmentList, companyList, categoryList, statusList
+        departmentId: string, departmentEnName: string, companyId: string, companyName: string, reviewerName: string, reviewerTitle:string,
+        roles: string[], departmentList, companyList, categoryList, statusList
     ) {
         this.access_token = access_token;
         this.userName = userName;
@@ -36,6 +38,8 @@ export class LoggedInUser {
         this.companyList = companyList;
         this.categoryList = categoryList;
         this.statusList = statusList;
+        this.reviewerName = reviewerName;
+        this.reviewerTitle = reviewerTitle;
     }
 
 }

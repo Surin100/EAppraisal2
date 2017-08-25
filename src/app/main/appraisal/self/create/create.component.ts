@@ -9,6 +9,7 @@ import { HandleErrorService } from '../../../../core/services/handle-error.servi
 import { NotificationService } from '../../../../core/services/notification.service';
 import { UtilityService } from '../../../../core/services/utility.service';
 import { MessageConstants } from '../../../../core/common/message.constants';
+import { ArrayConstants } from '../../../../core/common/array.constants';
 import { SystemConstants } from '../../../../core/common/system.constants';
 
 @Component({
@@ -28,7 +29,9 @@ export class CreateComponent implements OnInit {
   loading: Boolean;
   appraisalFrom;
   appraisalTo;
-  public baseFolder: string = SystemConstants.BASE_API;
+  baseFolder: string = SystemConstants.BASE_API;
+  partAShow:string[];
+  partBShow:string[];
 
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -43,6 +46,7 @@ export class CreateComponent implements OnInit {
   ) {
 
     this.currentUser = _authenService.getLoggedInUser();
+    // console.log(this.currentUser);
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
 
@@ -52,15 +56,19 @@ export class CreateComponent implements OnInit {
       associateName: this.currentUser.fullName,
       associateTitle: this.currentUser.jobTitle,
       associateId: this.currentUser.userName,
-      departmentId: this.currentUser.departmentId
+      departmentId: this.currentUser.departmentId,
+      reviewerName: this.currentUser.reviewerName,
+      reviewerTitle: this.currentUser.reviewerTitle
     }
     // alert(JSON.stringify(this.currentUser.depart));
-    // debugger 
-    if (this.currentUser.employeeLvId == 'WK') {
+    // debugger
+    this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
+    this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
+    if (this.partAShow.includes(this.currentUser.employeeLvId)) {
       this.supervisoryToggle = true;
       this.leadershipToggle = true;
     }
-    else if (this.currentUser.employeeLvId == 'SV') {
+    else if (this.partBShow.includes(this.currentUser.employeeLvId)) {
       this.leadershipToggle = true;
     }
   }
@@ -228,11 +236,14 @@ export class CreateComponent implements OnInit {
     // End date problem
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
-    this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      window.open(SystemConstants.BASE_API + response);
-      // window.location.href = this.baseFolder + response.Message;
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
-    }, error => this._handleErrorService.handleError(error));
+
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 
   uncheckGoal(name: string) {

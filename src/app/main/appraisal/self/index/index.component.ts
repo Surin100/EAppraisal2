@@ -10,6 +10,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { MessageConstants } from '../../../../core/common/message.constants';
 import { LoggedInUser } from '../../../../core/domain/loggedin.user';
 import { SystemConstants } from '../../../../core/common/system.constants';
+import { ArrayConstants } from '../../../../core/common/array.constants';
 
 @Component({
   selector: 'app-index',
@@ -39,6 +40,8 @@ export class IndexComponent implements OnInit {
   departmentList = [];
   categoryList = [];
   viewAppraisal: any;
+  partAShow:string[];
+  partBShow:string[];
 
   constructor(private _handleErrorService: HandleErrorService, private _dataService: DataService, private _notificationService: NotificationService,
     private _authenService: AuthenService) {
@@ -49,11 +52,13 @@ export class IndexComponent implements OnInit {
 
     this.departmentList = JSON.parse(this.currentUser.departmentList);
     this.categoryList = JSON.parse(this.currentUser.categoryList)
-    if (this.currentUser.employeeLvId == 'WK') {
+    this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
+    this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
+    if (this.partAShow.includes(this.currentUser.employeeLvId)) {
       this.supervisoryToggle = true;
       this.leadershipToggle = true;
     }
-    else if (this.currentUser.employeeLvId == 'SV') {
+    else if (this.partBShow.includes(this.currentUser.employeeLvId)) {
       this.leadershipToggle = true;
     }
     this.loadData();
@@ -120,6 +125,8 @@ export class IndexComponent implements OnInit {
     this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
       this.appraisal = {};
       this.appraisal = response;
+      this.appraisal.ReviewerName = this.currentUser.reviewerName;
+      this.appraisal.ReviewerTitle = this.currentUser.reviewerTitle;
       // console.log(this.appraisal);
       this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == response.DepartmentId)[0].Text;
       this.appraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == response.CategoryId)[0].Text;
@@ -277,10 +284,13 @@ export class IndexComponent implements OnInit {
     // End date problem
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.DepartmentId)[0].Text;
-    this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
-      window.open(SystemConstants.BASE_API + response);
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
-    }, error => this._handleErrorService.handleError(error));
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 
   // View Appraisal
@@ -296,6 +306,8 @@ export class IndexComponent implements OnInit {
       this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
         this.viewAppraisal = response;
 
+        this.viewAppraisal.ReviewerName = this.currentUser.reviewerName;
+        this.viewAppraisal.ReviewerTitle = this.currentUser.reviewerTitle
         this.viewAppraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewAppraisal.DepartmentId)[0].Text;
         this.viewAppraisal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewAppraisal.CategoryId)[0].Text;
 
@@ -327,10 +339,13 @@ export class IndexComponent implements OnInit {
 
   exportViewAppraisalToExcel(StatusId) {
     this.viewAppraisal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewAppraisal.DepartmentId)[0].Text;
-    this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewAppraisal)).subscribe((response: any) => {
-      window.open(SystemConstants.BASE_API + response);
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
-    }, error => this._handleErrorService.handleError(error));
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewAppraisal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
   // End of View Appraisal
 }

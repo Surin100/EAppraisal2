@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import {FocusModule} from 'angular2-focus';
+
 import { LoginComponent } from './login.component';
 import { AuthenService } from '../core/services/authen.service';
 import { HandleErrorService } from '../core/services/handle-error.service';
@@ -14,6 +16,7 @@ import { loginRoutes } from './login.routes';
   imports: [
     CommonModule,
     FormsModule,
+    FocusModule.forRoot(),
     RouterModule.forChild(loginRoutes)
   ],
   providers: [AuthenService, UtilityService, NotificationService, HandleErrorService],

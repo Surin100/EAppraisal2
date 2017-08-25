@@ -5,25 +5,143 @@
         <h2></h2>
         <div class="clearfix"></div>
       </div>
-      <div class="x_content" style="min-height:500px">
-        <div class="animate form">
-          <section class="login_content noPadding">
-            <form class="noMargin" #resetPasswordForm="ngForm" novalidate (ngSubmit)="resetPassword()">
-              <div class="item form-group col-md-5 col-sm-5 col-xs-12">
-                <div class=" col-md-2 col-sm-2 col-xs-12">
-                  <label class="control-label pull-right" for="userName">Employee ID:</label>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" class="form-control inputMargin" id="userName" [(ngModel)]="user.userName" name="userName" />
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                  <button type="submit" class="pull-left">Reset Password</button>
-                  <img *ngIf="resetPasswordLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                  />
-                </div>
+      <div class="x_content" style="min-height:800px">
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 class="text-info">Reset Password </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <!-- Reset Password Form -->
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #resetPasswordForm="ngForm" novalidate (ngSubmit)="resetPassword()">
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="userName">Employee ID:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="userName" [(ngModel)]="user.userName" name="userName" />
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="submit" class="btn btn-primary pull-left">Reset Password</button>
+                        <img *ngIf="resetPasswordLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
               </div>
-            </form>
-          </section>
+
+              <!-- /Reset Password Form -->
+
+            </div>
+          </div>
+
+          <!-- Import Employees Form -->
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 class="text-info">Import Employees </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #resetPasswordForm="ngForm" novalidate>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="excelFile">Excel File:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="file" #excelFile name="excelFile" class="form-control inputMargin" multiple="false">
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="submit" (click)="registerEmployees()" class="btn btn-primary pull-left">Register</button>
+                        <img *ngIf="registerEmployeesLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
+
+              <!-- /Import Employees Form -->
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 class="text-info">Assign Line Manager </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <!-- Assign Line Manager Form -->
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #assignLineManagerForm="ngForm" novalidate>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="assignLMUserName">Employee ID:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="assignLMUserName" [(ngModel)]="assignLM.EmployeeUserName" name="employeeUserName"
+                        />
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="assignLM1">LM1:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="assignLM1" [(ngModel)]="assignLM.LM1UserName" name="lm1UserName"
+                        />
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="button" (click)="assignLineManager('LM1')" class="btn btn-primary pull-left">Assign LM1</button>
+                        <img *ngIf="assignLM1Loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="assignLM2">LM2:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="assignLM2" [(ngModel)]="assignLM.LM2UserName" name="lm2UserName"
+                        />
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="button" (click)="assignLineManager('LM2')" class="btn btn-primary pull-left">Assign LM2</button>
+                        <img *ngIf="assignLM2Loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
+
+              <!-- /Assign Line Manager Form -->
+
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
         </div>
       </div>
     </div>

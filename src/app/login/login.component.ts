@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
+    if(this.model.password==undefined) this.model.password = '';
+    // alert(this.model.password);
     this._authenService.login(this.model.username, this.model.password).subscribe((data) => {
     }, error => {
       this._handleErrorService.handleError(error);

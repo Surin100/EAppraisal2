@@ -7,6 +7,8 @@ export class MessageConstants {
     public static SUBMIT_GOAL_SUCCESS = "Your goal has been submitted.";
     public static UPDATED_OK_MSG = "Update succeeded.";
     public static DELETED_OK_MSG = "Delete succeeded.";
+    public static REGISTER_EMPLOYEES_OK_MSG = "Register succeeded."
+    public static ASSIGN_LINEMANAGER_OK_MSG = "Assign succeeded.";
     public static CHANGEPASSWORD_SUCCESS = 'Your password has been changed.';
     public static REJECT_SUCCESS = 'Reject succeeded.';
     public static APPROVE_SUCCESS = 'Approve succeeded.';

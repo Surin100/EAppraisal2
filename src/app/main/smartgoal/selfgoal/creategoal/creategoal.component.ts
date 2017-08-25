@@ -38,7 +38,7 @@ export class CreateGoalComponent implements OnInit {
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _handleErrorService: HandleErrorService) {
     this.currentUser = _authenService.getLoggedInUser();
-
+    
     this.departmentList = JSON.parse(this.currentUser.departmentList);
     this.categoryList = JSON.parse(this.currentUser.categoryList);
   }
@@ -48,8 +48,11 @@ export class CreateGoalComponent implements OnInit {
       associateName: this.currentUser.fullName,
       associateTitle: this.currentUser.jobTitle,
       associateId: this.currentUser.userName,
-      departmentId: this.currentUser.departmentId
+      departmentId: this.currentUser.departmentId,
+      ReviewerName: this.currentUser.reviewerName,
+      ReviewerTitle: this.currentUser.reviewerTitle
     }
+    // console.log(this.currentUser);
     // this.smartGoal.totalScore = 0;
 
     // this.smartGoal.goal1 = 0;
@@ -335,14 +338,20 @@ export class CreateGoalComponent implements OnInit {
     this.smartGoal.personalDevelopmentContent = JSON.stringify(this.personalDevelopmentContents);
 
     this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.departmentId)[0].Text;
-    this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
-      window.open(SystemConstants.BASE_API + response);
-      // window.location.href = this.baseFolder + response.Message;
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
-      this.saveGoalLoading = false;
-    }, error => {
-      this._handleErrorService.handleError(error);
+
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => {
+        this._handleErrorService.handleError(error);
+        this.saveGoalLoading = false;
+      });
+    });
+    exportExcelPromise.then((element)=>{
+      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
       this.saveGoalLoading = false;
     });
+    
   }
 }

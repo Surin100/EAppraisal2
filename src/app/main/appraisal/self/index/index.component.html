@@ -85,10 +85,10 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
+                    <label class="control-label  pull-right" for="reviewerName">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="reviewer" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="appraisal.reviewer" name="reviewer"
+                    <input id="reviewerName" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="appraisal.ReviewerName" name="ReviewerName"
                       type="text" readonly />
                   </div>
                 </div>
@@ -97,8 +97,8 @@
                     <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title - <em class="text-primary">Chức danh:</em></label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="reviewerTitle" class="form-control inputMargin" #ReviewerTitle="ngModel" [(ngModel)]="appraisal.reviewerTitle"
-                      name="reviewerTitle" type="text" readonly />
+                    <input id="reviewerTitle" class="form-control inputMargin" #ReviewerTitle="ngModel" [(ngModel)]="appraisal.ReviewerTitle"
+                      name="ReviewerTitle" type="text" readonly />
                   </div>
                 </div>
               </div>
@@ -623,31 +623,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="personalEfficiency1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null"  [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null"  [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="personalEfficiency2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.PersonalEfficiency"  [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.PersonalEfficiency"  [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="personalEfficiency3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="personalEfficiency4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.PersonalEfficiency" id="personalEfficiency4" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.PersonalEfficiency" id="personalEfficiency4" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="personalEfficiency5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.PersonalEfficiency" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" name="personalEfficiency" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -667,31 +667,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="workforceScheduling1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling1" name="workforceScheduling" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling1" name="workforceScheduling" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="workforceScheduling2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling2" name="workforceScheduling" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling2" name="workforceScheduling" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="workforceScheduling3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling3" name="workforceScheduling" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling3" name="workforceScheduling" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="workforceScheduling4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling4" name="workforceScheduling" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling4" name="workforceScheduling" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="workforceScheduling5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling5" name="workforceScheduling" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.WorkforceScheduling" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="workforceScheduling5" name="workforceScheduling" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -711,31 +711,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="qualityManagement1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement1" name="qualityManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement1" name="qualityManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="qualityManagement2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement2" name="qualityManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement2" name="qualityManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="qualityManagement3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement3" name="qualityManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement3" name="qualityManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="qualityManagement4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement4" name="qualityManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement4" name="qualityManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="qualityManagement5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement5" name="qualityManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.QualityManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="qualityManagement5" name="qualityManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -755,31 +755,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="performanceManagement1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement1" name="performanceManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement1" name="performanceManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="performanceManagement2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement2" name="performanceManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement2" name="performanceManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="performanceManagement3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement3" name="performanceManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement3" name="performanceManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="performanceManagement4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement4" name="performanceManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement4" name="performanceManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="performanceManagement5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement5" name="performanceManagement" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.PerformanceManagement" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="performanceManagement5" name="performanceManagement" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -799,31 +799,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="successionPlanning1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning1" name="successionPlanning" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning1" name="successionPlanning" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="successionPlanning2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning2" name="successionPlanning" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning2" name="successionPlanning" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="successionPlanning3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning3" name="successionPlanning" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning3" name="successionPlanning" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="successionPlanning4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning4" name="successionPlanning" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning4" name="successionPlanning" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="successionPlanning5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning5" name="successionPlanning" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.SuccessionPlanning" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="successionPlanning5" name="successionPlanning" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -843,31 +843,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="managingConflicts1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts1" name="managingConflicts" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts1" name="managingConflicts" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="managingConflicts2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts2" name="managingConflicts" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts2" name="managingConflicts" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="managingConflicts3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts3" name="managingConflicts" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts3" name="managingConflicts" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="managingConflicts4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts4" name="managingConflicts" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts4" name="managingConflicts" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="managingConflicts5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts5" name="managingConflicts" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.ManagingConflicts" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="managingConflicts5" name="managingConflicts" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -887,31 +887,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="celebrateResults1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="1" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults1" name="celebrateResults" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults1" name="celebrateResults" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="celebrateResults2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="2" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults2" name="celebrateResults" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults2" name="celebrateResults" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="celebrateResults3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="3" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults3" name="celebrateResults" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults3" name="celebrateResults" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="celebrateResults4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="4" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults4" name="celebrateResults" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults4" name="celebrateResults" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="celebrateResults5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || null" [value]="5" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults5" name="celebrateResults" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.CelebrateResults" [required]="currentUser. employeeLvId == 'SV' || currentUser. employeeLvId == 'LD'" id="celebrateResults5" name="celebrateResults" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -954,31 +954,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="leadWithVision1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="1" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision1" name="leadWithVision" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision1" name="leadWithVision" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="leadWithVision2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="2" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision2" name="leadWithVision" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision2" name="leadWithVision" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="leadWithVision3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="3" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision3" name="leadWithVision" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision3" name="leadWithVision" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="leadWithVision4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="4" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision4" name="leadWithVision" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision4" name="leadWithVision" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="leadWithVision5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="5" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision5" name="leadWithVision" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.LeadWithVision" [required]="currentUser. employeeLvId == 'LD'" id="leadWithVision5" name="leadWithVision" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -999,31 +999,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="alignAndEngage1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="1" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage1" name="alignAndEngage" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage1" name="alignAndEngage" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="alignAndEngage2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="2" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage2" name="alignAndEngage" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage2" name="alignAndEngage" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="alignAndEngage3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="3" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage3" name="alignAndEngage" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage3" name="alignAndEngage" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="alignAndEngage4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="4" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage4" name="alignAndEngage" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage4" name="alignAndEngage" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="alignAndEngage5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="5" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage5" name="alignAndEngage" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.AlignAndEngage" [required]="currentUser. employeeLvId == 'LD'" id="alignAndEngage5" name="alignAndEngage" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>
@@ -1044,31 +1044,31 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="talentMagnet1">1</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="1" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet1" name="talentMagnet" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="1" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet1" name="talentMagnet" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="talentMagnet2">2</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="2" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet2" name="talentMagnet" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="2" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet2" name="talentMagnet" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="talentMagnet3">3</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="3" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet3" name="talentMagnet" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="3" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet3" name="talentMagnet" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="talentMagnet4">4</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="4" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet4" name="talentMagnet" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="4" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet4" name="talentMagnet" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="talentMagnet5">5</label>
                         <label>
-                      <input type="radio" [attr.disabled]="currentUser. employeeLvId == 'WK' || currentUser. employeeLvId == 'SV' || null" [value]="5" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet5" name="talentMagnet" (change)="generateSubTotal1()"/>
+                      <input type="radio" [attr.disabled]="this.partAShow.includes(this.currentUser.employeeLvId) || this.partBShow.includes(this.currentUser.employeeLvId) || null" [value]="5" [(ngModel)]="appraisal.TalentMagnet" [required]="currentUser. employeeLvId == 'LD'" id="talentMagnet5" name="talentMagnet" (change)="generateSubTotal1()"/>
                     </label>
                       </div>
                     </td>

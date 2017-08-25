@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import {FocusModule} from 'angular2-focus';
+
 import { ChangePasswordComponent } from './change-password.component';
 import { changePasswordRoutes } from './change-password.routes';
 import { DataService } from '../core/services/data.service';
@@ -15,6 +17,7 @@ import { UtilityService } from '../core/services/utility.service';
   imports: [
     CommonModule,
     FormsModule,
+    FocusModule.forRoot(),
     RouterModule.forChild(changePasswordRoutes)
   ],
   providers:[DataService, AuthenService, NotificationService, UtilityService, HandleErrorService],
