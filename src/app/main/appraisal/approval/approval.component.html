@@ -66,7 +66,7 @@
           <div class="animate form">
             <section class="login_content noPadding">
               <form class="noMargin form-label-right" #approveAppraisalForm="ngForm" novalidate (ngSubmit)="approveAppraisal(approveAppraisalForm.valid)"
-                *ngIf='appraisal'>
+                *ngIf='appraisalApproval'>
                 <!-- Left Column -->
                 <div class="col-md-5 col-sm-12 col-xs-12">
                   <div class="item form-group">
@@ -74,8 +74,7 @@
                       <label class="control-label  pull-right" for="associateName">Associate's Name - <em class="text-primary">Nhân viên:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="associateName" class="form-control inputMargin" #associateName="ngModel" [(ngModel)]="appraisal.AssociateName"
-                        name="associateName" type="text" required readonly />
+                      <input id="associateName" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateName" name="associateName" type="text" required readonly />
                     </div>
                   </div>
                   <div class="item form-group">
@@ -83,8 +82,7 @@
                       <label class="control-label  pull-right" for="associateTitle">Associate's Title - <em class="text-primary">Chức danh:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="asscociateTitle" class="form-control inputMargin" #associateTitle="ngModel" [(ngModel)]="appraisal.AssociateTitle"
-                        name="asscociateTitle" type="text" required readonly/>
+                      <input id="asscociateTitle" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateTitle" name="asscociateTitle" type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group">
@@ -92,7 +90,7 @@
                       <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewer" class="form-control inputMargin" #reviewer="ngModel" [(ngModel)]="appraisalApproval.reviewerName" name="reviewer"
+                      <input id="reviewerName" class="form-control inputMargin" #reviewerName="ngModel" [(ngModel)]="appraisalApproval.reviewerName" name="reviewerName"
                         type="text" required />
                     </div>
                   </div>
@@ -115,7 +113,7 @@
                       <label class="control-label  pull-right" for="associateId">Associate ID - <em class="text-primary">Mã số nhân viên:</em></label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisal.AssociateId" name="asscociateId"
+                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisalApproval.AssociateId" name="asscociateId"
                         type="text" required readonly/>
                     </div>
                   </div>
@@ -124,7 +122,7 @@
                       <label class="control-label  pull-right" for="department">Department - <em class="text-primary">Bộ phận:</em></label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input id="departmentEnName" class="form-control inputMargin" #departmentEnName="ngModel" [(ngModel)]="appraisal.departmentEnName"
+                      <input id="departmentEnName" class="form-control inputMargin" #departmentEnName="ngModel" [(ngModel)]="appraisalApproval.departmentEnName"
                         name="departmentEnName" type="text" required readonly/>
                     </div>
                   </div>
@@ -137,7 +135,7 @@
                         <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                        <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisal.From" type="text" required readonly/>
+                        <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisalApproval.From" type="text" required readonly/>
                       </div>
                     </div>
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
@@ -145,7 +143,7 @@
                         <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-                        <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisal.To" type="text" required readonly />
+                        <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisalApproval.To" type="text" required readonly />
                       </div>
                     </div>
                   </div>
@@ -202,31 +200,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="customerDriven1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven1" name="customerDriven" disabled/>
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven1" name="customerDriven" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven2" name="customerDriven" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven2" name="customerDriven" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven3" name="customerDriven" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven3" name="customerDriven" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven4" name="customerDriven" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven4" name="customerDriven" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.CustomerDriven" required id="customerDriven5" name="customerDriven" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven5" name="customerDriven" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -247,31 +245,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="questForExcellence1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence1" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence1" name="questForExcellence" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence2" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence2" name="questForExcellence" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence3" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence3" name="questForExcellence" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence4" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence4" name="questForExcellence" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.QuestForExcellence" required id="questForExcellence5" name="questForExcellence" disabled/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence5" name="questForExcellence" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -292,31 +290,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="teamWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.TeamWork" required id="teamWork1" name="teamWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork1" name="teamWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisal.TeamWork" required id="teamWork2" name="teamWork" disabled/>
+                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork2" name="teamWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisal.TeamWork" required id="teamWork3" name="teamWork" disabled/>
+                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork3" name="teamWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisal.TeamWork" required id="teamWork4" name="teamWork" disabled/>
+                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork4" name="teamWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.TeamWork" required id="teamWork5" name="teamWork" disabled/>
+                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork5" name="teamWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -337,31 +335,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -382,31 +380,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="enterprising1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Enterprising" required id="enterprising1" name="enterprising" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising1" name="enterprising" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Enterprising" required id="enterprising2" name="enterprising" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising2" name="enterprising" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Enterprising" required id="enterprising3" name="enterprising" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising3" name="enterprising" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Enterprising" required id="enterprising4" name="enterprising" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising4" name="enterprising" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Enterprising" required id="enterprising5" name="enterprising" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising5" name="enterprising" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -427,31 +425,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="communication1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Communication" required id="communication1" name="communication" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Communication" required id="communication1" name="communication" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Communication" required id="communication2" name="communication" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Communication" required id="communication2" name="communication" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Communication" required id="communication3" name="communication" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Communication" required id="communication3" name="communication" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Communication" required id="communication4" name="communication" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Communication" required id="communication4" name="communication" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Communication" required id="communication5" name="communication" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Communication" required id="communication5" name="communication" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -472,31 +470,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="dependability1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Dependability" required id="dependability1" name="dependability" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Dependability" required id="dependability1" name="dependability" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Dependability" required id="dependability2" name="dependability" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Dependability" required id="dependability2" name="dependability" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Dependability" required id="dependability3" name="dependability" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Dependability" required id="dependability3" name="dependability" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Dependability" required id="dependability4" name="dependability" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Dependability" required id="dependability4" name="dependability" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Dependability" required id="dependability5" name="dependability" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Dependability" required id="dependability5" name="dependability" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -516,31 +514,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -560,31 +558,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -598,11 +596,12 @@
                   <thead>
                     <tr class="abc">
                       <th colspan=3>
-                        b. Supervisory Competency - Năng lực giám sát
+                        b. Supervisory Competency - Năng lực giám sát <a *ngIf="supervisoryToggle" href="#bodySupervisory" (click)="supervisoryClick()"
+                        data-toggle="collapse" class="pull-right"><i class="fa" [ngClass]="{'fa-chevron-up':supervisoryChevron,'fa-chevron-down':!supervisoryChevron}"></i></a>
                       </th>
                     </tr>
                   </thead>
-                  <tbody id="bodySupervisory">
+                  <tbody id="bodySupervisory" [ngClass]="{'collapse':supervisoryToggle}">
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
@@ -625,31 +624,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency1">1</label>
                           <label>
-                      <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency2">2</label>
                           <label>
-                      <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisal.PersonalEfficiency"    name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency3">3</label>
                           <label>
-                      <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.personalEfficiency" id="PersonalEfficiency4"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="4" id="PersonalEfficiency4" [(ngModel)]="appraisalApproval.personalEfficiency" name="personalEfficiency" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency5">5</label>
                           <label>
-                      <input type="radio" [value]="5" id="personalEfficiency5"  [(ngModel)]="appraisal.PersonalEfficiency"   name="personalEfficiency" disabled/>
+                      <input type="radio" [value]="5" id="personalEfficiency5" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -669,31 +668,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -713,31 +712,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityManagement1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement1" name="qualityManagement"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement1" name="qualityManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement2" name="qualityManagement"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement2" name="qualityManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement3" name="qualityManagement"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement3" name="qualityManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement4" name="qualityManagement"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement4" name="qualityManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.QualityManagement" id="qualityManagement5" name="qualityManagement"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement5" name="qualityManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -757,31 +756,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="performanceManagement1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement1" name="performanceManagement"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement1" name="performanceManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement2" name="performanceManagement"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement2" name="performanceManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement3" name="performanceManagement"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement3" name="performanceManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement4" name="performanceManagement"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement4" name="performanceManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.PerformanceManagement" id="performanceManagement5" name="performanceManagement"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement5" name="performanceManagement" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -801,31 +800,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="successionPlanning1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning1" name="successionPlanning"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning1" name="successionPlanning" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning2" name="successionPlanning"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning2" name="successionPlanning" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning3" name="successionPlanning"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning3" name="successionPlanning" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning4" name="successionPlanning"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning4" name="successionPlanning" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.SuccessionPlanning" id="successionPlanning5" name="successionPlanning"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning5" name="successionPlanning" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -845,31 +844,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="managingConflicts1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts1" name="managingConflicts"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts1" name="managingConflicts" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts2" name="managingConflicts"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts2" name="managingConflicts" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts3" name="managingConflicts"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts3" name="managingConflicts" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts4" name="managingConflicts"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts4" name="managingConflicts" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.ManagingConflicts" id="managingConflicts5" name="managingConflicts"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts5" name="managingConflicts" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -889,31 +888,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="celebrateResults1">1</label>
                           <label>
-                      <input type="radio" disabled [value]="1" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults1" name="celebrateResults"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults1" name="celebrateResults" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults2">2</label>
                           <label>
-                      <input type="radio" disabled [value]="2" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults2" name="celebrateResults"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults2" name="celebrateResults" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults3">3</label>
                           <label>
-                      <input type="radio" disabled [value]="3" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults3" name="celebrateResults"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults3" name="celebrateResults" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults4">4</label>
                           <label>
-                      <input type="radio" disabled [value]="4" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults4" name="celebrateResults"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults4" name="celebrateResults" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults5">5</label>
                           <label>
-                      <input type="radio" disabled [value]="5" [(ngModel)]="appraisal.CelebrateResults" id="celebrateResults5" name="celebrateResults"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults5" name="celebrateResults" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -927,11 +926,12 @@
                   <thead>
                     <tr class="abc">
                       <th colspan=3>
-                        c. People Leadership - Năng lực lãnh đạo
+                        c. People Leadership - Năng lực lãnh đạo <a *ngIf="leadershipToggle" href="#bodyLeadership" (click)="leadershipClick()"
+                        data-toggle="collapse" class="pull-right"><i class="fa" [ngClass]="{'fa-chevron-up':leadershipChevron,'fa-chevron-down':!leadershipChevron}"></i></a>
                       </th>
                     </tr>
                   </thead>
-                  <tbody id="bodyLeadership">
+                  <tbody id="bodyLeadership" [ngClass]="{'collapse':leadershipToggle}">
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
@@ -955,31 +955,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="leadWithVision1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision1" name="leadWithVision"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision1" name="leadWithVision" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision2" name="leadWithVision"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision2" name="leadWithVision" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision3" name="leadWithVision"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision3" name="leadWithVision" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision4" name="leadWithVision"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision4" name="leadWithVision" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.LeadWithVision" id="leadWithVision5" name="leadWithVision"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision5" name="leadWithVision" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -1000,31 +1000,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -1045,31 +1045,31 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="talentMagnet1">1</label>
                           <label>
-                      <input type="radio"  disabled [value]="1" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet1" name="talentMagnet"/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet1" name="talentMagnet" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet2">2</label>
                           <label>
-                      <input type="radio"  disabled [value]="2" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet2" name="talentMagnet"/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet2" name="talentMagnet" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet3">3</label>
                           <label>
-                      <input type="radio"  disabled [value]="3" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet3" name="talentMagnet"/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet3" name="talentMagnet" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet4">4</label>
                           <label>
-                      <input type="radio"  disabled [value]="4" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet4" name="talentMagnet"/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet4" name="talentMagnet" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet5">5</label>
                           <label>
-                      <input type="radio"  disabled [value]="5" [(ngModel)]="appraisal.TalentMagnet" id="talentMagnet5" name="talentMagnet"/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet5" name="talentMagnet" [attr.disabled]="partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"/>
                     </label>
                         </div>
                       </td>
@@ -1082,7 +1082,7 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.SubTotal1 | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.SubTotal1 | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
@@ -1122,37 +1122,39 @@
                         <strong>Goal 1/ <em class="text-primary">Mục tiêu 1</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal1Content" name="goal1Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal1Content" name="goal1Content"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                            <input hidden type="radio" id="goal10" name="goal1" [checked]="!appraisalApproval.Goal1Content.trim()? uncheckGoal('goal1'):false" *ngIf="appraisalApproval.Goal1"
+                            />
                           <label class="text-left radioPadding" for="goal11">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal1" id="goal11" name="goal1" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal1" id="goal11" name="goal1" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal1Content || null" [required] = "appraisalApproval.Goal1Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal12">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal1" id="goal12" name="goal1" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal1" id="goal12" name="goal1" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal1Content || null" [required] = "appraisalApproval.Goal1Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal13">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal1" id="goal13" name="goal1" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal1" id="goal13" name="goal1" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal1Content || null" [required] = "appraisalApproval.Goal1Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal14">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal1" id="goal14" name="goal1" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal1" id="goal14" name="goal1" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal1Content || null" [required] = "appraisalApproval.Goal1Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal15">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal1" id="goal15" name="goal1" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal1" id="goal15" name="goal1" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal1Content || null" [required] = "appraisalApproval.Goal1Content"/>
                     </label>
                         </div>
                       </td>
@@ -1162,37 +1164,39 @@
                         <strong>Goal 2/ <em class="text-primary">Mục tiêu 2</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal2Content" name="goal2Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal2Content" name="goal2Content"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                            <input hidden type="radio" id="goal20" name="goal2" [checked]="!appraisalApproval.Goal2Content.trim()? uncheckGoal('goal2'):false" *ngIf="appraisalApproval.Goal2"
+                            />
                           <label class="text-left radioPadding" for="goal21">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal2" id="goal21" name="goal2" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal2" id="goal21" name="goal2" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal2Content || null" [required] = "appraisalApproval.Goal2Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal22">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal2" id="goal22" name="goal2" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal2" id="goal22" name="goal2" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal2Content || null" [required] = "appraisalApproval.Goal2Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal23">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal2" id="goal23" name="goal2" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal2" id="goal23" name="goal2" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal2Content || null" [required] = "appraisalApproval.Goal2Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal24">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal2" id="goal24" name="goal2" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal2" id="goal24" name="goal2" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal2Content || null" [required] = "appraisalApproval.Goal2Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal25">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal2" id="goal25" name="goal2" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal2" id="goal25" name="goal2" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal2Content || null" [required] = "appraisalApproval.Goal2Content"/>
                     </label>
                         </div>
                       </td>
@@ -1203,37 +1207,39 @@
                         <strong>Goal 3/ <em class="text-primary">Mục tiêu 3</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal3Content" name="goal3Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal3Content" name="goal3Content" readonly></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                            <input hidden type="radio" id="goal30" name="goal3" [checked]="!appraisalApproval.Goal3Content.trim()? uncheckGoal('goal3'):false" *ngIf="appraisalApproval.Goal3"
+                            />
                           <label class="text-left radioPadding" for="goal31">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal3" id="goal31" name="goal3" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal3" id="goal31" name="goal3" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal3Content || null" [required] = "appraisalApproval.Goal3Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal32">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal3" id="goal32" name="goal3" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal3" id="goal32" name="goal3" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal3Content || null" [required] = "appraisalApproval.Goal3Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal33">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal3" id="goal33" name="goal3" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal3" id="goal33" name="goal3" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal3Content || null" [required] = "appraisalApproval.Goal3Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal34">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal3" id="goal34" name="goal3" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal3" id="goal34" name="goal3" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal3Content || null" [required] = "appraisalApproval.Goal3Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal35">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisal.Goal3" id="goal35" name="goal3" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal3" id="goal35" name="goal3" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal3Content || null" [required] = "appraisalApproval.Goal3Content"/>
                     </label>
                         </div>
                       </td>
@@ -1243,37 +1249,39 @@
                         <strong>Goal 4/ <em class="text-primary">Mục tiêu 4</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.Goal4Content" name="goal4Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal4Content" name="goal4Content"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
+                            <input hidden type="radio" id="goal40" name="goal4" [checked]="!appraisalApproval.Goal4Content.trim()? uncheckGoal('goal4'):false" *ngIf="appraisalApproval.Goal4"
+                            />
                           <label class="text-left radioPadding" for="goal41">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisal.Goal4" id="goal41" name="goal4" disabled/>
+                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal4" id="goal41" name="goal4" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal4Content || null" [required] = "appraisalApproval.Goal4Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal42">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisal.Goal4" id="goal42" name="goal4" disabled/>
+                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal4" id="goal42" name="goal4" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal4Content || null" [required] = "appraisalApproval.Goal4Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal43">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisal.Goal4" id="goal43" name="goal4" disabled/>
+                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal4" id="goal43" name="goal4" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal4Content || null" [required] = "appraisalApproval.Goal4Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal44">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisal.Goal4" id="goal44" name="goal4" disabled/>
+                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal4" id="goal44" name="goal4" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal4Content || null" [required] = "appraisalApproval.Goal4Content"/>
                     </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal45">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisal.Goal4" id="goal45" name="goal4" disabled/>
+                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal4" id="goal45" name="goal4" (change)="generateSubTotal2()" [attr.disabled]="!appraisalApproval.Goal4Content || null" [required] = "appraisalApproval.Goal4Content"/>
                     </label>
                         </div>
                       </td>
@@ -1286,14 +1294,14 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.SubTotal2 | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.SubTotal2 | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="3">
                         Appraisee's comments - <em class="text-primary">Nhận xét của người được đánh giá</em>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisal.AppraiseeComment" name="appraiseeComment" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.AppraiseeComment" name="appraiseeComment" readonly></textarea>
                       </td>
                     </tr>
                     <tr>
@@ -1322,7 +1330,7 @@
                       </td>
                       <td class="total">
                         <h4 class="text-center">
-                          <strong>{{appraisal.Conclusion | number:'1.0-2'}}</strong>
+                          <strong>{{appraisalApproval.Conclusion | number:'1.0-2'}}</strong>
                         </h4>
                       </td>
                     </tr>
@@ -1418,8 +1426,9 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="categoryName" class="form-control inputMargin" #category="ngModel" [(ngModel)]="appraisal.categoryName" name="categoryName"
-                        type="text" required readonly />
+                        <select class="form-control inputMargin" [(ngModel)]="appraisalApproval.CategoryId" name="categoryId" required>
+                            <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
+                          </select>
                     </div>
                   </div>
                 </div>

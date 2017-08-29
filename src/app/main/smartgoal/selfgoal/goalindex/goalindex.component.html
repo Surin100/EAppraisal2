@@ -239,7 +239,7 @@
                         <tbody>
                           <tr *ngFor="let content of goal1Contents; let in=index">
                             <td>
-                              <textarea autosize name="goal1ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan? removeContent('goal1', in):''"></textarea>
+                              <textarea autosize name="goal1ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal1', in):''"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal1ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
@@ -250,7 +250,7 @@
                           </tr>
                           <tr>
                             <td>
-                              <textarea autosize name="goal1ContentPlan" id="goal1ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal1Content.plan"></textarea>
+                              <textarea autosize name="goal1ContentPlan" id="goal1ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal1Content.plan" (keydown.shift.enter)="addContent('goal1')"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal1ContentDate" class="my-textarea" [(ngModel)]="goal1Content.date"></textarea>
@@ -328,7 +328,7 @@
                         <tbody>
                           <tr *ngFor="let content of goal2Contents; let in=index">
                             <td>
-                              <textarea autosize name="goal2ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan? removeContent('goal2', in):''"></textarea>
+                              <textarea autosize name="goal2ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal2', in):''"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal2ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
@@ -339,7 +339,7 @@
                           </tr>
                           <tr>
                             <td>
-                              <textarea autosize name="goal2ContentPlan" id="goal2ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal2Content.plan"></textarea>
+                              <textarea autosize name="goal2ContentPlan" id="goal2ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal2Content.plan" (keydown.shift.enter)="addContent('goal2')"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal2ContentDate" class="my-textarea" [(ngModel)]="goal2Content.date"></textarea>
@@ -417,7 +417,7 @@
                         <tbody>
                           <tr *ngFor="let content of goal3Contents; let in=index">
                             <td>
-                              <textarea autosize name="goal3ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan? removeContent('goal3', in):''"></textarea>
+                              <textarea autosize name="goal3ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal3', in):''"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal3ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
@@ -428,7 +428,7 @@
                           </tr>
                           <tr>
                             <td>
-                              <textarea autosize name="goal3ContentPlan" id="goal3ContentPlan" class="my-textarea" [(ngModel)]="goal3Content.plan"></textarea>
+                              <textarea autosize name="goal3ContentPlan" id="goal3ContentPlan" class="my-textarea" [(ngModel)]="goal3Content.plan" (keydown.shift.enter)="addContent('goal3')"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal3ContentDate" class="my-textarea" [(ngModel)]="goal3Content.date"></textarea>
@@ -506,7 +506,7 @@
                         <tbody>
                           <tr *ngFor="let content of goal4Contents; let in=index">
                             <td>
-                              <textarea autosize name="goal4ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan? removeContent('goal4', in):''"></textarea>
+                              <textarea autosize name="goal4ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal4', in):''"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal4ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
@@ -517,7 +517,7 @@
                           </tr>
                           <tr>
                             <td>
-                              <textarea autosize name="goal4ContentPlan" id="goal4ContentPlan" class="my-textarea" [(ngModel)]="goal4Content.plan"></textarea>
+                              <textarea autosize name="goal4ContentPlan" id="goal4ContentPlan" class="my-textarea" [(ngModel)]="goal4Content.plan" (keydown.shift.enter)="addContent('goal4')"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="goal4ContentDate" class="my-textarea" [(ngModel)]="goal4Content.date"></textarea>
@@ -635,7 +635,7 @@
                   <!-- Personal Development -->
                   <tr>
                     <td>
-                      <textarea autosize name="personalDevelopmentArea" [(ngModel)]="smartGoal.PersonalDevelopmentArea" class="my-textarea" (keyup)="!smartGoal.PersonalDevelopmentArea? removePersonalDevelopment():''"></textarea>
+                      <textarea autosize name="personalDevelopmentArea" [(ngModel)]="smartGoal.PersonalDevelopmentArea" class="my-textarea" (keyup)="!smartGoal.PersonalDevelopmentArea.trim()? removePersonalDevelopment():''"></textarea>
                     </td>
                     <td colspan="3" class="noPadding">
 
@@ -643,7 +643,7 @@
                         <tbody>
                           <tr *ngFor="let content of personalDevelopmentContents; let in=index">
                             <td>
-                              <textarea autosize name="personalDevelopmentContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan? removePersonalDevelopmentContent(in):''"></textarea>
+                              <textarea autosize name="personalDevelopmentContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removePersonalDevelopmentContent(in):''"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="personalDevelopmentContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
@@ -655,7 +655,7 @@
                           <tr>
                             <td>
                               <textarea autosize name="personalDevelopmentContentPlan" id="personalDevelopmentContentPlan" [(ngModel)]="personalDevelopmentContent.plan"
-                                class="my-textarea"></textarea>
+                                class="my-textarea" (keydown.shift.enter)="addPersonalDevelopmentContent()"></textarea>
                             </td>
                             <td class="col-md-2 col-sm-2 col-xs-2">
                               <textarea autosize name="personalDevelopmentContentDate" [(ngModel)]="personalDevelopmentContent.date" class="my-textarea"></textarea>

@@ -134,6 +134,7 @@ export class CreateGoalComponent implements OnInit {
 
   // Goal content
   addContent(name: string): void {
+    // debugger;
     switch (name) {
       case 'goal1':
         if (!this.goal1Content.plan) return;

@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
   baseFolder: string = SystemConstants.BASE_API;
   partAShow:string[];
   partBShow:string[];
+  partCShow:string[];
 
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -64,6 +65,7 @@ export class CreateComponent implements OnInit {
     // debugger
     this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
     this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
+    this.partCShow = ArrayConstants.LEADER_LEVEL;
     if (this.partAShow.includes(this.currentUser.employeeLvId)) {
       this.supervisoryToggle = true;
       this.leadershipToggle = true;
@@ -215,6 +217,8 @@ export class CreateComponent implements OnInit {
 
     this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
   }
+
+// End of Generate conclusion
 
   exportExcel() {
       //  alert(JSON.stringify(this.appraisalFrom));
