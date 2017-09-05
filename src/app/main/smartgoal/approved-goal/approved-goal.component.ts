@@ -75,7 +75,7 @@ export class ApprovedGoalComponent implements OnInit {
     this._dataService.get('/api/SmartGoalApproval/getSmartGoalApproval/' + Id).subscribe((response: any) => {
       this.smartGoalApproval = response;
       // console.log(response);
-      this.smartGoalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == response.DepartmentId)[0].Text;
+      this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == response.DepartmentId)[0].Text;
       this.smartGoalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == response.CategoryId)[0].Text;
       let fromDate = new Date(response.From);
       this.smartGoalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();

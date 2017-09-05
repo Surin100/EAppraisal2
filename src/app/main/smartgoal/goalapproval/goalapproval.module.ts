@@ -8,6 +8,7 @@ import { goalApprovalRoutes} from './goalapproval.routes';
 import { GoalApprovalComponent } from './goalapproval.component';
 import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
+import { AutosizeModule } from '../../autosize/autosize.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     CommonModule,
     PaginationModule.forRoot(),
     MyDatePickerModule,
+    AutosizeModule,
     FormsModule,
     ModalModule.forRoot(),
     RouterModule.forChild(goalApprovalRoutes)

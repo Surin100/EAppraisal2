@@ -48,13 +48,13 @@ th em{
     vertical-align: middle;
 }
 
-.tableContent{
+/* .tableContent{
     border: none;
     border-collapse: collapse;
-}
+} */
 
 .tableContent td{
-    border: none;
+    /* border: none; */
     height: 2em !important;
 }
 

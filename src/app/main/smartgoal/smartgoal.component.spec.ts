@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SmartgoalComponent } from './smartgoal.component';
+import { SmartGoalComponent } from './smartgoal.component';
 
 describe('SmartgoalComponent', () => {
-  let component: SmartgoalComponent;
-  let fixture: ComponentFixture<SmartgoalComponent>;
+  let component: SmartGoalComponent;
+  let fixture: ComponentFixture<SmartGoalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SmartgoalComponent ]
+      declarations: [ SmartGoalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SmartgoalComponent);
+    fixture = TestBed.createComponent(SmartGoalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

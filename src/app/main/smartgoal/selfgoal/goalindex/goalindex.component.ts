@@ -211,44 +211,44 @@ export class GoalIndexComponent implements OnInit {
   addContent(name: string): void {
     switch (name) {
       case 'goal1':
-        if (!this.goal1Content.plan) return;
+        if (!this.goal1Content.plan.trim()) return;
         let newGoal1Content = {
-          plan: this.goal1Content.plan,
-          date: this.goal1Content.date,
-          measure: this.goal1Content.measure
+          plan: this.goal1Content.plan.trim(),
+          date: this.goal1Content.date? this.goal1Content.date.trim(): undefined,
+          measure: this.goal1Content.measure? this.goal1Content.measure.trim(): undefined
         };
         this.goal1Contents.push(newGoal1Content);
         this.goal1Content = {};
         document.getElementById('goal1ContentPlan').focus();
         break;
       case 'goal2':
-        if (!this.goal2Content.plan) return;
+        if (!this.goal2Content.plan.trim()) return;
         let newGoal2Content = {
-          plan: this.goal2Content.plan,
-          date: this.goal2Content.date,
-          measure: this.goal2Content.measure
+          plan: this.goal2Content.plan.trim(),
+          date: this.goal2Content.date? this.goal2Content.date.trim(): undefined,
+          measure: this.goal2Content.measure? this.goal2Content.measure.trim(): undefined
         };
         this.goal2Contents.push(newGoal2Content);
         this.goal2Content = {};
         document.getElementById('goal2ContentPlan').focus();
         break;
       case 'goal3':
-        if (!this.goal3Content.plan) return;
+        if (!this.goal3Content.plan.trim()) return;
         let newGoal3Content = {
-          plan: this.goal3Content.plan,
-          date: this.goal3Content.date,
-          measure: this.goal3Content.measure
+          plan: this.goal3Content.plan.trim(),
+          date: this.goal3Content.date? this.goal3Content.date.trim(): undefined,
+          measure: this.goal3Content.measure? this.goal3Content.measure.trim(): undefined
         };
         this.goal3Contents.push(newGoal3Content);
         this.goal3Content = {};
         document.getElementById('goal3ContentPlan').focus();
         break;
       case 'goal4':
-        if (!this.goal4Content.plan) return;
+        if (!this.goal4Content.plan.trim()) return;
         let newGoal4Content = {
-          plan: this.goal4Content.plan,
-          date: this.goal4Content.date,
-          measure: this.goal4Content.measure
+          plan: this.goal4Content.plan.trim(),
+          date: this.goal4Content.date? this.goal4Content.date.trim(): undefined,
+          measure: this.goal4Content.measure? this.goal4Content.measure.trim(): undefined
         };
         this.goal4Contents.push(newGoal4Content);
         this.goal4Content = {};
@@ -362,9 +362,9 @@ export class GoalIndexComponent implements OnInit {
   addPersonalDevelopmentContent(): void {
     if (!this.personalDevelopmentContent.plan) return;
     let newPersonalDevelopmentContent = {
-      plan: this.personalDevelopmentContent.plan,
-      date: this.personalDevelopmentContent.date,
-      measure: this.personalDevelopmentContent.measure
+      plan: this.personalDevelopmentContent.plan.trim(),
+      date: this.personalDevelopmentContent.date? this.personalDevelopmentContent.date.trim(): undefined,
+      measure: this.personalDevelopmentContent.measure? this.personalDevelopmentContent.measure.trim(): undefined
     };
     this.personalDevelopmentContents.push(newPersonalDevelopmentContent);
     this.personalDevelopmentContent = {};
