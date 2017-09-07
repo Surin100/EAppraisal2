@@ -40,7 +40,7 @@ th em{
 }
 
 .tablePart1 td:nth-child(1){
-    text-align: center !important;
+    text-align: center;
 }
 
 .tablePart1 td:nth-child(2), .tablePart1 td:nth-child(3), .tablePart1ab td, .tableContent td{
@@ -48,6 +48,19 @@ th em{
     vertical-align: middle;
 }
 
+.tableContent{
+    border: none;
+    border-collapse: collapse;
+}
+
+.tableContent td{
+    border: none;
+    height: 2em !important;
+}
+
+.tablePart1ab td, .termTable td{
+    height: 5em;
+} 
 
 .radioPadding{
     padding-left: 2px !important;

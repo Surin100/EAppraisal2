@@ -47,6 +47,11 @@ export class GoalIndexComponent implements OnInit {
   goal4Content: any = {};
   personalDevelopmentContents = [];
   personalDevelopmentContent: any = {};
+  viewGoal1Contents = [];
+  viewGoal2Contents = [];
+  viewGoal3Contents = [];
+  viewGoal4Contents = [];
+  viewPersonalDevelopmentContents = [];
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService,
     private _notificationService: NotificationService) {
@@ -432,21 +437,29 @@ export class GoalIndexComponent implements OnInit {
   }
 
   loadViewSmartGoal(Id, StatusId) {
+
     if (StatusId == 'S') {
       this._dataService.get('/api/smartgoal/getSmartGoal/' + Id).subscribe((response: any) => {
         this.viewSmartGoal = response;
 
         this.viewSmartGoal.ReviewerName = this.currentUser.reviewerName;
         this.viewSmartGoal.ReviewerTitle = this.currentUser.reviewerTitle
-        this.viewSmartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewSmartGoal.DepartmentId)[0].Text;
-        this.viewSmartGoal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
+        this.viewSmartGoal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewSmartGoal.DepartmentId)[0].Text;
+        this.viewSmartGoal.CategoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
 
         let fromDate = new Date(this.viewSmartGoal.From);
         this.viewSmartGoal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
         let toDate = new Date(this.viewSmartGoal.To);
         this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
-        this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+        this.viewSmartGoal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+
+        this.viewGoal1Contents = JSON.parse(response.Goal1Content);
+        this.viewGoal2Contents = JSON.parse(response.Goal2Content);
+        this.viewGoal3Contents = JSON.parse(response.Goal3Content);
+        this.viewGoal4Contents = JSON.parse(response.Goal4Content);
+        this.viewPersonalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
+        // alert(JSON.stringify(response));
       }, error => this._handleErrorService.handleError(error));
     }
     else {
@@ -462,15 +475,21 @@ export class GoalIndexComponent implements OnInit {
         this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
         this.viewSmartGoal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+
+        this.viewGoal1Contents = JSON.parse(response.Goal1Content);
+        this.viewGoal2Contents = JSON.parse(response.Goal2Content);
+        this.viewGoal3Contents = JSON.parse(response.Goal3Content);
+        this.viewGoal4Contents = JSON.parse(response.Goal4Content);
+        this.viewPersonalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
         // console.log(this.viewSmartGoal);
       }, error => this._handleErrorService.handleError(error));
     }
   }
 
-  exportviewSmartGoalToExcel(StatusId) {
+  exportViewSmartGoalToExcel() {
     this.viewSmartGoal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewSmartGoal.DepartmentId)[0].Text;
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
-      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewSmartGoal)).subscribe((response: any) => {
+      this._dataService.post('/api/smartgoal/exportExcel', JSON.stringify(this.viewSmartGoal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         Resolve(response);
       }, error => this._handleErrorService.handleError(error));

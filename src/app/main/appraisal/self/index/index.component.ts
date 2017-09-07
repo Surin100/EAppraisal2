@@ -332,12 +332,12 @@ export class IndexComponent implements OnInit {
         this.appraisalto = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewAppraisal.ReviewDate);
         this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
-        // console.log(this.viewAppraisal);
+        console.log(this.viewAppraisal);
       }, error => this._handleErrorService.handleError(error));
     }
   }
 
-  exportViewAppraisalToExcel(StatusId) {
+  exportViewAppraisalToExcel() {
     this.viewAppraisal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewAppraisal.DepartmentId)[0].Text;
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewAppraisal)).subscribe((response: any) => {
