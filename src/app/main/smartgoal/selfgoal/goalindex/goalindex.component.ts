@@ -19,6 +19,7 @@ import { SystemConstants } from '../../../../core/common/system.constants';
 
 export class GoalIndexComponent implements OnInit {
   @ViewChild('modifySmartGoalModal') public modifySmartGoalModal: ModalDirective;
+  @ViewChild('viewSmartGoalModal') public viewSmartGoalModal: ModalDirective;
   saveGoalLoading: Boolean;
   smartGoals = [];
   pageIndex: number = 1;
@@ -32,6 +33,7 @@ export class GoalIndexComponent implements OnInit {
   deleteSmartGoalLoading: Boolean;
   height: string;
   smartGoal: any;
+  viewSmartGoal:any;
   smartGoalFrom;
   smartGoalTo;
   temporarydate;
@@ -420,4 +422,60 @@ export class GoalIndexComponent implements OnInit {
       this.saveGoalLoading = false;
     });
   }
+
+  // View Smart Goal
+
+  showViewSmartGoalModal(Id, StatusId) {
+    this.loadViewSmartGoal(Id, StatusId);
+    this.viewSmartGoalModal.show();
+
+  }
+
+  loadViewSmartGoal(Id, StatusId) {
+    if (StatusId == 'S') {
+      this._dataService.get('/api/smartgoal/getSmartGoal/' + Id).subscribe((response: any) => {
+        this.viewSmartGoal = response;
+
+        this.viewSmartGoal.ReviewerName = this.currentUser.reviewerName;
+        this.viewSmartGoal.ReviewerTitle = this.currentUser.reviewerTitle
+        this.viewSmartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewSmartGoal.DepartmentId)[0].Text;
+        this.viewSmartGoal.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
+
+        let fromDate = new Date(this.viewSmartGoal.From);
+        this.viewSmartGoal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.viewSmartGoal.To);
+        this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
+        this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+      }, error => this._handleErrorService.handleError(error));
+    }
+    else {
+      this._dataService.get('/api/SmartGoalApproval/getViewSmartGoalApproval?_smartGoalId=' + Id + '&statusId=' + StatusId).subscribe((response: any) => {
+        this.viewSmartGoal = response;
+
+        this.viewSmartGoal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.viewSmartGoal.DepartmentId)[0].Text;
+        this.viewSmartGoal.CategoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
+
+        let fromDate = new Date(this.viewSmartGoal.From);
+        this.viewSmartGoal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.viewSmartGoal.To);
+        this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
+        this.viewSmartGoal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+        // console.log(this.viewSmartGoal);
+      }, error => this._handleErrorService.handleError(error));
+    }
+  }
+
+  exportviewSmartGoalToExcel(StatusId) {
+    this.viewSmartGoal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewSmartGoal.DepartmentId)[0].Text;
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewSmartGoal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+  }
+  // End of View SmartGoal
 }
