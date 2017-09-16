@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   assignLM: any = {};
   resetPasswordLoading: Boolean = false;
   registerEmployeesLoading: Boolean = false;
+  assignLM1Loading: Boolean = false;
+  assignLM2Loading: Boolean = false;
 
   registerArray: any = [];
   registerErrors: any = [];
@@ -46,12 +48,17 @@ export class RegisterComponent implements OnInit {
 
   assignLineManager(assignType: string) {
     this.assignLM.AssignType = assignType;
+    this.assignLM1Loading = assignType == 'LM1' ? true : false;
+    this.assignLM2Loading = assignType == 'LM2' ? true : false;
     this._dataService.post('/api/Account/AssignLineManager', this.assignLM).subscribe((response) => {
       this._notificationService.printSuccessMessage(MessageConstants.ASSIGN_LINEMANAGER_OK_MSG);
+      this.assignLM1Loading = false;
+      this.assignLM2Loading = false;
     }, error => {
       // alert(JSON.stringify(error));
       this._handleErrorService.handleError(error);
-
+      this.assignLM1Loading = false;
+      this.assignLM2Loading = false;
     })
   }
 
@@ -86,9 +93,9 @@ export class RegisterComponent implements OnInit {
           resolve(this.registerErrors);
           this._notificationService.printSuccessMessage(MessageConstants.REGISTER_EMPLOYEES_OK_MSG);
         }, error => {
-            this._handleErrorService.handleError(error);
-            resolve(error);
-          });
+          this._handleErrorService.handleError(error);
+          resolve(error);
+        });
       });
 
       registerPromise.then(() => {

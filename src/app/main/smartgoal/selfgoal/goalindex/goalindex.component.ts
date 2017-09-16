@@ -120,7 +120,7 @@ export class GoalIndexComponent implements OnInit {
     this.smartGoal.personalDevelopmentContent = JSON.stringify(this.personalDevelopmentContents);
 
     this._dataService.post('/api/SmartGoal/SaveSmartGoal', this.smartGoal).subscribe((response: any) => {
-      if (this.smartGoal.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
+      if (this.smartGoal.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.UPDATED_OK_MSG);
       if (this.smartGoal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
       this.saveGoalLoading = false;
       this.loadData();

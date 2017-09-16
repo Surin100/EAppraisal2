@@ -12,7 +12,7 @@ import { HandleErrorService } from '../../core/services/handle-error.service';
 export class GuidelineComponent implements OnInit {
   guidelineContent: string;
   constructor(private _handleErrorService: HandleErrorService, private _dataService:DataService) {
-    _dataService.get('/api/main/guideline').subscribe((respone: string) => {
+    _dataService.get('/api/Guideline/GetGuideline').subscribe((respone: string) => {
       this.guidelineContent = respone;
     }, error => this._handleErrorService.handleError(error));
   }
