@@ -350,7 +350,7 @@ export class CreateGoalComponent implements OnInit {
       });
     });
     exportExcelPromise.then((element)=>{
-      this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
+      this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
       this.saveGoalLoading = false;
     });
     

@@ -7,4 +7,5 @@ export class UrlConstants{
     public static GUIDELINE = '/main/guideline';
     public static SMARTGOAL = '/main/smartgoal';
     public static CHANGE_PASSWORD = '/ChangePassword';
+    public static REPORT = '/main/report';
 }

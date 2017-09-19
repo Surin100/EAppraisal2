@@ -30,17 +30,10 @@ export class CreateComponent implements OnInit {
   appraisalFrom;
   appraisalTo;
   baseFolder: string = SystemConstants.BASE_API;
-  partAShow:string[];
-  partBShow:string[];
-  partCShow:string[];
+  partAShow: string[];
+  partBShow: string[];
+  partCShow: string[];
 
-  private myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'dd/mm/yyyy',
-  };
-  private today = new Date();
-  // Initialized to specific date (09.10.2018).
-  temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
 
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _handleErrorService: HandleErrorService
@@ -80,33 +73,19 @@ export class CreateComponent implements OnInit {
     this.appraisal.subTotal2 = 0;
     this.appraisal.conclusion = 0;
 
-    this.appraisal.customerDriven = 0;
-    this.appraisal.questForExcellence = 0;
-    this.appraisal.teamWork = 0;
-    this.appraisal.respectAndTrust = 0;
-    this.appraisal.enterprising = 0;
-    this.appraisal.communication = 0;
-    this.appraisal.dependability = 0;
-    this.appraisal.quantityOfWork = 0;
-    this.appraisal.qualityOfWork = 0;
-
-    this.appraisal.personalEfficiency = 0;
-    this.appraisal.workforceScheduling = 0;
-    this.appraisal.qualityManagement = 0;
-    this.appraisal.performanceManagement = 0;
-    this.appraisal.successionPlanning = 0;
-    this.appraisal.managingConflicts = 0;
-    this.appraisal.celebrateResults = 0;
-
-    this.appraisal.leadWithVision = 0;
-    this.appraisal.alignAndEngage = 0;
-    this.appraisal.talentMagnet = 0;
-
-    this.appraisal.goal1 = 0;
-    this.appraisal.goal2 = 0;
-    this.appraisal.goal3 = 0;
-    this.appraisal.goal4 = 0;
+    // this.appraisal.goal1 = 0;
+    // this.appraisal.goal2 = 0;
+    // this.appraisal.goal3 = 0;
+    // this.appraisal.goal4 = 0;
   }
+
+  private myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+  };
+  private today = new Date();
+  // Initialized to specific date (09.10.2018).
+  temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
 
   supervisoryClick() {
     this.supervisoryChevron = !this.supervisoryChevron;
@@ -180,28 +159,50 @@ export class CreateComponent implements OnInit {
     if (this.appraisal.alignAndEngage > 0) noCompetencies++;
     if (this.appraisal.talentMagnet > 0) noCompetencies++;
 
+    let customerDriven = this.appraisal.customerDriven ? this.appraisal.customerDriven : 0;
+    let questForExcellence = this.appraisal.questForExcellence ? this.appraisal.questForExcellence : 0;
+    let teamWork = this.appraisal.teamWork ? this.appraisal.teamWork : 0;
+    let respectAndTrust = this.appraisal.respectAndTrust ? this.appraisal.respectAndTrust : 0;
+    let enterprising = this.appraisal.enterprising ? this.appraisal.enterprising : 0;
+    let communication = this.appraisal.communication ? this.appraisal.communication : 0;
+    let dependability = this.appraisal.dependability ? this.appraisal.dependability : 0;
+    let quantityOfWork = this.appraisal.quantityOfWork ? this.appraisal.quantityOfWork : 0;
+    let qualityOfWork = this.appraisal.qualityOfWork ? this.appraisal.qualityOfWork : 0;
+
+    let personalEfficiency = this.appraisal.personalEfficiency ? this.appraisal.personalEfficiency : 0;
+    let workforceScheduling = this.appraisal.workforceScheduling ? this.appraisal.workforceScheduling : 0;
+    let qualityManagement = this.appraisal.qualityManagement ? this.appraisal.qualityManagement : 0;
+    let performanceManagement = this.appraisal.performanceManagement ? this.appraisal.performanceManagement : 0;
+    let successionPlanning = this.appraisal.successionPlanning ? this.appraisal.successionPlanning : 0;
+    let managingConflicts = this.appraisal.managingConflicts ? this.appraisal.managingConflicts : 0;
+    let celebrateResults = this.appraisal.celebrateResults ? this.appraisal.celebrateResults : 0;
+
+    let leadWithVision = this.appraisal.leadWithVision ? this.appraisal.leadWithVision : 0;
+    let alignAndEngage = this.appraisal.alignAndEngage ? this.appraisal.alignAndEngage : 0;
+    let talentMagnet = this.appraisal.talentMagnet ? this.appraisal.talentMagnet : 0;
+
     this.appraisal.subTotal1 = (noCompetencies == 0) ? 0 : (
-      this.appraisal.customerDriven +
-      this.appraisal.questForExcellence +
-      this.appraisal.teamWork +
-      this.appraisal.respectAndTrust +
-      this.appraisal.enterprising +
-      this.appraisal.communication +
-      this.appraisal.dependability +
-      this.appraisal.quantityOfWork +
-      this.appraisal.qualityOfWork +
+      customerDriven +
+        questForExcellence +
+        teamWork +
+        respectAndTrust +
+        enterprising +
+        communication +
+        dependability +
+        quantityOfWork +
+        qualityOfWork +
 
-      this.appraisal.personalEfficiency +
-      this.appraisal.workforceScheduling +
-      this.appraisal.qualityManagement +
-      this.appraisal.performanceManagement +
-      this.appraisal.successionPlanning +
-      this.appraisal.managingConflicts +
-      this.appraisal.celebrateResults +
+        personalEfficiency +
+        workforceScheduling +
+        qualityManagement +
+        performanceManagement +
+        successionPlanning +
+        managingConflicts +
+        celebrateResults + 
 
-      this.appraisal.leadWithVision +
-      this.appraisal.alignAndEngage +
-      this.appraisal.talentMagnet)
+        leadWithVision + 
+        alignAndEngage +
+        talentMagnet)
       / noCompetencies;
 
     this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
@@ -213,15 +214,25 @@ export class CreateComponent implements OnInit {
     if (this.appraisal.goal2 > 0) noGoals++;
     if (this.appraisal.goal3 > 0) noGoals++;
     if (this.appraisal.goal4 > 0) noGoals++;
-    this.appraisal.subTotal2 = (noGoals == 0) ? 0 : (this.appraisal.goal1 + this.appraisal.goal2 + this.appraisal.goal3 + this.appraisal.goal4) / noGoals;
+
+    let goal1 = this.appraisal.goal1? this.appraisal.goal1 : 0;
+    let goal2 = this.appraisal.goal2? this.appraisal.goal2 : 0;
+    let goal3 = this.appraisal.goal3? this.appraisal.goal3 : 0;
+    let goal4 = this.appraisal.goal4? this.appraisal.goal4 : 0;
+
+    this.appraisal.subTotal2 = (noGoals == 0) ? 0 : (
+      goal1 + 
+      goal2 + 
+      goal3 + 
+      goal4) / noGoals;
 
     this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
   }
 
-// End of Generate conclusion
+  // End of Generate conclusion
 
   exportExcel() {
-      //  alert(JSON.stringify(this.appraisalFrom));
+    //  alert(JSON.stringify(this.appraisalFrom));
     // Date problem
     let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
     let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
@@ -241,13 +252,13 @@ export class CreateComponent implements OnInit {
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
 
-    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
       this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         Resolve(response);
       }, error => this._handleErrorService.handleError(error));
     });
-    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 
   uncheckGoal(name: string) {

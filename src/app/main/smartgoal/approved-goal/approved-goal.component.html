@@ -6,6 +6,9 @@
           <th class="text-center">
             Submit Date
           </th>
+          <th class="text-center">
+            Review Date
+          </th>
           <th>
             Employee ID
           </th>
@@ -29,6 +32,7 @@
       <tbody>
         <tr *ngFor="let goal of approvedGoalList">
           <td class="text-center">{{goal.SubmitDate | date:'dd/MM/yyyy'}}</td>
+          <td class="text-center">{{goal.ReviewDate | date:'dd/MM/yyyy'}}</td>
           <td>{{goal.AssociateId}}</td>
           <td>{{goal.AssociateName}}</td>
           <td>{{goal.AssociateTitle}}</td>

@@ -40,8 +40,10 @@ export class IndexComponent implements OnInit {
   departmentList = [];
   categoryList = [];
   viewAppraisal: any;
-  partAShow:string[];
-  partBShow:string[];
+  partAShow: string[];
+  partBShow: string[];
+  modifyAppraisalModalActive: Boolean = false;
+  viewAppraisalModalActive: Boolean = false;
 
   constructor(private _handleErrorService: HandleErrorService, private _dataService: DataService, private _notificationService: NotificationService,
     private _authenService: AuthenService) {
@@ -111,6 +113,7 @@ export class IndexComponent implements OnInit {
 
   showModifyAppraisalModal(Id) {
     this.loadAppraisal(Id);
+    this.modifyAppraisalModalActive = true;
     this.modifyAppraisalModal.show();
   }
 
@@ -284,19 +287,20 @@ export class IndexComponent implements OnInit {
     // End date problem
 
     this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.DepartmentId)[0].Text;
-    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
       this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         Resolve(response);
       }, error => this._handleErrorService.handleError(error));
     });
-    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 
   // View Appraisal
 
   showViewAppraisalModal(Id, StatusId) {
     this.loadViewAppraisal(Id, StatusId);
+    this.viewAppraisalModalActive = true;
     this.viewAppraisalModal.show();
 
   }
@@ -332,20 +336,20 @@ export class IndexComponent implements OnInit {
         this.appraisalto = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewAppraisal.ReviewDate);
         this.temporarydate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
-        console.log(this.viewAppraisal);
+        // console.log(this.viewAppraisal);
       }, error => this._handleErrorService.handleError(error));
     }
   }
 
   exportViewAppraisalToExcel() {
     this.viewAppraisal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewAppraisal.DepartmentId)[0].Text;
-    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
       this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.viewAppraisal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         Resolve(response);
       }, error => this._handleErrorService.handleError(error));
     });
-    exportExcelPromise.then((element)=>this._dataService.delete('/api/appraisal/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
   // End of View Appraisal
 }

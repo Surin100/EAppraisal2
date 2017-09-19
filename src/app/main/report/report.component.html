@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2></h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content" style="min-height:800px">
+
+        <div class="col-md-4 col-sm-4 col-xs-6">
+          <div class="x_panel">
+            <div class="x_title">
+              <h4 class="text-info">Reports </h4>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <!-- Report List -->
+              <a style="cursor:pointer" (click)="viewReportForm('SummaryPerformanceAppraisal')" ><h2>Summary Performance Appraisal</h2></a>
+
+              <!-- /ReportList -->
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-8 col-sm-8 col-xs-6">
+          <div class="x_panel">
+            <div class="x_title">
+              <h4 class="text-info">Other Filters </h4>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <!-- Report Form -->
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                    <summary-performance-appraisal *ngIf="SummaryPerformanceAppraisal"></summary-performance-appraisal>
+                  
+                </section>
+              </div>
+
+              <!-- /Report Form -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

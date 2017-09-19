@@ -78,42 +78,69 @@ export class GoalApprovalComponent implements OnInit {
     this.loadData();
   }
 
-  showApproveSmartGoalModal(Id) {
-    this.loadSmartGoal(Id);
+  showApproveSmartGoalModal(Id, StatusId: String) {
+    this.loadSmartGoal(Id, StatusId);
     this.approveSmartGoalModal.show();
   }
 
-  loadSmartGoal(Id) {
+  loadSmartGoal(Id, StatusId: String) {
     this.goal1Content = {};
     this.goal2Content = {};
     this.goal3Content = {};
     this.goal4Content = {};
     this.personalDevelopmentContent = {};
-
-    this._dataService.get('/api/SmartGoal/getSmartGoal/' + Id).subscribe((response: any) => {
-      this.smartGoalApproval = response;
-      this.smartGoalApproval.SmartGoalId = response.Id;
-      this.smartGoalApproval.AppraiseeId = response.UserId;
-      this.smartGoalApproval.ReviewerName = this.currentUser.fullName;
-      this.smartGoalApproval.ReviewerTitle = this.currentUser.jobTitle;
-      // console.log(this.smartGoal);
-      this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
-      this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
-      let fromDate = new Date(response.From);
-      this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
-      let toDate = new Date(response.To);
-      this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
-      let reviewDate = new Date(response.ReviewDate)
-      this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-
-      this.goal1Contents = JSON.parse(response.Goal1Content);
-      this.goal2Contents = JSON.parse(response.Goal2Content);
-      this.goal3Contents = JSON.parse(response.Goal3Content);
-      this.goal4Contents = JSON.parse(response.Goal4Content);
-      this.personalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
-      // console.log(this.smartGoalApproval);
-      // alert(JSON.stringify(this.goal1Contents));
-    }, error => this._handleErrorService.handleError(error));
+    if(StatusId==='S'){
+      this._dataService.get('/api/SmartGoal/getSmartGoal/' + Id).subscribe((response: any) => {
+        this.smartGoalApproval = response;
+        this.smartGoalApproval.SmartGoalId = response.Id;
+        this.smartGoalApproval.AppraiseeId = response.UserId;
+        this.smartGoalApproval.ReviewerName = this.currentUser.fullName;
+        this.smartGoalApproval.ReviewerTitle = this.currentUser.jobTitle;
+        // console.log(this.smartGoal);
+        this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
+        this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
+        let fromDate = new Date(response.From);
+        this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(response.To);
+        this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(response.ReviewDate)
+        this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
+  
+        this.goal1Contents = JSON.parse(response.Goal1Content);
+        this.goal2Contents = JSON.parse(response.Goal2Content);
+        this.goal3Contents = JSON.parse(response.Goal3Content);
+        this.goal4Contents = JSON.parse(response.Goal4Content);
+        this.personalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
+        // console.log(this.smartGoalApproval);
+        // alert(JSON.stringify(this.goal1Contents));
+      }, error => this._handleErrorService.handleError(error));
+    }
+    else{
+      this._dataService.get('/api/SmartGoalApproval/GetViewSmartGoalApproval/?_smartGoalId=' + Id + '&statusId='+StatusId).subscribe((response: any) => {
+        this.smartGoalApproval = response;
+        this.smartGoalApproval.AppraiseeId = response.UserId;
+        this.smartGoalApproval.ReviewerName = this.currentUser.fullName;
+        this.smartGoalApproval.ReviewerTitle = this.currentUser.jobTitle;
+        // console.log(this.smartGoal);
+        this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
+        this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
+        let fromDate = new Date(response.From);
+        this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(response.To);
+        this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(response.ReviewDate)
+        this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
+  
+        this.goal1Contents = JSON.parse(response.Goal1Content);
+        this.goal2Contents = JSON.parse(response.Goal2Content);
+        this.goal3Contents = JSON.parse(response.Goal3Content);
+        this.goal4Contents = JSON.parse(response.Goal4Content);
+        this.personalDevelopmentContents = JSON.parse(response.PersonalDevelopmentContent);
+        // console.log(this.smartGoalApproval);
+        // alert(JSON.stringify(this.goal1Contents));
+      }, error => this._handleErrorService.handleError(error));
+    }
+    
   }
 
   goalIsValid() {

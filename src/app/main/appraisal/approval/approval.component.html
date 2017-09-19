@@ -35,7 +35,7 @@
           <td class="text-center">{{appraisal.Conclusion | number: '1.0-2'}}</td>
           <td>{{appraisal.StatusName}}</td>
           <td>
-            <button class="btn btn-primary" (click)="showApproveAppraisalModal(appraisal.Id)"><i class="fa fa-check" ></i></button>
+            <button class="btn btn-primary" (click)="showApproveAppraisalModal(appraisal.Id, appraisal.StatusId)"><i class="fa fa-check" ></i></button>
           </td>
         </tr>
       </tbody>
@@ -1207,7 +1207,7 @@
                         <strong>Goal 3/ <em class="text-primary">Mục tiêu 3</em></strong>
                       </td>
                       <td>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal3Content" name="goal3Content" readonly></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal3Content" name="goal3Content"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">

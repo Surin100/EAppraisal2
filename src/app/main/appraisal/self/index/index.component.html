@@ -44,7 +44,7 @@
 <!--Modify Appraisal modal-->
 <div bsModal #modifyAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg noMargin" style="width:100%">
+  <div class="modal-dialog modal-lg noMargin" style="width:100%" *ngIf="modifyAppraisalModalActive">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close pull-right" (click)='modifyAppraisalModal.hide()' aria-label="Close">
@@ -1452,7 +1452,7 @@
 <!-- View Appraisal Modal -->
 <div bsModal #viewAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg noMargin" style="width:100%">
+  <div class="modal-dialog modal-lg noMargin" style="width:100%" *ngIf="viewAppraisalModalActive">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close pull-right" (click)='viewAppraisalModal.hide()' aria-label="Close">

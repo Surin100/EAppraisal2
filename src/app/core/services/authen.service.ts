@@ -61,7 +61,7 @@ export class AuthenService {
       // debugger;
       user = new LoggedInUser(userData.access_token, userData.userName, userData.email, userData.fullName, userData.employeeLvId, userData.jobTitle,
         userData.departmentId, userData.departmentEnName, userData.companyId, userData.companyName, userData.reviewerName, userData.reviewerTitle,
-        userData.roles, userData.departmentList, userData.companyList, userData.categoryList, userData.statusList);
+        userData.roles, userData.departmentList, userData.companyList, userData.categoryList, userData.statusList, userData.companyHRList);
     }
     else
       user = null;

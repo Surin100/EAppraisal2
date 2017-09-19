@@ -35,7 +35,7 @@
           <td class="text-center">{{goal.TotalScore | number: '1.0-2'}}</td>
           <td>{{goal.StatusName}}</td>
           <td>
-            <button class="btn btn-primary" (click)="showApproveSmartGoalModal(goal.Id)"><i class="fa fa-check" ></i></button>
+            <button class="btn btn-primary" (click)="showApproveSmartGoalModal(goal.Id, goal.StatusId)"><i class="fa fa-check" ></i></button>
           </td>
         </tr>
       </tbody>

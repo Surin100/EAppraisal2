@@ -45,7 +45,7 @@ export class MainComponent implements OnInit {
   }
 
   reportClick() {
-
+    this._router.navigate([UrlConstants.REPORT])
   }
 
   registerClick() {

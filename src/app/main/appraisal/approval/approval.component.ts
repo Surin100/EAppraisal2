@@ -77,41 +77,73 @@ export class ApprovalComponent implements OnInit {
     this.loadData();
   }
 
-  loadAppraisal(Id: any) {
-    this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
-      // alert(JSON.stringify(this.currentUser.categoryList) + JSON.stringify(this.appraisal.categoryId));
-      // this.appraisal = {};
-      this.appraisalApproval = {};
-      this.appraisalApproval = response;
-      this.appraisalApproval.AppraisalId = response.Id;
-      this.appraisalApproval.AppraiseeId = response.UserId;
-      this.appraisalApproval.reviewerName = this.currentUser.fullName;
-      this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
-      this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
-      this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
-      let fromDate = new Date(this.appraisalApproval.From);
-      this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
-      let toDate = new Date(this.appraisalApproval.To);
-      this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
-      let reviewDate = new Date(this.appraisalApproval.ReviewDate)
-      // console.log(this.appraisalApproval);
-      this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
+  loadAppraisal(Id: any, StatusId: String) {
+    // console.log(Id + StatusId);
+    if (StatusId === 'S') {
+      this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
+        this.appraisalApproval = {};
+        this.appraisalApproval = response;
+        this.appraisalApproval.AppraisalId = response.Id;
+        this.appraisalApproval.AppraiseeId = response.UserId;
+        this.appraisalApproval.reviewerName = this.currentUser.fullName;
+        this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
+        this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
+        this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
+        let fromDate = new Date(this.appraisalApproval.From);
+        this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.appraisalApproval.To);
+        this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.appraisalApproval.ReviewDate)
+        // console.log(this.appraisalApproval);
+        this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
 
-      this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
-      this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
-      this.partCShow = ArrayConstants.LEADER_LEVEL;
-      if (this.partAShow.includes(this.appraisalApproval.EmployeeLvId)) {
-        this.supervisoryToggle = true;
-        this.leadershipToggle = true;
-      }
-      else if (this.partBShow.includes(this.appraisalApproval.EmployeeLvId)) {
-        this.leadershipToggle = true;
-      }
-    }, error => this._handleErrorService.handleError(error));
+        this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
+        this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
+        this.partCShow = ArrayConstants.LEADER_LEVEL;
+        if (this.partAShow.includes(this.appraisalApproval.EmployeeLvId)) {
+          this.supervisoryToggle = true;
+          this.leadershipToggle = true;
+        }
+        else if (this.partBShow.includes(this.appraisalApproval.EmployeeLvId)) {
+          this.leadershipToggle = true;
+        }
+      }, error => this._handleErrorService.handleError(error));
+    }
+    else {
+      this._dataService.get('/api/AppraisalApproval/getViewAppraisalApproval/?_appraisalId=' + Id + '&statusId='+StatusId).subscribe((response: any) => {
+        this.appraisalApproval = {};
+        this.appraisalApproval = response;
+        // alert(this.appraisalApproval.AppraiseeId);
+        this.appraisalApproval.AppraiseeId = response.UserId;
+        this.appraisalApproval.reviewerName = this.currentUser.fullName;
+        this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
+        this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
+        this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
+        let fromDate = new Date(this.appraisalApproval.From);
+        this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        let toDate = new Date(this.appraisalApproval.To);
+        this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        let reviewDate = new Date(this.appraisalApproval.ReviewDate)
+        // console.log(this.appraisalApproval);
+        this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
+  
+        this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
+        this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
+        this.partCShow = ArrayConstants.LEADER_LEVEL;
+        if (this.partAShow.includes(this.appraisalApproval.EmployeeLvId)) {
+          this.supervisoryToggle = true;
+          this.leadershipToggle = true;
+        }
+        else if (this.partBShow.includes(this.appraisalApproval.EmployeeLvId)) {
+          this.leadershipToggle = true;
+        }
+      }, error => this._handleErrorService.handleError(error));
+    }
+
   }
 
-  showApproveAppraisalModal(appraisalId: number) {
-    this.loadAppraisal(appraisalId);
+  showApproveAppraisalModal(appraisalId: number, appraisalStatusId: String) {
+    this.loadAppraisal(appraisalId, appraisalStatusId);
     this.approveAppraisalModal.show();
 
   }
@@ -172,89 +204,89 @@ export class ApprovalComponent implements OnInit {
     this.supervisoryChevron = !this.supervisoryChevron;
   }
 
-  leadershipClick(){
+  leadershipClick() {
     this.leadershipChevron = !this.leadershipChevron;
   }
 
-    // Generate conclusion
+  // Generate conclusion
 
-    generateSubTotal1() {
-      let noCompetencies = 0;
-      if (this.appraisalApproval.CustomerDriven > 0) noCompetencies++;
-      if (this.appraisalApproval.QuestForExcellence > 0) noCompetencies++;
-      if (this.appraisalApproval.TeamWork > 0) noCompetencies++;
-      if (this.appraisalApproval.RespectAndTrust > 0) noCompetencies++;
-      if (this.appraisalApproval.Enterprising > 0) noCompetencies++;
-      if (this.appraisalApproval.Communication > 0) noCompetencies++;
-      if (this.appraisalApproval.Dependability > 0) noCompetencies++;
-      if (this.appraisalApproval.QuantityOfWork > 0) noCompetencies++;
-      if (this.appraisalApproval.QualityOfWork > 0) noCompetencies++;
-  
-      if (this.appraisalApproval.PersonalEfficiency > 0) noCompetencies++;
-      if (this.appraisalApproval.WorkforceScheduling > 0) noCompetencies++;
-      if (this.appraisalApproval.QualityManagement > 0) noCompetencies++;
-      if (this.appraisalApproval.PerformanceManagement > 0) noCompetencies++;
-      if (this.appraisalApproval.SuccessionPlanning > 0) noCompetencies++;
-      if (this.appraisalApproval.ManagingConflicts > 0) noCompetencies++;
-      if (this.appraisalApproval.CelebrateResults > 0) noCompetencies++;
-      if (this.appraisalApproval.LeadWithVision > 0) noCompetencies++;
-      if (this.appraisalApproval.AlignAndEngage > 0) noCompetencies++;
-      if (this.appraisalApproval.TalentMagnet > 0) noCompetencies++;
-  
-      this.appraisalApproval.SubTotal1 = (noCompetencies == 0) ? 0 : (
-        this.appraisalApproval.CustomerDriven +
-        this.appraisalApproval.QuestForExcellence +
-        this.appraisalApproval.TeamWork +
-        this.appraisalApproval.RespectAndTrust +
-        this.appraisalApproval.Enterprising +
-        this.appraisalApproval.Communication +
-        this.appraisalApproval.Dependability +
-        this.appraisalApproval.QuantityOfWork +
-        this.appraisalApproval.QualityOfWork +
-  
-        this.appraisalApproval.PersonalEfficiency +
-        this.appraisalApproval.WorkforceScheduling +
-        this.appraisalApproval.QualityManagement +
-        this.appraisalApproval.PerformanceManagement +
-        this.appraisalApproval.SuccessionPlanning +
-        this.appraisalApproval.ManagingConflicts +
-        this.appraisalApproval.CelebrateResults +
-  
-        this.appraisalApproval.LeadWithVision +
-        this.appraisalApproval.AlignAndEngage +
-        this.appraisalApproval.TalentMagnet)
-        / noCompetencies;
-  
-      this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
-    }
-  
-    generateSubTotal2() {
-      let noGoals = 0;
-      if (this.appraisalApproval.Goal1 > 0) noGoals++;
-      if (this.appraisalApproval.Goal2 > 0) noGoals++;
-      if (this.appraisalApproval.Goal3 > 0) noGoals++;
-      if (this.appraisalApproval.Goal4 > 0) noGoals++;
-      this.appraisalApproval.SubTotal2 = (noGoals == 0) ? 0 : (this.appraisalApproval.Goal1 + this.appraisalApproval.Goal2 + this.appraisalApproval.Goal3 + this.appraisalApproval.Goal4) / noGoals;
-  
-      this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
+  generateSubTotal1() {
+    let noCompetencies = 0;
+    if (this.appraisalApproval.CustomerDriven > 0) noCompetencies++;
+    if (this.appraisalApproval.QuestForExcellence > 0) noCompetencies++;
+    if (this.appraisalApproval.TeamWork > 0) noCompetencies++;
+    if (this.appraisalApproval.RespectAndTrust > 0) noCompetencies++;
+    if (this.appraisalApproval.Enterprising > 0) noCompetencies++;
+    if (this.appraisalApproval.Communication > 0) noCompetencies++;
+    if (this.appraisalApproval.Dependability > 0) noCompetencies++;
+    if (this.appraisalApproval.QuantityOfWork > 0) noCompetencies++;
+    if (this.appraisalApproval.QualityOfWork > 0) noCompetencies++;
+
+    if (this.appraisalApproval.PersonalEfficiency > 0) noCompetencies++;
+    if (this.appraisalApproval.WorkforceScheduling > 0) noCompetencies++;
+    if (this.appraisalApproval.QualityManagement > 0) noCompetencies++;
+    if (this.appraisalApproval.PerformanceManagement > 0) noCompetencies++;
+    if (this.appraisalApproval.SuccessionPlanning > 0) noCompetencies++;
+    if (this.appraisalApproval.ManagingConflicts > 0) noCompetencies++;
+    if (this.appraisalApproval.CelebrateResults > 0) noCompetencies++;
+    if (this.appraisalApproval.LeadWithVision > 0) noCompetencies++;
+    if (this.appraisalApproval.AlignAndEngage > 0) noCompetencies++;
+    if (this.appraisalApproval.TalentMagnet > 0) noCompetencies++;
+
+    this.appraisalApproval.SubTotal1 = (noCompetencies == 0) ? 0 : (
+      this.appraisalApproval.CustomerDriven +
+      this.appraisalApproval.QuestForExcellence +
+      this.appraisalApproval.TeamWork +
+      this.appraisalApproval.RespectAndTrust +
+      this.appraisalApproval.Enterprising +
+      this.appraisalApproval.Communication +
+      this.appraisalApproval.Dependability +
+      this.appraisalApproval.QuantityOfWork +
+      this.appraisalApproval.QualityOfWork +
+
+      this.appraisalApproval.PersonalEfficiency +
+      this.appraisalApproval.WorkforceScheduling +
+      this.appraisalApproval.QualityManagement +
+      this.appraisalApproval.PerformanceManagement +
+      this.appraisalApproval.SuccessionPlanning +
+      this.appraisalApproval.ManagingConflicts +
+      this.appraisalApproval.CelebrateResults +
+
+      this.appraisalApproval.LeadWithVision +
+      this.appraisalApproval.AlignAndEngage +
+      this.appraisalApproval.TalentMagnet)
+      / noCompetencies;
+
+    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
+  }
+
+  generateSubTotal2() {
+    let noGoals = 0;
+    if (this.appraisalApproval.Goal1 > 0) noGoals++;
+    if (this.appraisalApproval.Goal2 > 0) noGoals++;
+    if (this.appraisalApproval.Goal3 > 0) noGoals++;
+    if (this.appraisalApproval.Goal4 > 0) noGoals++;
+    this.appraisalApproval.SubTotal2 = (noGoals == 0) ? 0 : (this.appraisalApproval.Goal1 + this.appraisalApproval.Goal2 + this.appraisalApproval.Goal3 + this.appraisalApproval.Goal4) / noGoals;
+
+    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
+  }
+
+  // End of Generate conclusion
+
+  uncheckGoal(name: string) {
+    switch (name) {
+      case 'goal1':
+        this.appraisalApproval.Goal1 = 0; this.generateSubTotal2(); break;
+      case 'goal2':
+        this.appraisalApproval.Goal2 = 0; this.generateSubTotal2(); break;
+      case 'goal3':
+        this.appraisalApproval.Goal3 = 0; this.generateSubTotal2(); break;
+      case 'goal4':
+        this.appraisalApproval.Goal4 = 0; this.generateSubTotal2(); break;
+      default: return;
     }
 
-    // End of Generate conclusion
-
-    uncheckGoal(name: string) {
-      switch (name) {
-        case 'goal1':
-          this.appraisalApproval.Goal1 = 0; this.generateSubTotal2(); break;
-        case 'goal2':
-          this.appraisalApproval.Goal2 = 0; this.generateSubTotal2(); break;
-        case 'goal3':
-          this.appraisalApproval.Goal3 = 0; this.generateSubTotal2(); break;
-        case 'goal4':
-          this.appraisalApproval.Goal4 = 0; this.generateSubTotal2(); break;
-        default: return;
-      }
-  
-    }
+  }
 }
 
 

@@ -17,11 +17,12 @@ export class LoggedInUser {
     public companyList;
     public categoryList;
     public statusList;
+    public companyHRList;
 
 
     constructor(access_token: string, userName: string, email: string, fullName: string,employeeLvId: string, jobTitle: string,
         departmentId: string, departmentEnName: string, companyId: string, companyName: string, reviewerName: string, reviewerTitle:string,
-        roles: string[], departmentList, companyList, categoryList, statusList
+        roles: string[], departmentList, companyList, categoryList, statusList, companyHRList
     ) {
         this.access_token = access_token;
         this.userName = userName;
@@ -40,6 +41,7 @@ export class LoggedInUser {
         this.statusList = statusList;
         this.reviewerName = reviewerName;
         this.reviewerTitle = reviewerTitle;
+        this.companyHRList = companyHRList;
     }
 
 }
