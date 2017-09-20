@@ -1,59 +1,58 @@
 <form class="noMargin" #summaryPerformanceReviewForm="ngForm" novalidate>
-    <div class="col-md-8 col-sm-8 col-xs-12">
-      <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
-        <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
-          <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
-        </div>
-        <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-          <my-date-picker *ngIf="summaryPerformanceAppraisalFromActive" name="from" #from="ngModel" [options]="myDatePickerOptions" [(ngModel)]="summaryPerformanceAppraisalFrom" required></my-date-picker>
-        </div>
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
+      <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
+        <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
       </div>
-      <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
-        <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
-          <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
-        </div>
-        <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
-          <my-date-picker name="to" #to="ngModel" [options]="myDatePickerOptions" [(ngModel)]="summaryPerformanceAppraisalTo" required></my-date-picker>
-        </div>
+      <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
+        <my-date-picker *ngIf="summaryPerformanceAppraisalFromActive" name="from" #from="ngModel" [options]="myDatePickerOptions"
+          [(ngModel)]="summaryPerformanceAppraisalFrom" required></my-date-picker>
       </div>
     </div>
-    <div class="clearfix"></div>
-  
-    <div class="col-md-8 col-sm-8 col-xs-12">
-      <div class="item form-group">
-        <div class="col-md-2 col-sm-2 col-xs-12">
-          <label class="control-label  pull-right" for="category">Department:</label>
-        </div>
-        <div class="col-md-10 col-sm-10 col-xs-12">
-          <select class="form-control inputMargin" [(ngModel)]="summaryPerformanceAppraisal.departmentId" name="departmentId">
+    <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
+      <div class="col-md-4 col-sm-4 col-xs-12 noPadding">
+        <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
+      </div>
+      <div class="col-md-8 col-sm-8 col-xs-12 inputMargin noPadding">
+        <my-date-picker name="to" #to="ngModel" [options]="myDatePickerOptions" [(ngModel)]="summaryPerformanceAppraisalTo" required></my-date-picker>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="item form-group">
+      <div class="col-md-2 col-sm-2 col-xs-12">
+        <label class="control-label  pull-right" for="category">Department:</label>
+      </div>
+      <div class="col-md-10 col-sm-10 col-xs-12">
+        <select class="form-control inputMargin" [(ngModel)]="summaryPerformanceAppraisal.DepartmentId" name="departmentId">
                   <option *ngFor="let department of departmentList" [ngValue]="department.Value">{{department.Text}}</option>
                 </select>
-        </div>
       </div>
     </div>
-    <div class="clearfix"></div>
-  
-    <div class="col-md-8 col-sm-8 col-xs-12">
-      <div class="item form-group">
-        <div class="col-md-2 col-sm-2 col-xs-12">
-          <label class="control-label  pull-right" for="category">Company:</label>
-        </div>
-        <div class="col-md-10 col-sm-10 col-xs-12">
-          <select class="form-control inputMargin" [(ngModel)]="summaryPerformanceAppraisal.companyId" name="companyId" required>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="item form-group">
+      <div class="col-md-2 col-sm-2 col-xs-12">
+        <label class="control-label  pull-right" for="category">Company:</label>
+      </div>
+      <div class="col-md-10 col-sm-10 col-xs-12">
+        <select class="form-control inputMargin" [(ngModel)]="summaryPerformanceAppraisal.CompanyId" name="companyId" required>
                   <option *ngFor="let company of companyHRList" [ngValue]="company.Value">{{company.Text}}</option>
                 </select>
-        </div>
       </div>
     </div>
-    <div class="clearfix"></div>
-  
-    <div class="col-md-4 col-sm-4 col-xs-12">
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10 col-xs-12">
       <button type="button" (click)="exportExcel()" class="btn btn-primary pull-left">Export Excel</button>
       <button type="button" (click)="clearFilter()" class="btn btn-primary pull-left">Clear</button>
       <img *ngIf="exportExcelLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
       />
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-        
-      </div>
-  </form>
+  </div>
+</form>

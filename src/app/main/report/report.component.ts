@@ -6,17 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-SummaryPerformanceAppraisal:Boolean = false;
+SummaryPerformanceAppraisalActive:Boolean = true;
   constructor() { }
 
   ngOnInit() {
   }
 
   viewReportForm(reportName: String){
-    this.SummaryPerformanceAppraisal = false;
+    this.SummaryPerformanceAppraisalActive = false;
 
     switch(reportName){
-      case 'SummaryPerformanceAppraisal': this.SummaryPerformanceAppraisal = true; break;
+      case 'SummaryPerformanceAppraisal': this.SummaryPerformanceAppraisalActive = true; break;
     }
   }
 }

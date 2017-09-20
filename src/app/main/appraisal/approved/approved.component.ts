@@ -58,9 +58,8 @@ export class ApprovedComponent implements OnInit {
       this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
       let toDate = new Date(this.appraisalApproval.To);
       this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
-      let reviewDate = new Date(this.appraisalApproval.ReviewDate)
+      let reviewDate = new Date(this.appraisalApproval.ReviewDate);
       this.appraisalApproval.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
-
 
     }, error => this._handleErrorService.handleError(error));
   }

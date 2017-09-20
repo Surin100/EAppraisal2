@@ -37,7 +37,7 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
     this.summaryPerformanceAppraisalTo = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
     this.departmentList = JSON.parse(this.currentUser.departmentList);
     this.companyHRList = JSON.parse(this.currentUser.companyHRList);
-    this.summaryPerformanceAppraisal.companyId = this.companyHRList[0].Value;
+    this.summaryPerformanceAppraisal.CompanyId = this.companyHRList[0].Value;
   }
 
   exportExcel() {
@@ -67,7 +67,7 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
 
       this._dataService.post('/api/Report/SummaryPerformanceAppraisal', this.summaryPerformanceAppraisal).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
-        Resolve(response);
+        setTimeout(()=> Resolve(response),1) ;
       }, error => {
         // alert(JSON.stringify(error));
         this._handleErrorService.handleError(error);
@@ -79,9 +79,10 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
   clearFilter(){
     this.summaryPerformanceAppraisalFromActive = false;
     this.summaryPerformanceAppraisalFrom = undefined;
+    this.summaryPerformanceAppraisal.DepartmentId = undefined;
     this.summaryPerformanceAppraisalTo = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
     this.departmentList = JSON.parse(this.currentUser.departmentList);
-    this.summaryPerformanceAppraisal.companyId = this.companyHRList[0].Value;
+    this.summaryPerformanceAppraisal.CompanyId = this.companyHRList[0].Value;
     setTimeout(() => {this.summaryPerformanceAppraisalFromActive = true}, 1 );
   }
 }
