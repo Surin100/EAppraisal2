@@ -144,7 +144,7 @@
                       <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
-                      <input class="form-control" name="from" #from="ngModel" [(ngModel)]="smartGoalApproval.From" type="text" required readonly/>
+                      <input class="form-control" name="from" #from="ngModel" [(ngModel)]="smartGoalApprovalFrom" type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
@@ -152,7 +152,7 @@
                       <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
-                      <input class="form-control" name="to" #to="ngModel" [(ngModel)]="smartGoalApproval.To" type="text" required readonly/>
+                      <input class="form-control" name="to" #to="ngModel" [(ngModel)]="smartGoalApprovalTo" type="text" required readonly/>
                     </div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
-                      <input name="temporaryDate" class="form-control" type="text" [(ngModel)]="smartGoalApproval.ReviewDate" required readonly/>
+                      <input name="temporaryDate" class="form-control" type="text" [(ngModel)]="smartGoalApprovalReviewDate" required readonly/>
                     </div>
                   </div>
                 </div>
@@ -753,6 +753,8 @@
                 </div>
               </div>
               <div>
+                  <button type="button" [disabled]="!approvedSmartGoalForm.valid" (click)="exportExcel(approvedSmartGoalForm.valid)"
+                  class="btn btn-primary">Export Excel</button>
                 <button (click)="approvedSmartGoalModal.hide()" class="btn btn-info pull-right" type="button"><i class="fa fa-arrow-left"></i> Back </button>
               </div>
             </form>

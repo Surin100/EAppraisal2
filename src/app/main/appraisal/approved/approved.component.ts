@@ -6,6 +6,7 @@ import { DataService } from '../../../core/services/data.service';
 import { HandleErrorService } from '../../../core/services/handle-error.service';
 import { AuthenService } from '../../../core/services/authen.service';
 import { LoggedInUser } from '../../../core/domain/loggedin.user';
+import { SystemConstants } from '../../../core/common/system.constants';
 
 @Component({
   selector: 'app-approved',
@@ -22,6 +23,10 @@ export class ApprovedComponent implements OnInit {
   approvedList: any[];
   appraisalApproval: any = {};
   currentUser: LoggedInUser;
+  appraisalApprovalFrom;
+  appraisalApprovalTo;
+  appraisalApprovalReviewDate;
+
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService) { }
 
   ngOnInit() {
@@ -34,7 +39,7 @@ export class ApprovedComponent implements OnInit {
       // console.log(response);
       this.approvedList = response.Items;
       this.approvedList.forEach(element => {
-        element.StatusName = element.StatusId == 'V' ? 'Rejected' : 'Approved';
+        element.StatusName = JSON.parse(this.currentUser.statusList).filter(a => a.Value == element.StatusId)[0].Text;
       });
       this.pageIndex = response.PageIndex;
       this.pageSize = response.PageSize;
@@ -55,11 +60,11 @@ export class ApprovedComponent implements OnInit {
       this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(d => d.Value == this.appraisalApproval.DepartmentId)[0].Text;
       this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.appraisalApproval.CategoryId)[0].Text;
       let fromDate = new Date(this.appraisalApproval.From);
-      this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+      this.appraisalApprovalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
       let toDate = new Date(this.appraisalApproval.To);
-      this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+      this.appraisalApprovalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
       let reviewDate = new Date(this.appraisalApproval.ReviewDate);
-      this.appraisalApproval.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+      this.appraisalApprovalReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
 
     }, error => this._handleErrorService.handleError(error));
   }
@@ -67,5 +72,36 @@ export class ApprovedComponent implements OnInit {
   showApprovedAppraisal(Id) {
     this.loadAppraisalApproval(Id);
     this.approvedAppraisalModal.show();
+  }
+
+  exportExcel(valid: Boolean) {
+    if(valid === false) return;
+    //  alert(JSON.stringify(this.appraisalFrom));
+    // Date problem
+    // let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    // let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    // let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
+    // this.appraisalApproval.reviewDate = new Date(_reviewDate);
+
+    // let _fromMonth = this.appraisalFrom.date.month.toString().length < 2 ? '0' + this.appraisalFrom.date.month : this.appraisalFrom.date.month;
+    // let _fromDay = this.appraisalFrom.date.day.toString().length < 2 ? '0' + this.appraisalFrom.date.day : this.appraisalFrom.date.day;
+    // let _fromDate: string = this.appraisalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    // this.appraisal.From = new Date(_fromDate);
+
+    // let _toMonth = this.appraisalTo.date.month.toString().length < 2 ? '0' + this.appraisalTo.date.month : this.appraisalTo.date.month;
+    // let _toDay = this.appraisalTo.date.day.toString().length < 2 ? '0' + this.appraisalTo.date.day : this.appraisalTo.date.day;
+    // let _toDate: string = this.appraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    // this.appraisal.To = new Date(_toDate);
+    // End date problem
+
+    // this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
+
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisalApproval)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 }

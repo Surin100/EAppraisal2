@@ -96,7 +96,8 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <input id="reviewer" class="form-control inputMargin" #reviewerr="ngModel" [(ngModel)]="smartGoalApproval.ReviewerName" name="reviewer"
-                        type="text" required />
+                        type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                      />
                     </div>
                   </div>
                   <div class="item form-group">
@@ -105,7 +106,8 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="smartGoalApproval.ReviewerTitle"
-                        name="reviewerTitle" type="text" required />
+                        name="reviewerTitle" type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                      />
                     </div>
                   </div>
                 </div>
@@ -159,7 +161,7 @@
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
                         <my-date-picker name="temporaryDate" #temporaryDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="temporarydate"
-                          required></my-date-picker>
+                          required [disabled]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></my-date-picker>
                       </div>
                     </div>
                   </div>
@@ -224,16 +226,16 @@
                             *ngIf="smartGoalApproval.Goal1Customer || smartGoalApproval.Goal1Finance || smartGoalApproval.Goal1Employee || smartGoalApproval.Goal1Operating"
                           />
                           <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Customer" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" name="goal1Customer"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Customer" name="goal1Customer" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal1Content.plan && goal1Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                           <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Finance" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" name="goal1Finance"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Finance" name="goal1Finance" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal1Content.plan && goal1Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                           <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Employee" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" name="goal1Employee"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Employee" name="goal1Employee" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal1Content.plan && goal1Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                           <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Operating" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null" name="goal1Operating"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Operating" name="goal1Operating" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal1Content.plan && goal1Contents.length == 0) || null"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
                     </label>
                         </div>
                       </td>
@@ -243,25 +245,27 @@
                           <tbody>
                             <tr *ngFor="let content of goal1Contents; let in=index">
                               <td>
-                                <textarea autosize name="goal1ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal1', in):''"></textarea>
+                                <textarea autosize name="goal1ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                                  (keyup)="!content.plan.trim()? removeContent('goal1', in):''"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal1ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                                <textarea autosize name="goal1ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal1ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                                <textarea autosize name="goal1ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S')">
                               <td>
                                 <textarea autosize name="goal1ContentPlan" id="goal1ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal1Content.plan"
                                   (keyup.shift.enter)="addContent('goal1')"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal1ContentDate" class="my-textarea" [(ngModel)]="goal1Content.date"></textarea>
+                                <textarea autosize name="goal1ContentDate" class="my-textarea" [(ngModel)]="goal1Content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal1ContentMeasure" class="my-textarea" [(ngModel)]="goal1Content.measure" (keyup.enter)="addContent('goal1')"></textarea>
+                                <textarea autosize name="goal1ContentMeasure" class="my-textarea" [(ngModel)]="goal1Content.measure" (keyup.enter)="addContent('goal1')"
+                                  [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
                           </tbody>
@@ -315,16 +319,16 @@
                           *ngIf="smartGoalApproval.Goal2Customer || smartGoalApproval.Goal2Finance || smartGoalApproval.Goal2Employee || smartGoalApproval.Goal2Internal"
                         />
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Customer" name="goal2Customer" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Customer" name="goal2Customer" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal2Content.plan && goal2Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Finance" name="goal2Finance" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Finance" name="goal2Finance" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal2Content.plan && goal2Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Employee" name="goal2Employee" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Employee" name="goal2Employee" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal2Content.plan && goal2Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Internal" name="goal2Internal" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Internal" name="goal2Internal" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal2Content.plan && goal2Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                       </td>
                       <td colspan="3" class="noPadding">
@@ -333,16 +337,17 @@
                           <tbody>
                             <tr *ngFor="let content of goal2Contents; let in=index">
                               <td>
-                                <textarea autosize name="goal2ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal2', in):''"></textarea>
+                                <textarea autosize name="goal2ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                                  (keyup)="!content.plan.trim()? removeContent('goal2', in):''"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal2ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                                <textarea autosize name="goal2ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal2ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                                <textarea autosize name="goal2ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S')">
                               <td>
                                 <textarea autosize name="goal2ContentPlan" id="goal2ContentPlan" #goal1ContentPlan="ngModel" class="my-textarea" [(ngModel)]="goal2Content.plan"
                                   (keyup.shift.enter)="addContent('goal2')"></textarea>
@@ -405,16 +410,16 @@
                           *ngIf="smartGoalApproval.Goal3Customer || smartGoalApproval.Goal3Finance || smartGoalApproval.Goal3Employee || smartGoalApproval.Goal3Internal"
                         />
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Customer" name="goal3Customer" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Customer" name="goal3Customer" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal3Content.plan && goal3Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Finance" name="goal3Finance" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Finance" name="goal3Finance" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal3Content.plan && goal3Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Employee" name="goal3Employee" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Employee" name="goal3Employee" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal3Content.plan && goal3Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Internal" name="goal3Internal" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Internal" name="goal3Internal" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal3Content.plan && goal3Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                       </td>
                       <td colspan="3" class="noPadding">
@@ -423,16 +428,17 @@
                           <tbody>
                             <tr *ngFor="let content of goal3Contents; let in=index">
                               <td>
-                                <textarea autosize name="goal3ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal3', in):''"></textarea>
+                                <textarea autosize name="goal3ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                                  (keyup)="!content.plan.trim()? removeContent('goal3', in):''"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal3ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                                <textarea autosize name="goal3ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal3ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                                <textarea autosize name="goal3ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S')">
                               <td>
                                 <textarea autosize name="goal3ContentPlan" id="goal3ContentPlan" class="my-textarea" [(ngModel)]="goal3Content.plan" (keyup.shift.enter)="addContent('goal3')"></textarea>
                               </td>
@@ -494,16 +500,16 @@
                           *ngIf="smartGoalApproval.Goal4Customer || smartGoalApproval.Goal4Finance || smartGoalApproval.Goal4Employee || smartGoalApproval.Goal4Internal"
                         />
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Customer" name="goal4Customer" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Customer" name="goal4Customer" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal4Content.plan && goal4Contents.length == 0) || null"/> Customer / <em class="text-primary">Khách hàng</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Finance" name="goal4Finance" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Finance" name="goal4Finance" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal4Content.plan && goal4Contents.length == 0) || null"/> Finance / <em class="text-primary">Tài chính</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Employee" name="goal4Employee" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Employee" name="goal4Employee" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal4Content.plan && goal4Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Internal" name="goal4Internal" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Internal" name="goal4Internal" [attr.disabled]="(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S') || (!goal4Content.plan && goal4Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
                     </label>
                       </td>
                       <td colspan="3" class="noPadding">
@@ -512,16 +518,17 @@
                           <tbody>
                             <tr *ngFor="let content of goal4Contents; let in=index">
                               <td>
-                                <textarea autosize name="goal4ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removeContent('goal4', in):''"></textarea>
+                                <textarea autosize name="goal4ContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                                  (keyup)="!content.plan.trim()? removeContent('goal4', in):''"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal4ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                                <textarea autosize name="goal4ContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="goal4ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                                <textarea autosize name="goal4ContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S')">
                               <td>
                                 <textarea autosize name="goal4ContentPlan" id="goal4ContentPlan" class="my-textarea" [(ngModel)]="goal4Content.plan" (keyup.shift.enter)="addContent('goal4')"></textarea>
                               </td>
@@ -598,7 +605,7 @@
                     </tr>
                     <tr>
                       <th colspan=4>
-                        <textarea autosize class="my-textarea" name="otherGoals" [(ngModel)]="smartGoalApproval.OtherGoals"></textarea>
+                        <textarea autosize class="my-textarea" name="otherGoals" [(ngModel)]="smartGoalApproval.OtherGoals" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                       </th>
                     </tr>
                     <tr class="abc">
@@ -641,7 +648,7 @@
                     <tr>
                       <td>
                         <textarea autosize name="personalDevelopmentArea" [(ngModel)]="smartGoalApproval.PersonalDevelopmentArea" class="my-textarea"
-                          (keyup)="!smartGoalApproval.PersonalDevelopmentArea.trim()? removePersonalDevelopment():''"></textarea>
+                          (keyup)="!smartGoalApproval.PersonalDevelopmentArea.trim()? removePersonalDevelopment():''" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                       </td>
                       <td colspan="3" class="noPadding">
 
@@ -649,16 +656,17 @@
                           <tbody>
                             <tr *ngFor="let content of personalDevelopmentContents; let in=index">
                               <td>
-                                <textarea autosize name="personalDevelopmentContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" (keyup)="!content.plan.trim()? removePersonalDevelopmentContent(in):''"></textarea>
+                                <textarea autosize name="personalDevelopmentContentPlan-{{in}}" class="my-textarea" [(ngModel)]="content.plan" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"
+                                  (keyup)="!content.plan.trim()? removePersonalDevelopmentContent(in):''"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="personalDevelopmentContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date"></textarea>
+                                <textarea autosize name="personalDevelopmentContentDate-{{in}}" class="my-textarea" [(ngModel)]="content.date" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                               <td class="col-md-2 col-sm-2 col-xs-2">
-                                <textarea autosize name="personalDevelopmentContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure"></textarea>
+                                <textarea autosize name="personalDevelopmentContentMeasure-{{in}}" class="my-textarea" [(ngModel)]="content.measure" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                               </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!(currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S')">
                               <td>
                                 <textarea autosize name="personalDevelopmentContentPlan" id="personalDevelopmentContentPlan" [(ngModel)]="personalDevelopmentContent.plan"
                                   class="my-textarea" (keyup.shift.enter)="addPersonalDevelopmentContent()"></textarea>
@@ -692,7 +700,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <textarea autosize class="my-textarea" name="midtermReview" [(ngModel)]="smartGoalApproval.MidtermReview"></textarea>
+                        <textarea autosize class="my-textarea" name="midtermReview" [(ngModel)]="smartGoalApproval.MidtermReview" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                       </td>
                     </tr>
                     <tr class="part">
@@ -702,7 +710,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <textarea autosize class="my-textarea" name="finalReview" [(ngModel)]="smartGoalApproval.FinalReview"></textarea>
+                        <textarea autosize class="my-textarea" name="finalReview" [(ngModel)]="smartGoalApproval.FinalReview" [readonly]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'"></textarea>
                       </td>
                     </tr>
                   </thead>
@@ -823,7 +831,7 @@
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select class="form-control inputMargin" [(ngModel)]="smartGoalApproval.CategoryId" name="categoryId" required>
+                      <select class="form-control inputMargin" [(ngModel)]="smartGoalApproval.CategoryId" name="categoryId" required [disabled]="currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'">
                         <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
                       </select>
                     </div>
@@ -832,8 +840,10 @@
                 <div>
                   <!-- <button type="button" [disabled]="!approveSmartGoalForm.valid || !goalIsValid()" (click)="exportExcel(approveSmartGoalForm.valid)"
                     class="btn btn-primary">Export Excel</button> -->
-                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || approveLoading==true" (click)="smartGoalApproval.statusId = underfined"
-                    class="btn btn-primary">Approve</button>
+                  <button type="button" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || saveGoalLoading==true" (click)="exportExcel(approveSmartGoalForm.valid)"
+                    class="btn btn-primary">Export Excel</button>
+                  <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || approveLoading==true" (click)="smartGoalApproval.StatusId = underfined"
+                    class="btn btn-primary">{{currentUser.roles.includes('HRExecutive') && smartGoalApproval.StatusId!='S'? 'Confirm': 'Approve'}}</button>
                   <button type="submit" [disabled]="!approveSmartGoalForm.valid || !goalIsValid() || approveLoading==true" (click)="smartGoalApproval.statusId = 'V'"
                     class="btn btn-danger">Reject</button>
                   <button (click)='approveSmartGoalModal.hide()' [disabled]="approveLoading==true" class="btn btn-info" type="button">Cancel</button>

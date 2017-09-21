@@ -52,6 +52,9 @@ export class GoalIndexComponent implements OnInit {
   viewGoal3Contents = [];
   viewGoal4Contents = [];
   viewPersonalDevelopmentContents = [];
+  viewSmartGoalFrom;
+  viewSmartGoalTo;
+  viewSmartGoalReviewDate;
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService,
     private _notificationService: NotificationService) {
@@ -448,11 +451,11 @@ export class GoalIndexComponent implements OnInit {
         this.viewSmartGoal.CategoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
 
         let fromDate = new Date(this.viewSmartGoal.From);
-        this.viewSmartGoal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.viewSmartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
         let toDate = new Date(this.viewSmartGoal.To);
-        this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.viewSmartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
-        this.viewSmartGoal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+        this.viewSmartGoalReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
 
         this.viewGoal1Contents = JSON.parse(response.Goal1Content);
         this.viewGoal2Contents = JSON.parse(response.Goal2Content);
@@ -470,11 +473,11 @@ export class GoalIndexComponent implements OnInit {
         this.viewSmartGoal.CategoryName = JSON.parse(this.currentUser.categoryList).filter(c => c.Value == this.viewSmartGoal.CategoryId)[0].Text;
 
         let fromDate = new Date(this.viewSmartGoal.From);
-        this.viewSmartGoal.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.viewSmartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
         let toDate = new Date(this.viewSmartGoal.To);
-        this.viewSmartGoal.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.viewSmartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.viewSmartGoal.ReviewDate);
-        this.viewSmartGoal.ReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
+        this.viewSmartGoalReviewDate = reviewDate.getDate() + '/' + (reviewDate.getMonth() + 1) + '/' + reviewDate.getFullYear();
 
         this.viewGoal1Contents = JSON.parse(response.Goal1Content);
         this.viewGoal2Contents = JSON.parse(response.Goal2Content);
@@ -488,6 +491,7 @@ export class GoalIndexComponent implements OnInit {
 
   exportViewSmartGoalToExcel() {
     this.viewSmartGoal.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.viewSmartGoal.DepartmentId)[0].Text;
+    // console.log(this.viewSmartGoal);
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/smartgoal/exportExcel', JSON.stringify(this.viewSmartGoal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);

@@ -12,6 +12,7 @@ import { LoggedInUser } from '../../../core/domain/loggedin.user';
 import { MessageConstants } from '../../../core/common/message.constants';
 import { UrlConstants } from '../../../core/common/url.constants';
 import { ArrayConstants } from '../../../core/common/array.constants';
+import {SystemConstants} from '../../../core/common/system.constants';
 
 @Component({
   selector: 'app-approval',
@@ -40,6 +41,8 @@ export class ApprovalComponent implements OnInit {
   partAShow: string[];
   partBShow: string[];
   partCShow: string[];
+  appraisalApprovalFrom: string;
+  appraisalApprovalTo: string;
 
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _handleErrorService: HandleErrorService,
     private _utilityService: UtilityService, private _notificationService: NotificationService
@@ -78,21 +81,24 @@ export class ApprovalComponent implements OnInit {
   }
 
   loadAppraisal(Id: any, StatusId: String) {
+    this.supervisoryToggle = false;
+    this.leadershipToggle = false;
     // console.log(Id + StatusId);
     if (StatusId === 'S') {
       this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
         this.appraisalApproval = {};
         this.appraisalApproval = response;
+        // console.log(this.appraisalApproval);
         this.appraisalApproval.AppraisalId = response.Id;
         this.appraisalApproval.AppraiseeId = response.UserId;
-        this.appraisalApproval.reviewerName = this.currentUser.fullName;
-        this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
+        this.appraisalApproval.ReviewerName = this.currentUser.fullName;
+        this.appraisalApproval.ReviewerTitle = this.currentUser.jobTitle;
         this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
         this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
         let fromDate = new Date(this.appraisalApproval.From);
-        this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.appraisalApprovalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
         let toDate = new Date(this.appraisalApproval.To);
-        this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.appraisalApprovalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.appraisalApproval.ReviewDate)
         // console.log(this.appraisalApproval);
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
@@ -100,6 +106,7 @@ export class ApprovalComponent implements OnInit {
         this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
         this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
         this.partCShow = ArrayConstants.LEADER_LEVEL;
+        // console.log(this.appraisalApproval);
         if (this.partAShow.includes(this.appraisalApproval.EmployeeLvId)) {
           this.supervisoryToggle = true;
           this.leadershipToggle = true;
@@ -110,26 +117,25 @@ export class ApprovalComponent implements OnInit {
       }, error => this._handleErrorService.handleError(error));
     }
     else {
-      this._dataService.get('/api/AppraisalApproval/getViewAppraisalApproval/?_appraisalId=' + Id + '&statusId='+StatusId).subscribe((response: any) => {
+      this._dataService.get('/api/AppraisalApproval/getViewAppraisalApproval/?_appraisalId=' + Id + '&statusId=' + StatusId).subscribe((response: any) => {
         this.appraisalApproval = {};
         this.appraisalApproval = response;
-        // alert(this.appraisalApproval.AppraiseeId);
+        // console.log(this.appraisalApproval);
         this.appraisalApproval.AppraiseeId = response.UserId;
-        this.appraisalApproval.reviewerName = this.currentUser.fullName;
-        this.appraisalApproval.reviewerTitle = this.currentUser.jobTitle;
         this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
         this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
         let fromDate = new Date(this.appraisalApproval.From);
-        this.appraisalApproval.From = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.appraisalApprovalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
         let toDate = new Date(this.appraisalApproval.To);
-        this.appraisalApproval.To = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.appraisalApprovalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
         let reviewDate = new Date(this.appraisalApproval.ReviewDate)
         // console.log(this.appraisalApproval);
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-  
+
         this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
         this.partBShow = ArrayConstants.SUPERVISOR_LEVEL;
         this.partCShow = ArrayConstants.LEADER_LEVEL;
+        // console.log(this.appraisalApproval.EmployeeLvId);
         if (this.partAShow.includes(this.appraisalApproval.EmployeeLvId)) {
           this.supervisoryToggle = true;
           this.leadershipToggle = true;
@@ -198,6 +204,37 @@ export class ApprovalComponent implements OnInit {
       }
       this.approveLoading = false;
     });
+  }
+
+  exportExcel(valid: Boolean) {
+    if(valid === false) return;
+    //  alert(JSON.stringify(this.appraisalFrom));
+    // Date problem
+    let _appraisalMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    let _appraisalDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    let _reviewDate: string = this.temporarydate.date.year + '-' + _appraisalMonth + '-' + _appraisalDay + 'T12:00:00Z'
+    this.appraisalApproval.reviewDate = new Date(_reviewDate);
+
+    // let _fromMonth = this.appraisalFrom.date.month.toString().length < 2 ? '0' + this.appraisalFrom.date.month : this.appraisalFrom.date.month;
+    // let _fromDay = this.appraisalFrom.date.day.toString().length < 2 ? '0' + this.appraisalFrom.date.day : this.appraisalFrom.date.day;
+    // let _fromDate: string = this.appraisalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    // this.appraisal.From = new Date(_fromDate);
+
+    // let _toMonth = this.appraisalTo.date.month.toString().length < 2 ? '0' + this.appraisalTo.date.month : this.appraisalTo.date.month;
+    // let _toDay = this.appraisalTo.date.day.toString().length < 2 ? '0' + this.appraisalTo.date.day : this.appraisalTo.date.day;
+    // let _toDate: string = this.appraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    // this.appraisal.To = new Date(_toDate);
+    // End date problem
+
+    // this.appraisal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.appraisal.departmentId)[0].Text;
+
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisalApproval)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 
   supervisoryClick() {

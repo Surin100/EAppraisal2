@@ -9,6 +9,7 @@ import { LoggedInUser } from '../../../core/domain/loggedin.user';
 import { HandleErrorService } from '../../../core/services/handle-error.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { MessageConstants } from '../../../core/common/message.constants';
+import { SystemConstants } from '../../../core/common/system.constants';
 
 @Component({
   selector: 'app-goalapproval',
@@ -119,8 +120,6 @@ export class GoalApprovalComponent implements OnInit {
       this._dataService.get('/api/SmartGoalApproval/GetViewSmartGoalApproval/?_smartGoalId=' + Id + '&statusId='+StatusId).subscribe((response: any) => {
         this.smartGoalApproval = response;
         this.smartGoalApproval.AppraiseeId = response.UserId;
-        this.smartGoalApproval.ReviewerName = this.currentUser.fullName;
-        this.smartGoalApproval.ReviewerTitle = this.currentUser.jobTitle;
         // console.log(this.smartGoal);
         this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
         this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
@@ -219,6 +218,62 @@ export class GoalApprovalComponent implements OnInit {
       }
       this.approveLoading = false;
     });
+  }
+
+  exportExcel(valid) {
+    //  alert(JSON.stringify(this.appraisalFrom));
+    if (!valid) return;
+    // this.saveGoalLoading = true;
+    // Date problem
+    // let _reviewMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
+    // let _reviewDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
+    // let _reviewDate: string = this.temporarydate.date.year + '-' + _reviewMonth + '-' + _reviewDay + 'T12:00:00Z'
+    // this.smartGoal.reviewDate = new Date(_reviewDate);
+
+    // let _fromMonth = this.smartGoalFrom.date.month.toString().length < 2 ? '0' + this.smartGoalFrom.date.month : this.smartGoalFrom.date.month;
+    // let _fromDay = this.smartGoalFrom.date.day.toString().length < 2 ? '0' + this.smartGoalFrom.date.day : this.smartGoalFrom.date.day;
+    // let _fromDate: string = this.smartGoalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    // this.smartGoal.From = new Date(_fromDate);
+
+    // let _toMonth = this.smartGoalTo.date.month.toString().length < 2 ? '0' + this.smartGoalTo.date.month : this.smartGoalTo.date.month;
+    // let _toDay = this.smartGoalTo.date.day.toString().length < 2 ? '0' + this.smartGoalTo.date.day : this.smartGoalTo.date.day;
+    // let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    // this.smartGoal.To = new Date(_toDate);
+
+    if (this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
+    if (this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
+    if (this.goal3Content.plan) this.goal3Contents.push(this.goal3Content);
+    if (this.goal4Content.plan) this.goal4Contents.push(this.goal4Content);
+    if (this.personalDevelopmentContent.plan) this.personalDevelopmentContents.push(this.personalDevelopmentContent);
+
+    this.goal1Content = {};
+    this.goal2Content = {};
+    this.goal3Content = {};
+    this.goal4Content = {};
+    this.personalDevelopmentContent={};
+
+    this.smartGoalApproval.goal1Content = JSON.stringify(this.goal1Contents);
+    this.smartGoalApproval.goal2Content = JSON.stringify(this.goal2Contents);
+    this.smartGoalApproval.goal3Content = JSON.stringify(this.goal3Contents);
+    this.smartGoalApproval.goal4Content = JSON.stringify(this.goal4Contents);
+    this.smartGoalApproval.personalDevelopmentContent = JSON.stringify(this.personalDevelopmentContents);
+
+    // this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.departmentId)[0].Text;
+
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoalApproval)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        Resolve(response);
+      }, error => {
+        this._handleErrorService.handleError(error);
+        this.approveLoading = false;
+      });
+    });
+    exportExcelPromise.then((element)=>{
+      this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
+      this.approveLoading = false;
+    });
+    
   }
 
   uncheckKeyPerformance(name: string): Boolean {
