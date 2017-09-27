@@ -2,8 +2,12 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_content" style="min-height:800px; text-align:center">
-        <img src="assets/images/homepanel.jpg" style="width: 100%">
+          <img  src="assets/images/homepanel.jpg" style="width: 100%">
       </div>
     </div>
   </div>
 </div>
+
+<button type="button" *ngIf="top>height" (click)="bttClick($event)" class="back-to-top text-center">
+  <i class="fa fa-arrow-up"></i>
+</button>

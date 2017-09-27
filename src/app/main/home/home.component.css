@@ -1,0 +1,18 @@
+
+/* Css */
+.back-to-top{
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    border-radius: 20px 20px 20px 20px;
+    width: 3em;
+    height: 3em;
+    color: #26B99A;
+    border: 5px solid;
+    cursor:pointer;
+    opacity: 0.5;
+    z-index: 99;
+    vertical-align: middle;
+    background: transparent
+    
+}

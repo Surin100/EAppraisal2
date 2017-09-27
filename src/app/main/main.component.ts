@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
-    // console.log(this.user.roles);
+    console.log(this.user);
   }
   logout() {
     this._authenService.logout();
@@ -50,6 +50,10 @@ export class MainComponent implements OnInit {
 
   registerClick() {
     this._router.navigate([UrlConstants.REGISTER]);
+  }
+
+  lmManagementClick(){
+    
   }
 
 }
