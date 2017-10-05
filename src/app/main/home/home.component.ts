@@ -26,6 +26,7 @@ height: number = 0;
   }
 
   bttClick(e){
+    // alert('a');
     $('body,html').animate({scrollTop:0},500);
     e.preventDefault();
   }

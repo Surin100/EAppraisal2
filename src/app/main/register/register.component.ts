@@ -7,6 +7,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { HandleErrorService } from '../../core/services/handle-error.service';
 import { MessageConstants } from '../../core/common/message.constants';
 import { EmployeeRegister } from '../../core/domain/employee.register';
+import { ChangeLineManager} from '../../core/domain/linemanager.change';
 
 @Component({
   selector: 'app-register',
@@ -15,15 +16,20 @@ import { EmployeeRegister } from '../../core/domain/employee.register';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('excelFile') excelFile;
+  @ViewChild('changeLMFile') changeLMFile;
   user: any = {};
   assignLM: any = {};
   resetPasswordLoading: Boolean = false;
   registerEmployeesLoading: Boolean = false;
+  changeLineManagerLoading: Boolean = false;
   assignLM1Loading: Boolean = false;
   assignLM2Loading: Boolean = false;
 
   registerArray: any = [];
   registerErrors: any = [];
+
+  changeLMArray: any = [];
+  changeLMErrors: any = [];
 
   constructor(private _dataService: DataService, private _notificationService: NotificationService,
     private _handleErrorService: HandleErrorService
@@ -107,8 +113,45 @@ export class RegisterComponent implements OnInit {
     reader.readAsBinaryString(files[0]);
   }
 
-  // postRegisterEmployees():any{
+  changeLineManager(){
+    this.changeLineManagerLoading = true;
+    this.changeLMArray = [];
+    var files: any[] = this.changeLMFile.nativeElement.files;
+    if (files.length == 0) { this.changeLineManagerLoading = false; return; }
+    if (files.length > 1) { throw new Error("Cannot upload multiple files on the entry") };
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr = e.target.result;
+      const wb = XLSX.read(bstr, { type: 'binary' });
+      /* grab first sheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      /* save data */
+      let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      data.forEach(element => {
+        let changeLM = new ChangeLineManager(element[0], element[1], element[2], element[3]);
+        this.changeLMArray.push(changeLM);
+      });
+      this.changeLMArray.splice(0, 1);
+      // console.log(this.changeLMArray);
+      var changeLMPromise = new Promise((resolve, reject) => {
+        this._dataService.post('/api/Account/ChangeLineManager', this.changeLMArray).subscribe((response: any) => {
+          this.changeLMErrors = response;
+          resolve(this.changeLMErrors);
+          this._notificationService.printSuccessMessage(MessageConstants.CHANGE_LINEMANAGER_OK_MSG);
+        }, error => {
+          this._handleErrorService.handleError(error);
+          resolve(error);
+        });
+      });
 
-  //   return registerPromise;
-  // }
+      changeLMPromise.then(() => {
+        this.changeLineManagerLoading = false;
+      });
+
+      // console.log(this.registerArray);
+    };
+    reader.readAsBinaryString(files[0]);
+  }
 }

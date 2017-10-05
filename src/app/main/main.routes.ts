@@ -10,5 +10,6 @@ export const mainRoutes: Routes = [
         {path:'guideline', loadChildren:'./guideline/guideline.module#GuidelineModule'},
         {path:'smartgoal', loadChildren:'./smartgoal/smartgoal.module#SmartGoalModule'},
         {path:'report', loadChildren:'./report/report.module#ReportModule'},
+        {path:'lmmanagement', loadChildren:'./lmmanagement/lmmanagement.module#LMManagementModule'},
     ]}
 ]

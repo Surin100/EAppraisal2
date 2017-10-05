@@ -8,5 +8,5 @@ export class UrlConstants{
     public static SMARTGOAL = '/main/smartgoal';
     public static CHANGE_PASSWORD = '/ChangePassword';
     public static REPORT = '/main/report';
-    public static LMMANAGEMENT = '/main/lmManagement';
+    public static LMMANAGEMENT = '/main/lmmanagement';
 }

@@ -135,13 +135,41 @@
 
               <!-- /Assign Line Manager Form -->
 
+
             </div>
           </div>
-        </div>
-        <div class="clearfix"></div>
+          <!-- Change Line Manager Form -->
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 class="text-info">Change Line Manager </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
 
-        <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #changeLineManagerForm="ngForm" novalidate>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="changeLMFile">Excel File:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="file" #changeLMFile name="changeLMFile" class="form-control inputMargin" multiple="false">
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="submit" (click)="changeLineManager()" class="btn btn-primary pull-left">Submit</button>
+                        <img *ngIf="changeLineManagerLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
 
+              <!-- /Change Line Manager Form -->
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
                 <li><a href="#tab_content4" (click)="guidelineClick()" data-toggle="tab">Guide Line</a></li>
                 <li *ngIf="user.roles.includes('HRExecutive')"><a href="#tab_content5" (click)="reportClick()" data-toggle="tab">Reports</a></li>
                 <li *ngIf="user.roles.includes('HRExecutive')"><a href="#tab_content6" (click)="registerClick()" data-toggle="tab">Register</a></li>
-                <li *ngIf="user.userName=='wmchr'"><a href="#tab_content7" (click)="lmManagementClick()" data-toggle="tab">LM Management</a></li>
+                <!-- <li *ngIf="user.userName=='wmchr'"><a href="#tab_content7" (click)="lmManagementClick()" data-toggle="tab">LM Management</a></li> -->
                 <li class="pull-right" id="profileMenu">
                     <a href="#tab_content1" class="user-profile dro-------pdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     {{user.fullName}}
