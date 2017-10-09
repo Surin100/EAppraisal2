@@ -46,14 +46,7 @@ export class CreateComponent implements OnInit {
 
     this.categoryList = JSON.parse(this.currentUser.categoryList);
 
-    this.appraisal = {
-      associateName: this.currentUser.fullName,
-      associateTitle: this.currentUser.jobTitle,
-      associateId: this.currentUser.userName,
-      departmentId: this.currentUser.departmentId,
-      reviewerName: this.currentUser.reviewerName,
-      reviewerTitle: this.currentUser.reviewerTitle
-    }
+    
     // alert(JSON.stringify(this.currentUser.depart));
     // debugger
     this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
@@ -73,10 +66,14 @@ export class CreateComponent implements OnInit {
     this.appraisal.subTotal2 = 0;
     this.appraisal.conclusion = 0;
 
-    // this.appraisal.goal1 = 0;
-    // this.appraisal.goal2 = 0;
-    // this.appraisal.goal3 = 0;
-    // this.appraisal.goal4 = 0;
+    this.appraisal = {
+      associateName: this.currentUser.fullName,
+      associateTitle: this.currentUser.jobTitle,
+      associateId: this.currentUser.userName,
+      departmentId: this.currentUser.departmentId,
+      reviewerName: this.currentUser.reviewerName,
+      reviewerTitle: this.currentUser.reviewerTitle
+    }
   }
 
   private myDatePickerOptions: IMyDpOptions = {

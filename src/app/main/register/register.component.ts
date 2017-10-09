@@ -7,7 +7,8 @@ import { NotificationService } from '../../core/services/notification.service';
 import { HandleErrorService } from '../../core/services/handle-error.service';
 import { MessageConstants } from '../../core/common/message.constants';
 import { EmployeeRegister } from '../../core/domain/employee.register';
-import { ChangeLineManager} from '../../core/domain/linemanager.change';
+import { ChangeLineManager } from '../../core/domain/linemanager.change';
+import { SystemConstants } from '../../core/common/system.constants';
 
 @Component({
   selector: 'app-register',
@@ -30,6 +31,9 @@ export class RegisterComponent implements OnInit {
 
   changeLMArray: any = [];
   changeLMErrors: any = [];
+
+  registerEmployeeTemplatePath: string = '/Templates/RegisterEmployeesTemplate.xlsx';
+  changeLineManagerTemplatePath: string ='/Templates/ChangeLineManagerTemplate.xlsx'
 
   constructor(private _dataService: DataService, private _notificationService: NotificationService,
     private _handleErrorService: HandleErrorService
@@ -87,8 +91,8 @@ export class RegisterComponent implements OnInit {
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
       data.forEach(element => {
-        let register = new EmployeeRegister(element[0], element[1], element[2], element[3]
-          , element[4], element[5], element[6], element[7], element[8]);
+        let register = new EmployeeRegister(element[0], element[1], element[2], element[4]
+          , element[6], element[7], element[8], element[9], element[10]);
         this.registerArray.push(register);
       });
       this.registerArray.splice(0, 1);
@@ -130,7 +134,8 @@ export class RegisterComponent implements OnInit {
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
       data.forEach(element => {
-        let changeLM = new ChangeLineManager(element[0], element[1], element[2], element[3]);
+        let changeLM = new ChangeLineManager(element[0], element[2], element[4]);
+        console.log(changeLM);
         this.changeLMArray.push(changeLM);
       });
       this.changeLMArray.splice(0, 1);
@@ -153,5 +158,12 @@ export class RegisterComponent implements OnInit {
       // console.log(this.registerArray);
     };
     reader.readAsBinaryString(files[0]);
+  }
+
+  getRegisterEmployeesTemplate(){
+    window.open(SystemConstants.BASE_API + this.registerEmployeeTemplatePath);
+  }
+  getChangeLineManagerTemplate(){
+    window.open(SystemConstants.BASE_API + this.changeLineManagerTemplatePath);
   }
 }
