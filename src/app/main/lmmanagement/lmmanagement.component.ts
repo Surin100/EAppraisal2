@@ -12,4 +12,7 @@ export class LMManagementComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetPassword(){
+    
+  }
 }
