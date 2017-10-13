@@ -6,9 +6,116 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content" style="min-height:800px">
-
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="x_panel">
+          <!-- Import Employees Form -->
+          <div class="x_panel panelabc">
+            <div class="x_title">
+              <h2 class="text-info">Import Employees </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #resetPasswordForm="ngForm" novalidate>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="excelFile">Excel File:</label>
+                      </div>
+                      <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="file" #excelFile name="excelFile" class="form-control inputMargin" multiple="false">
+                      </div>
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="registerSheetName">Sheet Name:</label>
+                      </div>
+                      <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="text" [(ngModel)]="registerSheetName" id="registerSheetName" name="registerSheetName" class="form-control inputMargin">
+                      </div>
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="registerFromRow">From Row (*)</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" [(ngModel)]="registerFromRow" id="registerFromRow" name="registerFromRow" class="form-control inputMargin">
+                      </div>
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="registerToRow">To Row (*)</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" [(ngModel)]="registerToRow" id="registerToRow" name="registerToRow" class="form-control inputMargin">
+                      </div>
+                      <div class="col-md-offset-2 col-sm-offset-2 col-xs-12">
+                        <button type="button" (click)="getRegisterEmployeesTemplate()" class="btn btn-primary pull-left">Template</button>
+                        <button type="submit" (click)="registerEmployees()" class="btn btn-primary pull-left">Register</button>
+                        <img *ngIf="registerEmployeesLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
+
+              <!-- /Import Employees Form -->
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <!-- Change Line Manager Form -->
+          <div class="x_panel panelabc">
+            <div class="x_title">
+              <h2 class="text-info">Change Line Manager </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #changeLineManagerForm="ngForm" novalidate>
+                    <div class="item form-group">
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="changeLMFile">Excel File:</label>
+                      </div>
+                      <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="file" #changeLMFile name="changeLMFile" class="form-control inputMargin" multiple="false">
+                      </div>
+
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="changeLMSheetName">Sheet Name:</label>
+                      </div>
+                      <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="text" [(ngModel)]="changeLMSheetName" id="changeLMSheetName" name="changeLMSheetName" class="form-control inputMargin">
+                      </div>
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="changeLMFromRow">From Row (*)</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" [(ngModel)]="changeLMFromRow" id="changeLMFromRow" name="changeLMFromRow" class="form-control inputMargin">
+                      </div>
+                      <div class=" col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="changeLMToRow">To Row (*)</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" [(ngModel)]="changeLMToRow" id="changeLMToRow" name="changeLMToRow" class="form-control inputMargin">
+                      </div>
+
+                      <div class="col-md-offset-2 col-sm-offset-2 col-xs-12">
+                        <button type="button" (click)="getChangeLineManagerTemplate()" class="btn btn-primary pull-left">Template</button>
+                        <button type="submit" (click)="changeLineManager()" class="btn btn-primary pull-left">Submit</button>
+                        <img *ngIf="changeLineManagerLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
+
+              <!-- /Change Line Manager Form -->
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel panelabc">
             <div class="x_title">
               <h2 class="text-info">Reset Password </h2>
               <div class="clearfix"></div>
@@ -41,45 +148,9 @@
 
             </div>
           </div>
-
-          <!-- Import Employees Form -->
-          <div class="x_panel">
-            <div class="x_title">
-              <h2 class="text-info">Import Employees </h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-
-              <div class="animate form">
-                <section class="login_content noPadding">
-                  <form class="noMargin" #resetPasswordForm="ngForm" novalidate>
-                    <div class="item form-group">
-                      <div class=" col-md-2 col-sm-2 col-xs-12">
-                        <label class="control-label pull-right labelMargin" for="excelFile">Excel File:</label>
-                      </div>
-                      <div class="col-md-10 col-sm-10 col-xs-12">
-                        <input type="file" #excelFile name="excelFile" class="form-control inputMargin" multiple="false">
-                      </div>
-                      <div class="col-md-offset-2 col-sm-offset-2 col-xs-12">
-                          <button type="button" (click)="getRegisterEmployeesTemplate()" class="btn btn-primary pull-left">Template</button>
-                          <button type="submit" (click)="registerEmployees()" class="btn btn-primary pull-left">Register</button>
-                          <img *ngIf="registerEmployeesLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                          />
-                      </div>
-                    </div>
-                  </form>
-                </section>
-              </div>
-
-              <!-- /Import Employees Form -->
-
-            </div>
-          </div>
-
         </div>
-
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="x_panel">
+          <div class="x_panel panelabc">
             <div class="x_title">
               <h2 class="text-info">Assign Line Manager </h2>
               <div class="clearfix"></div>
@@ -139,40 +210,8 @@
 
             </div>
           </div>
-          <!-- Change Line Manager Form -->
-          <div class="x_panel">
-            <div class="x_title">
-              <h2 class="text-info">Change Line Manager </h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-
-              <div class="animate form">
-                <section class="login_content noPadding">
-                  <form class="noMargin" #changeLineManagerForm="ngForm" novalidate>
-                    <div class="item form-group">
-                      <div class=" col-md-2 col-sm-2 col-xs-12">
-                        <label class="control-label pull-right labelMargin" for="changeLMFile">Excel File:</label>
-                      </div>
-                      <div class="col-md-10 col-sm-10 col-xs-12">
-                        <input type="file" #changeLMFile name="changeLMFile" class="form-control inputMargin" multiple="false">
-                      </div>
-                      <div class="col-md-offset-2 col-sm-offset-2 col-xs-12">
-                          <button type="button" (click)="getChangeLineManagerTemplate()" class="btn btn-primary pull-left">Template</button>
-                        <button type="submit" (click)="changeLineManager()" class="btn btn-primary pull-left">Submit</button>
-                        <img *ngIf="changeLineManagerLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </section>
-              </div>
-
-              <!-- /Change Line Manager Form -->
-
-            </div>
-          </div>
         </div>
+
       </div>
     </div>
   </div>

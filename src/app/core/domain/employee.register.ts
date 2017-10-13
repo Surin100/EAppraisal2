@@ -1,4 +1,5 @@
 export class EmployeeRegister{
+    public Row: number;
     public UserName:string;
     public FullName:string;
     public LM1UserName: string;
@@ -9,7 +10,7 @@ export class EmployeeRegister{
     public EmployeeLvId: string;
     public CompanyId: string;
 
-    constructor(UserName:string, FullName:string, LM1UserName: string, LM2UserName:string,
+    constructor(Row: number, UserName:string, FullName:string, LM1UserName: string, LM2UserName:string,
     Email: string, JobTitle: string, DepartmentId: string, EmployeeLvId:string, CompanyId: string){
         this.UserName = UserName;
         this.FullName = FullName;
@@ -20,5 +21,6 @@ export class EmployeeRegister{
         this.DepartmentId = DepartmentId;
         this.EmployeeLvId = EmployeeLvId;
         this.CompanyId = CompanyId;
+        this.Row = Row;
     }
 }

@@ -21,19 +21,25 @@ export class RegisterComponent implements OnInit {
   user: any = {};
   assignLM: any = {};
   resetPasswordLoading: Boolean = false;
-  registerEmployeesLoading: Boolean = false;
-  changeLineManagerLoading: Boolean = false;
   assignLM1Loading: Boolean = false;
   assignLM2Loading: Boolean = false;
 
   registerArray: any = [];
   registerErrors: any = [];
+  registerSheetName: string;
+  registerEmployeesLoading: Boolean = false;
+  registerFromRow: number;
+  registerToRow: number;
 
   changeLMArray: any = [];
   changeLMErrors: any = [];
+  changeLMSheetName: string;
+  changeLineManagerLoading: Boolean = false;
+  changeLMFromRow: number;
+  changeLMToRow: number;
 
-  registerEmployeeTemplatePath: string = '/Templates/RegisterEmployeesTemplate.xlsx';
-  changeLineManagerTemplatePath: string ='/Templates/ChangeLineManagerTemplate.xlsx'
+  registerEmployeeTemplatePath: string = '/Templates/ImportUserTemplate.xlsx';
+  changeLineManagerTemplatePath: string = '/Templates/ImportLineManagerTemplate.xlsx'
 
   constructor(private _dataService: DataService, private _notificationService: NotificationService,
     private _handleErrorService: HandleErrorService
@@ -41,6 +47,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.registerSheetName = "Import User";
+    this.changeLMSheetName = "Import Line Manager"
   }
 
   resetPassword() {
@@ -77,25 +85,45 @@ export class RegisterComponent implements OnInit {
   registerEmployees() {
     this.registerEmployeesLoading = true;
     this.registerArray = [];
+    // console.log(this.excelFile.nativeElement.value);
     var files: any[] = this.excelFile.nativeElement.files;
-    if (files.length == 0) { this.registerEmployeesLoading = false; return; }
+
+    // validate
+
+    if (files.length === 0 || this.validateFromToRow(this.registerFromRow, this.registerToRow) === false) {
+      this.registerEmployeesLoading = false; return;
+    }
     if (files.length > 1) { throw new Error("Cannot upload multiple files on the entry") };
+
+    // End of Validate
+
     const reader = new FileReader();
     reader.onload = (e: any) => {
       /* read workbook */
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, { type: 'binary' });
       /* grab first sheet */
-      const wsname = wb.SheetNames[0];
-      const ws = wb.Sheets[wsname];
+      // const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[this.registerSheetName];
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+      if (data.length < 2) {
+        this._notificationService.printErrorMessage("Sheet name does not exist or there is not data.");
+        this.registerEmployeesLoading = false;
+        return;
+      }
+      // console.log(data);
+      let row: number = 1;
       data.forEach(element => {
-        let register = new EmployeeRegister(element[0], element[1], element[2], element[4]
-          , element[6], element[7], element[8], element[9], element[10]);
-        this.registerArray.push(register);
+        if (row >= this.registerFromRow && row <= this.registerToRow) {
+          let register = new EmployeeRegister(row, element[0], element[1], element[2], element[4]
+            , element[6], element[7], element[8], element[9], element[10]);
+          this.registerArray.push(register);
+        }
+        row++;
       });
-      this.registerArray.splice(0, 1);
+      // this.registerArray.splice(0, 1);
       // console.log(this.registerArray);
       var registerPromise = new Promise((resolve, reject) => {
         this._dataService.post('/api/Account/RegisterEmployees', this.registerArray).subscribe((response: any) => {
@@ -117,11 +145,13 @@ export class RegisterComponent implements OnInit {
     reader.readAsBinaryString(files[0]);
   }
 
-  changeLineManager(){
+  changeLineManager() {
     this.changeLineManagerLoading = true;
     this.changeLMArray = [];
     var files: any[] = this.changeLMFile.nativeElement.files;
-    if (files.length == 0) { this.changeLineManagerLoading = false; return; }
+    if (files.length == 0 || this.validateFromToRow(this.changeLMFromRow, this.changeLMToRow) === false) {
+      this.changeLineManagerLoading = false; return;
+    }
     if (files.length > 1) { throw new Error("Cannot upload multiple files on the entry") };
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -129,16 +159,25 @@ export class RegisterComponent implements OnInit {
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, { type: 'binary' });
       /* grab first sheet */
-      const wsname = wb.SheetNames[0];
-      const ws = wb.Sheets[wsname];
+      // const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[this.changeLMSheetName];
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      if (data.length < 2) {
+        this._notificationService.printErrorMessage("Sheet name does not exist or there is not data.");
+        this.changeLineManagerLoading = false;
+        return;
+      }
+      let row: number = 1;
       data.forEach(element => {
-        let changeLM = new ChangeLineManager(element[0], element[2], element[4]);
-        console.log(changeLM);
-        this.changeLMArray.push(changeLM);
+        if (row >= this.changeLMFromRow && row <= this.changeLMToRow) {
+          let changeLM = new ChangeLineManager(row, element[0], element[2], element[4]);
+          // console.log(changeLM);
+          this.changeLMArray.push(changeLM);
+        }
+        row++;
       });
-      this.changeLMArray.splice(0, 1);
+      
       // console.log(this.changeLMArray);
       var changeLMPromise = new Promise((resolve, reject) => {
         this._dataService.post('/api/Account/ChangeLineManager', this.changeLMArray).subscribe((response: any) => {
@@ -160,10 +199,51 @@ export class RegisterComponent implements OnInit {
     reader.readAsBinaryString(files[0]);
   }
 
-  getRegisterEmployeesTemplate(){
+  getRegisterEmployeesTemplate() {
     window.open(SystemConstants.BASE_API + this.registerEmployeeTemplatePath);
   }
-  getChangeLineManagerTemplate(){
+  getChangeLineManagerTemplate() {
     window.open(SystemConstants.BASE_API + this.changeLineManagerTemplatePath);
+  }
+
+  validateFromToRow(FromRow: number, ToRow: number): Boolean {
+    if (!FromRow) {
+      this._notificationService.printErrorMessage("From Row is required.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+    if (isNaN(FromRow)) {
+      this._notificationService.printErrorMessage("From Row should be a number.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+    if (FromRow < 2) {
+      this._notificationService.printErrorMessage("From Row should be larger than 1.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+
+    if (!ToRow) {
+      this._notificationService.printErrorMessage("To Row is required.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+    if (isNaN(ToRow)) {
+      this._notificationService.printErrorMessage("To Row should be a number.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+    if (ToRow < 2) {
+      this._notificationService.printErrorMessage("To Row should be larger than 1.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+
+    if (FromRow > ToRow) {
+      this._notificationService.printErrorMessage("To Row should be larger than From Row.");
+      this.registerEmployeesLoading = false;
+      return false;
+    }
+    return true;
   }
 }
