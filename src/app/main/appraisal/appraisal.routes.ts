@@ -9,7 +9,8 @@ export const appraisalRoutes: Routes = [
             { path: '', redirectTo: 'self', pathMatch: 'full' },
             { path: 'self', loadChildren: './self/self.module#SelfModule' },
             { path: 'approval', loadChildren: './approval/approval.module#ApprovalModule' },
-            { path: 'approved', loadChildren: './approved/approved.module#ApprovedModule' }
+            { path: 'approved', loadChildren: './approved/approved.module#ApprovedModule' },
+            { path: 'guideline', loadChildren: './guideline/guideline.module#GuidelineModule'}
         ]
     }
 ]

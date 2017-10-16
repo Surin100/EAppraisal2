@@ -5,7 +5,7 @@
                 <li><a href="#tab_content1" (click)="homeClick()" data-toggle="tab">Home</a></li>
                 <li><a href="#tab_content2" (click)="appraisalClick()" data-toggle="tab">Performance Appraisal</a></li>
                 <li><a href="#tab_content3" (click)="smartGoalClick()" data-toggle="tab">Smart Goal</a></li>
-                <li><a href="#tab_content4" (click)="guidelineClick()" data-toggle="tab">Guide Line</a></li>
+                <!-- <li><a href="#tab_content4" (click)="guidelineClick()" data-toggle="tab">Guide Line</a></li> -->
                 <li *ngIf="user.roles.includes('HRExecutive')"><a href="#tab_content5" (click)="reportClick()" data-toggle="tab">Reports</a></li>
                 <li *ngIf="user.roles.includes('HRExecutive')"><a href="#tab_content6" (click)="registerClick()" data-toggle="tab">Register</a></li>
                 <!-- <li *ngIf="user.userName=='wmchr'"><a href="#tab_content7" (click)="lmManagementClick()" data-toggle="tab">LM Management</a></li> -->

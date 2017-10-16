@@ -7,7 +7,7 @@ export const mainRoutes: Routes = [
         {path:'home', loadChildren:'./home/home.module#HomeModule'},
         {path:'register', loadChildren:'./register/register.module#RegisterModule'},
         {path:'appraisal', loadChildren:'./appraisal/appraisal.module#AppraisalModule'},
-        {path:'guideline', loadChildren:'./guideline/guideline.module#GuidelineModule'},
+        // {path:'guideline', loadChildren:'./guideline/guideline.module#GuidelineModule'},
         {path:'smartgoal', loadChildren:'./smartgoal/smartgoal.module#SmartGoalModule'},
         {path:'report', loadChildren:'./report/report.module#ReportModule'},
         {path:'lmmanagement', loadChildren:'./lmmanagement/lmmanagement.module#LMManagementModule'},

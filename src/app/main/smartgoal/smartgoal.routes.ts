@@ -8,7 +8,8 @@ export const smartGoalRoutes: Routes = [
             { path: '', redirectTo: 'selfgoal', pathMatch: 'full' },
             { path: 'selfgoal', loadChildren: './selfgoal/selfgoal.module#SelfGoalModule' },
             { path: 'goalapproval', loadChildren: './goalapproval/goalapproval.module#GoalApprovalModule' },
-            { path: 'ApprovedGoal', loadChildren: './approved-goal/approved-goal.module#ApprovedGoalModule' }
+            { path: 'ApprovedGoal', loadChildren: './approved-goal/approved-goal.module#ApprovedGoalModule' },
+            { path: 'goalguideline', loadChildren: './smart-goal-guideline/smart-goal-guideline.module#SmartGoalGuidelineModule'}
         ]
     }
 ]

@@ -9,7 +9,9 @@ import { SmartGoalComponent} from '../smartgoal.component';
 })
 export class SelfGoalComponent implements OnInit {
 
-  constructor(private _smartGoalComponent: SmartGoalComponent) { this._smartGoalComponent.selfGoalLoad = true; }
+  constructor(private _smartGoalComponent: SmartGoalComponent) { 
+    this._smartGoalComponent.selfGoalLoad = true; 
+  }
 
   ngOnInit() {
   }

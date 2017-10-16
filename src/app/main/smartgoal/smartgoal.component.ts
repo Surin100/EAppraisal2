@@ -19,7 +19,7 @@ export class SmartGoalComponent implements OnInit {
   ngOnInit() {
   }
   selfGoalClick(){
-    
+    this.selfGoalLoad = true;
   }
   goalApprovalClick(){
     this.selfGoalLoad = false;
@@ -27,5 +27,7 @@ export class SmartGoalComponent implements OnInit {
   goalApprovedClick(){
     this.selfGoalLoad = false;
   }
-
+  goalGuidelineClick(){
+    this.selfGoalLoad = true;
+  }
 }

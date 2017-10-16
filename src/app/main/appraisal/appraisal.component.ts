@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { Router } from '@angular/router';
 
 import {AuthenService} from '../../core/services/authen.service';
 
@@ -30,7 +31,11 @@ export class AppraisalComponent implements OnInit {
   approvedClick() {
     this.selfLoad = false;
   }
-
+  guidelineClick() {
+    this.selfLoad = true;
+    // this._router.navigate([UrlConstants.GUIDELINE]);
+  }
+  
 
 
 }
