@@ -117,7 +117,7 @@ export class CreateGoalComponent implements OnInit {
 
     this._dataService.post('/api/SmartGoal/SaveSmartGoal', this.smartGoal).subscribe((response: any) => {
       if (this.smartGoal.statusId == 'N') this._notificationService.printSuccessMessage(MessageConstants.SAVE_DRAFT_SUCCESS);
-      if (this.smartGoal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_APPRAISAL_SUCCESS);
+      if (this.smartGoal.statusId == 'S') this._notificationService.printSuccessMessage(MessageConstants.SUBMIT_GOAL_SUCCESS);
       this._utilityService.navigate('/main/smartgoal');
     }, error => {
       // alert(JSON.stringify(error));

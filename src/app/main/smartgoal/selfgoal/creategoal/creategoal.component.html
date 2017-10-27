@@ -12,6 +12,7 @@
       <section class="login_content noPadding">
         <form class="noMargin" #createSmartGoalForm="ngForm" novalidate (ngSubmit)="saveSmartGoal(createSmartGoalForm.valid)" *ngIf='smartGoal'>
 
+
           <!-- Left Column -->
           <div class="col-md-5 col-sm-12 col-xs-12">
             <div class="item form-group">
@@ -176,7 +177,8 @@
                       <input type="checkbox" [(ngModel)] = "smartGoal.goal1Employee" name="goal1Employee" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                     <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Operating" name="goal1Operating" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Operating Process / <br/><em class="text-primary">Quy trình hoạt động</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal1Operating" name="goal1Operating" [attr.disabled]="(!goal1Content.plan && goal1Contents.length == 0) || null"/> Operating Process / <br/>
+                      <em class="text-primary marginLeft1">Quy trình hoạt động</em>
                     </label>
                   </div>
                 </td>
@@ -266,7 +268,8 @@
                       <input type="checkbox" [(ngModel)] = "smartGoal.goal2Employee" name="goal2Employee" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Internal" name="goal2Internal" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal2Internal" name="goal2Internal" [attr.disabled]="(!goal2Content.plan && goal2Contents.length == 0) || null"/> Internal Process / <br/>
+                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">
@@ -355,7 +358,8 @@
                       <input type="checkbox" [(ngModel)] = "smartGoal.goal3Employee" name="goal3Employee" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Internal" name="goal3Internal" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal3Internal" name="goal3Internal" [attr.disabled]="(!goal3Content.plan && goal3Contents.length == 0) || null"/> Internal Process / <br/>
+                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">
@@ -444,7 +448,8 @@
                       <input type="checkbox" [(ngModel)] = "smartGoal.goal4Employee" name="goal4Employee" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Employee / <em class="text-primary">Nhân viên</em>
                     </label>
                   <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Internal" name="goal4Internal" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Internal Process / <br/><em class="text-primary">Quy trình nội bộ</em>
+                      <input type="checkbox" [(ngModel)] = "smartGoal.goal4Internal" name="goal4Internal" [attr.disabled]="(!goal4Content.plan && goal4Contents.length == 0) || null"/> Internal Process / <br/>
+                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
                     </label>
                 </td>
                 <td colspan="3" class="noPadding">

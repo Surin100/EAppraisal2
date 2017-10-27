@@ -46,7 +46,6 @@ export class CreateComponent implements OnInit {
 
     this.categoryList = JSON.parse(this.currentUser.categoryList);
 
-    
     // alert(JSON.stringify(this.currentUser.depart));
     // debugger
     this.partAShow = ArrayConstants.NON_SUPERVISOR_LEVEL;
@@ -62,18 +61,18 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appraisal.subTotal1 = 0;
-    this.appraisal.subTotal2 = 0;
-    this.appraisal.conclusion = 0;
-
     this.appraisal = {
       associateName: this.currentUser.fullName,
       associateTitle: this.currentUser.jobTitle,
       associateId: this.currentUser.userName,
       departmentId: this.currentUser.departmentId,
       reviewerName: this.currentUser.reviewerName,
-      reviewerTitle: this.currentUser.reviewerTitle
+      reviewerTitle: this.currentUser.reviewerTitle,
+      subTotal1: 0,
+      subTotal2: 0,
+      conclusion: 0
     }
+    this.loadData();
   }
 
   private myDatePickerOptions: IMyDpOptions = {
@@ -83,6 +82,68 @@ export class CreateComponent implements OnInit {
   private today = new Date();
   // Initialized to specific date (09.10.2018).
   temporarydate = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
+
+  loadData() {
+    this._dataService.get('/api/appraisal/GetTheLastGoal').subscribe((response: any) => {
+      // console.log(response);
+      this.appraisal.LastGoalId = response.Id;
+      let goal1Content = JSON.parse(response.Goal1Content);
+      let goal2Content = JSON.parse(response.Goal2Content);
+      let goal3Content = JSON.parse(response.Goal3Content);
+      let goal4Content = JSON.parse(response.Goal4Content);
+
+      if (goal1Content.length > 0) {
+        this.appraisal.goal1Content = '';
+        goal1Content.forEach(element => {
+          if (element !== goal1Content[0]) {
+            this.appraisal.goal1Content += '\n' + element.plan;
+          }
+          else {
+            this.appraisal.goal1Content += element.plan;
+          }
+        });
+      }
+
+      if (goal2Content.length >0) {
+        this.appraisal.goal2Content = '';
+        goal2Content.forEach(element => {
+          if (element !== goal2Content[0]) {
+            this.appraisal.goal2Content += '\n' + element.plan;
+          }
+          else {
+            this.appraisal.goal2Content += element.plan;
+          }
+        });
+      }
+
+      if (goal3Content.length > 0) {
+        this.appraisal.goal3Content = '';
+        goal3Content.forEach(element => {
+          if (element !== goal3Content[0]) {
+            this.appraisal.goal3Content += '\n' + element.plan;
+          }
+          else {
+            this.appraisal.goal3Content += element.plan;
+          }
+        });
+
+
+      }
+
+      if (goal4Content.length > 0) {
+        this.appraisal.goal4Content = '';
+        goal4Content.forEach(element => {
+          if (element !== goal4Content[0]) {
+            this.appraisal.goal4Content += '\n' + element.plan;
+          }
+          else {
+            this.appraisal.goal4Content += element.plan;
+          }
+        });
+      }
+      // console.log(this.appraisal);
+    }, error => this._handleErrorService.handleError(error));
+  }
 
   supervisoryClick() {
     this.supervisoryChevron = !this.supervisoryChevron;
@@ -180,29 +241,30 @@ export class CreateComponent implements OnInit {
 
     this.appraisal.subTotal1 = (noCompetencies == 0) ? 0 : (
       customerDriven +
-        questForExcellence +
-        teamWork +
-        respectAndTrust +
-        enterprising +
-        communication +
-        dependability +
-        quantityOfWork +
-        qualityOfWork +
+      questForExcellence +
+      teamWork +
+      respectAndTrust +
+      enterprising +
+      communication +
+      dependability +
+      quantityOfWork +
+      qualityOfWork +
 
-        personalEfficiency +
-        workforceScheduling +
-        qualityManagement +
-        performanceManagement +
-        successionPlanning +
-        managingConflicts +
-        celebrateResults + 
+      personalEfficiency +
+      workforceScheduling +
+      qualityManagement +
+      performanceManagement +
+      successionPlanning +
+      managingConflicts +
+      celebrateResults +
 
-        leadWithVision + 
-        alignAndEngage +
-        talentMagnet)
+      leadWithVision +
+      alignAndEngage +
+      talentMagnet)
       / noCompetencies;
 
-    this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
+    this.appraisal.conclusion = this.appraisal.subTotal2 > 0 ? this.appraisal.subTotal1 * 0.7 + this.appraisal.subTotal2 * 0.3 : this.appraisal.subTotal1;
+    // console.log(this.appraisal.subTotal2);
   }
 
   generateSubTotal2() {
@@ -212,18 +274,18 @@ export class CreateComponent implements OnInit {
     if (this.appraisal.goal3 > 0) noGoals++;
     if (this.appraisal.goal4 > 0) noGoals++;
 
-    let goal1 = this.appraisal.goal1? this.appraisal.goal1 : 0;
-    let goal2 = this.appraisal.goal2? this.appraisal.goal2 : 0;
-    let goal3 = this.appraisal.goal3? this.appraisal.goal3 : 0;
-    let goal4 = this.appraisal.goal4? this.appraisal.goal4 : 0;
+    let goal1 = this.appraisal.goal1 ? this.appraisal.goal1 : 0;
+    let goal2 = this.appraisal.goal2 ? this.appraisal.goal2 : 0;
+    let goal3 = this.appraisal.goal3 ? this.appraisal.goal3 : 0;
+    let goal4 = this.appraisal.goal4 ? this.appraisal.goal4 : 0;
 
     this.appraisal.subTotal2 = (noGoals == 0) ? 0 : (
-      goal1 + 
-      goal2 + 
-      goal3 + 
+      goal1 +
+      goal2 +
+      goal3 +
       goal4) / noGoals;
 
-    this.appraisal.conclusion = this.appraisal.subTotal1 * 0.3 + this.appraisal.subTotal2 * 0.7
+    this.appraisal.conclusion = this.appraisal.subTotal2 > 0 ? this.appraisal.subTotal1 * 0.7 + this.appraisal.subTotal2 * 0.3 : this.appraisal.subTotal1;
   }
 
   // End of Generate conclusion

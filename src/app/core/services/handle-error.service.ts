@@ -16,6 +16,7 @@ export class HandleErrorService {
     if (error.status == 401) {
       localStorage.removeItem(SystemConstants.CURRENT_USER);
       this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
+      // console.log(localStorage.removeItem(SystemConstants.CURRENT_USER));
       this._utilityService.navigateToLogin();
     }
     else if (error.status == 0 || error.status == 500) {

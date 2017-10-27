@@ -6,6 +6,10 @@
     margin: 0 !important;
 }
 
+.marginLeft1{
+    margin-left: 1em;
+}
+
 .inputMargin{
     margin: -0.5em 0 1em 0 !important;
 }

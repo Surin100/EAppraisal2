@@ -18,6 +18,17 @@ export class NewUserGuard implements CanActivate {
         this._router.navigate([UrlConstants.LOGIN]);
         return false;
       }
+
+      let today = new Date();
+      let expireDate = new Date(currentUser['.expires']);
+
+      // console.log(expireDate > today);
+      if(expireDate < today ){
+        localStorage.removeItem(SystemConstants.CURRENT_USER);
+        this._router.navigate([UrlConstants.LOGIN]);
+        return false;
+      }
+
       if(currentUser.roles.includes('NewUser')){ 
         this._router.navigate([UrlConstants.CHANGE_PASSWORD]);
         return false;

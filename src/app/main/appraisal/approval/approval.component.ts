@@ -294,7 +294,7 @@ export class ApprovalComponent implements OnInit {
       this.appraisalApproval.TalentMagnet)
       / noCompetencies;
 
-    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
+    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal2 > 0? this.appraisalApproval.SubTotal1 * 0.7 + this.appraisalApproval.SubTotal2 * 0.3 : this.appraisalApproval.SubTotal1;
   }
 
   generateSubTotal2() {
@@ -305,7 +305,7 @@ export class ApprovalComponent implements OnInit {
     if (this.appraisalApproval.Goal4 > 0) noGoals++;
     this.appraisalApproval.SubTotal2 = (noGoals == 0) ? 0 : (this.appraisalApproval.Goal1 + this.appraisalApproval.Goal2 + this.appraisalApproval.Goal3 + this.appraisalApproval.Goal4) / noGoals;
 
-    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal1 * 0.3 + this.appraisalApproval.SubTotal2 * 0.7
+    this.appraisalApproval.Conclusion = this.appraisalApproval.SubTotal2 > 0? this.appraisalApproval.SubTotal1 * 0.7 + this.appraisalApproval.SubTotal2 * 0.3 : this.appraisalApproval.SubTotal1;
   }
 
   // End of Generate conclusion

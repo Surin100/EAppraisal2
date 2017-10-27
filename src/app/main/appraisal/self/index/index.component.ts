@@ -190,7 +190,7 @@ export class IndexComponent implements OnInit {
       this.appraisal.AlignAndEngage +
       this.appraisal.TalentMagnet)
       / noCompetencies;
-    this.appraisal.Conclusion = this.appraisal.SubTotal1 * 0.3 + this.appraisal.SubTotal2 * 0.7
+    this.appraisal.Conclusion = this.appraisal.SubTotal2 > 0? this.appraisal.SubTotal1 * 0.7 + this.appraisal.SubTotal2 * 0.3 : this.appraisal.SubTotal1;
   }
 
   generateSubTotal2() {
@@ -200,7 +200,7 @@ export class IndexComponent implements OnInit {
     if (this.appraisal.Goal3 > 0) noGoals++;
     if (this.appraisal.Goal4 > 0) noGoals++;
     this.appraisal.SubTotal2 = (noGoals == 0) ? 0 : (this.appraisal.Goal1 + this.appraisal.Goal2 + this.appraisal.Goal3 + this.appraisal.Goal4) / noGoals;
-    this.appraisal.Conclusion = this.appraisal.SubTotal1 * 0.3 + this.appraisal.SubTotal2 * 0.7
+    this.appraisal.Conclusion = this.appraisal.SubTotal2 > 0? this.appraisal.SubTotal1 * 0.7 + this.appraisal.SubTotal2 * 0.3 : this.appraisal.SubTotal1;
   }
 
   uncheckGoal(name: string) {

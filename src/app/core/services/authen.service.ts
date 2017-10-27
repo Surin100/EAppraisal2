@@ -73,9 +73,12 @@ export class AuthenService {
     this.headers.append("Authorization", "Bearer " + this.getLoggedInUser().access_token);
     this._http.post(SystemConstants.BASE_API + '/api/Account/Logout', null, { headers: this.headers }).map((res: Response) => res.text() ? res.json() : {})
       .subscribe((response: Response) => {
-        localStorage.removeItem(SystemConstants.CURRENT_USER);
+        window.localStorage.removeItem(SystemConstants.CURRENT_USER);
         this._router.navigate([UrlConstants.LOGIN]);
-      }, error => this._handleErrorService.handleError(error));
+      }, error =>{
+        // console.log(error);
+      this._handleErrorService.handleError(error);
+    });
   }
 
   isUserAuthenticated(): boolean {

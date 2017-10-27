@@ -6,6 +6,10 @@
     margin: 0 !important;
 }
 
+.marginLeft1{
+    margin-left: 1em;
+}
+
 .titlePadding{
     padding-right: 2em !important;
 }
