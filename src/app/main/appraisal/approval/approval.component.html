@@ -103,6 +103,16 @@
                         name="reviewerTitle" type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"/>
                     </div>
                   </div>
+                  <div class="item form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label class="control-label  pull-right" for="category">Category (*):</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <select class="form-control inputMargin" [(ngModel)]="appraisalApproval.CategoryId" name="categoryId" required [disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null">
+                        <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <!-- /Left Column -->
 
@@ -132,7 +142,7 @@
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
                       <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                        <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
+                        <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                         <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisalApprovalFrom" type="text" required readonly/>
@@ -140,7 +150,7 @@
                     </div>
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
                       <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                        <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
+                        <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                         <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisalApprovalTo" type="text" required readonly />
@@ -1422,15 +1432,9 @@
                 </table>
                 <div class="item form-group">
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <label class="control-label  pull-right" for="categoryName">Category:</label>
+                    <div class="pull-right"><strong>(*): Required Field.</strong></div>
                   </div>
-                  <div class="col-md-7 col-sm-7 col-xs-12">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control inputMargin" [(ngModel)]="appraisalApproval.CategoryId" name="categoryId" required [disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null">
-                            <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
-                          </select>
-                    </div>
-                  </div>
+                  <div class="clearfix"></div>
                 </div>
                 <div>
                   <button type="button" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="exportExcel(approveAppraisalForm.valid)" class="btn btn-primary">Export Excel</button>

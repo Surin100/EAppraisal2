@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Compiler } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Router } from '@angular/router';
 
@@ -12,59 +12,27 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenService {
   private headers: Headers;
-  constructor(private _http: Http, private _router: Router, private _handleErrorService: HandleErrorService) {
+  constructor(private _http: Http, private _router: Router, private _handleErrorService: HandleErrorService,
+    private _compiler: Compiler) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string):any {
     let body = "userName=" + encodeURIComponent(username) +
       "&password=" + encodeURIComponent(password) + "&grant_type=password";
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let options = new RequestOptions({ headers: headers });
+
     return this._http.post(SystemConstants.BASE_API + '/token', body, options).map((response: Response) => {
-      let user: LoggedInUser = response.json();
       // console.log(user);
-      // let goal1Plan: string = '';
-      // let goal2Plan: string = '';
-      // let goal3Plan: string = '';
-      // let goal4Plan: string = '';
-
-      // let goal1Content = JSON.parse(user.goal1Content);
-      // let goal2Content = JSON.parse(user.goal2Content);
-      // let goal3Content = JSON.parse(user.goal3Content);
-      // let goal4Content = JSON.parse(user.goal4Content);
-
-      // goal1Content.forEach(element => {
-      //   goal1Plan += element.plan + '\n';
-
-      // });
-      // goal2Content.forEach(element => {
-      //   goal2Plan += element.plan + '\n';
-      // });
-      // goal3Content.forEach(element => {
-      //   goal3Plan += element.plan + '\n';
-      // });
-      // goal4Content.forEach(element => {
-      //   goal4Plan += element.plan + '\n';
-      // });
-
-      // user.goal1Content = goal1Plan;
-      // user.goal2Content = goal2Plan;
-      // user.goal3Content = goal3Plan;
-      // user.goal4Content = goal4Plan;
-      // console.log(user.goal1Content);
-      // console.log(user.goal2Content);
-      // console.log(user.goal3Content);
-      // console.log(user.goal4Content);
-
+      let user = response.json();
       if (user.access_token) {
         localStorage.removeItem(SystemConstants.CURRENT_USER);
         localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
-        this._router.navigate([UrlConstants.HOME]);
       }
-
+      return user;
     });
   }
 
@@ -75,6 +43,8 @@ export class AuthenService {
       .subscribe((response: Response) => {
         window.localStorage.removeItem(SystemConstants.CURRENT_USER);
         this._router.navigate([UrlConstants.LOGIN]);
+        // this._compiler.clearCache();
+        // window.location.reload(true);
       }, error =>{
         // console.log(error);
       this._handleErrorService.handleError(error);

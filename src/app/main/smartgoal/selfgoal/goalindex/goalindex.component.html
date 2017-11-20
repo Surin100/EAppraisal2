@@ -103,6 +103,16 @@
                       name="reviewerTitle" type="text" readonly />
                   </div>
                 </div>
+                <div class="item form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label  pull-right" for="category">Category (*):</label>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control inputMargin" [(ngModel)]="smartGoal.CategoryId" name="categoryId" required>
+                      <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <!-- /Left Column -->
 
@@ -133,7 +143,7 @@
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
+                      <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <my-date-picker name="from" #from="ngModel" [options]="myDatePickerOptions" [(ngModel)]="smartGoalFrom" required></my-date-picker>
@@ -141,7 +151,7 @@
                   </div>
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
+                      <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <my-date-picker name="to" #to="ngModel" [options]="myDatePickerOptions" [(ngModel)]="smartGoalTo" required></my-date-picker>
@@ -176,8 +186,8 @@
                       <em>Thứ tự mục tiêu</em>
                     </th>
                     <th class="abc">
-                      Key Performance Area<br/>
-                      <em class="text-primary">Trọng tâm của mục tiêu</em>
+                      Key Performance Area (*)<br/>
+                      <em class="text-primary">Trọng tâm của mục tiêu (*)</em>
                     </th>
                     <th class="abc noPadding" colspan="3" id="goalTableHeader">
 
@@ -185,8 +195,8 @@
                         <thead>
                           <tr id="goalContentTableHeader" style="height: 10em;">
                             <th class="abc">
-                              S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
-                              <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào)</em>
+                              S.M.A.R.T. GOAL (What) and Action Plan (How) (*)<br/>
+                              <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào) (*)</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
                               Completed date<br/>
@@ -819,15 +829,9 @@
 
               <div class="item form-group">
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <label class="control-label  pull-right" for="category">Category:</label>
+                  <div class="pull-right"><strong>(*): Required Field.</strong></div>
                 </div>
-                <div class="col-md-7 col-sm-7 col-xs-12">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control inputMargin" [(ngModel)]="smartGoal.CategoryId" name="categoryId" required>
-                  <option *ngFor="let category of categoryList" [ngValue]="category.Value">{{category.Text}}</option>
-                </select>
-                  </div>
-                </div>
+                <div class="clearfix"></div>
               </div>
               <div>
                 <button type="button" [disabled]="!modifySmartGoalForm.valid || !goalIsValid() || saveGoalLoading==true" (click)="exportExcel(modifySmartGoalForm.valid)"
@@ -912,6 +916,15 @@
                       name="reviewerTitle" type="text" required readonly/>
                   </div>
                 </div>
+                <div class="item form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label  pull-right" for="category">Category (*):</label>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input class="form-control inputMargin" type="text" [(ngModel)]="viewSmartGoal.CategoryName" name="categoryName" required
+                    readonly/>
+                  </div>
+                </div>
               </div>
               <!-- /Left Column -->
 
@@ -941,7 +954,7 @@
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ:</em></label>
+                      <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <input class="form-control" name="from" #from="ngModel" [(ngModel)]="viewSmartGoalFrom" type="text" required readonly/>
@@ -949,7 +962,7 @@
                   </div>
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến:</em></label>
+                      <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <input class="form-control" name="to" #to="ngModel" [(ngModel)]="viewSmartGoalTo" type="text" required readonly/>
@@ -983,8 +996,8 @@
                       <em>Thứ tự mục tiêu</em>
                     </th>
                     <th class="abc">
-                      Key Performance Area<br/>
-                      <em class="text-primary">Trọng tâm của mục tiêu</em>
+                      Key Performance Area (*)<br/>
+                      <em class="text-primary">Trọng tâm của mục tiêu (*)</em>
                     </th>
                     <th class="abc noPadding" colspan="3" id="goalTableHeader">
 
@@ -992,8 +1005,8 @@
                         <thead>
                           <tr id="goalContentTableHeader" style="height: 10em;">
                             <th class="abc">
-                              S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
-                              <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào)</em>
+                              S.M.A.R.T. GOAL (What) and Action Plan (How) (*)<br/>
+                              <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào) (*)</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
                               Completed date<br/>
@@ -1547,14 +1560,9 @@
 
               <div class="item form-group">
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <label class="control-label  pull-right" for="category">Category:</label>
+                  <div class="pull-right"><strong>(*): Required Field.</strong></div>
                 </div>
-                <div class="col-md-7 col-sm-7 col-xs-12">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input class="form-control inputMargin" type="text" [(ngModel)]="viewSmartGoal.CategoryName" name="categoryName" required
-                      readonly/>
-                  </div>
-                </div>
+                <div class="clearfix"></div>
               </div>
               <div>
                 <button type="button" (click)="exportViewSmartGoalToExcel()" class="btn btn-primary">Export Excel</button>

@@ -107,8 +107,8 @@ export class RegisterComponent implements OnInit {
       const ws = wb.Sheets[this.registerSheetName];
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-
-      if (data.length < 2) {
+      // console.log(data);
+      if (data.length < 2 || data.length < this.registerFromRow) {
         this._notificationService.printErrorMessage("Sheet name does not exist or there is not data.");
         this.registerEmployeesLoading = false;
         return;
@@ -139,7 +139,6 @@ export class RegisterComponent implements OnInit {
       registerPromise.then(() => {
         this.registerEmployeesLoading = false;
       });
-
       // console.log(this.registerArray);
     };
     reader.readAsBinaryString(files[0]);
@@ -163,7 +162,7 @@ export class RegisterComponent implements OnInit {
       const ws = wb.Sheets[this.changeLMSheetName];
       /* save data */
       let data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-      if (data.length < 2) {
+      if (data.length < 2 || data.length < this.changeLMFromRow) {
         this._notificationService.printErrorMessage("Sheet name does not exist or there is not data.");
         this.changeLineManagerLoading = false;
         return;
@@ -238,8 +237,8 @@ export class RegisterComponent implements OnInit {
       this.registerEmployeesLoading = false;
       return false;
     }
-
-    if (FromRow > ToRow) {
+// console.log(FromRow + ' ' + ToRow);
+    if (FromRow - ToRow > 0 ) {
       this._notificationService.printErrorMessage("To Row should be larger than From Row.");
       this.registerEmployeesLoading = false;
       return false;

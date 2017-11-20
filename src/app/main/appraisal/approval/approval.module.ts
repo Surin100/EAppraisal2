@@ -8,6 +8,7 @@ import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 
 import { ApprovalComponent } from './approval.component';
 import { DataService } from '../../../core/services/data.service';
+import {SignalrService} from '../../../core/services/signalr.service';
 import { approvalRoutes } from './approval.routes';
 import {AutosizeModule } from '../../autosize/autosize.module';
 
@@ -21,7 +22,7 @@ import {AutosizeModule } from '../../autosize/autosize.module';
     ModalModule.forRoot(),
     RouterModule.forChild(approvalRoutes)
   ],
-  providers: [DataService],
+  providers: [DataService, SignalrService],
   declarations: [ApprovalComponent]
 })
 export class ApprovalModule { }

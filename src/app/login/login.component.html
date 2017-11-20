@@ -1,7 +1,5 @@
 <div>
-  <a class="hiddenanchor" id="signup"></a>
-  <a class="hiddenanchor" id="signin"></a>
-
+  <div class="text-center"><img src="assets/images/banner-1.jpg" width="50%"/></div>  
   <div class="login_wrapper">
     <div class="animate form login_form">
       <section class="login_content">
@@ -15,10 +13,9 @@
             <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password" #password="ngModel" />
           </div>
           <div>
-            <button [disabled]="loading" class="btn btn-primary submit">Log in</button>
+            <button [disabled]="loading" class="btn btn-primary pull-right submit">Log in</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
             />
-            <a class="reset_pass" href="#">Lost your password?</a>
           </div>
 
           <div class="clearfix"></div>
@@ -28,7 +25,7 @@
             <br />
 
             <div>
-              <h1><i class="fa fa-paw"></i> E-Appraisal!</h1>
+              <h1><img src="assets/images/logo.png" width="70em"/> E-Appraisal!</h1>
             </div>
           </div>
         </form>

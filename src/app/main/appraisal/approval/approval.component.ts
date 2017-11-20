@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 
 import { IMyDpOptions } from 'mydatepicker';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AuthenService } from '../../../core/services/authen.service';
+import { SignalrService } from '../../../core/services/signalr.service';
 import { DataService } from '../../../core/services/data.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { HandleErrorService } from '../../../core/services/handle-error.service';
@@ -44,15 +45,45 @@ export class ApprovalComponent implements OnInit {
   appraisalApprovalFrom: string;
   appraisalApprovalTo: string;
 
+  canSendMessage: Boolean;
+  
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _handleErrorService: HandleErrorService,
-    private _utilityService: UtilityService, private _notificationService: NotificationService
+    private _utilityService: UtilityService, private _notificationService: NotificationService, private _signalrService: SignalrService,
+    private _ngZone: NgZone
   ) {
-    this.currentUser = _authenService.getLoggedInUser();
+    
+    // $.connection.hub.logging = true;
   }
 
   ngOnInit() {
-    this.categoryList = JSON.parse(this.currentUser.categoryList);
+    
     this.loadData();
+    // this.subscribeToEvents();
+    // this.canSendMessage = this._signalrService.connectionEstablished;
+    this.currentUser = this._authenService.getLoggedInUser();
+    this.categoryList = JSON.parse(this.currentUser.categoryList);
+
+  }
+
+
+  subscribeToEvents(): void{
+    this._signalrService.startConnection();
+    
+    this._signalrService.registerOnServerEvents();
+    //if connection exists it can call of method
+    this._signalrService.connectionEstablished.subscribe((data:boolean)=>{
+      this.canSendMessage = data;
+      // console.log(this.canSendMessage);
+    }); 
+
+    
+    this._signalrService.updateApprovalList.subscribe((message:any)=>{
+
+      this._ngZone.run(() => {
+        this.loadData();
+        console.log(message);
+      });
+    });
   }
 
   private myDatePickerOptions: IMyDpOptions = {

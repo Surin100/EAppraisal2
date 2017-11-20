@@ -18,12 +18,7 @@ export class LoggedInUser {
     public categoryList;
     public statusList;
     public companyHRList;
-    // public goal1Content: string;
-    // public goal2Content: string;
-    // public goal3Content: string;
-    // public goal4Content: string;
-
-
+    
     constructor(access_token: string, userName: string, email: string, fullName: string,employeeLvId: string, jobTitle: string,
         departmentId: string, departmentEnName: string, companyId: string, companyName: string, reviewerName: string, reviewerTitle:string,
         roles: string[], departmentList, companyList, categoryList, statusList, companyHRList
@@ -47,10 +42,6 @@ export class LoggedInUser {
         this.reviewerName = reviewerName;
         this.reviewerTitle = reviewerTitle;
         this.companyHRList = companyHRList;
-        // this.goal1Content = goal1Content;
-        // this.goal2Content = goal2Content;
-        // this.goal3Content = goal3Content;
-        // this.goal4Content = goal4Content;
     }
 
 }

@@ -229,6 +229,7 @@ export class IndexComponent implements OnInit {
   }
 
   updateAppraisal(valid: Boolean) {
+    
     if (!valid) return;
     // Date problem
     let _reviewMonth = this.temporarydate.date.month.toString().length < 2 ? '0' + this.temporarydate.date.month : this.temporarydate.date.month;
@@ -265,6 +266,7 @@ export class IndexComponent implements OnInit {
       }
       this.updateAppraisalLoading = false;
     });
+    
   }
 
   exportExcel() {

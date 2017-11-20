@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+// import { Compiler} from '@angular/compiler';
 
 import { AuthenService } from '../core/services/authen.service';
 import { LoggedInUser } from '../core/domain/loggedin.user';
 import { SystemConstants } from '../core/common/system.constants';
 import { UrlConstants } from '../core/common/url.constants';
+import {SignalrService} from '../core/services/signalr.service';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +17,8 @@ export class MainComponent implements OnInit {
   user: LoggedInUser;
   selfLoad: Boolean;
   selfGoalLoad: Boolean;
-  constructor(private _authenService: AuthenService, private _router: Router) { }
+  constructor(private _authenService: AuthenService, private _router: Router, 
+    private _signalrService: SignalrService) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));

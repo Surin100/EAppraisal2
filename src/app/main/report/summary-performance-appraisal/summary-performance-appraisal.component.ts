@@ -18,7 +18,7 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
   currentUser: LoggedInUser;
   summaryPerformanceAppraisal: any = {};
   departmentList = [];
-  companyHRList = []
+  companyHRList = [];
   exportExcelLoading: Boolean = false;
   summaryPerformanceAppraisalFromActive: Boolean = true;
   summaryPerformanceAppraisalFrom;
@@ -36,6 +36,8 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
   ngOnInit() {
     this.summaryPerformanceAppraisalTo = { date: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() } };
     this.departmentList = JSON.parse(this.currentUser.departmentList);
+    // console.log(this.departmentList);
+    this.departmentList.push({Disabled: false, Group: null, Selected: true, Text: "All", Value: undefined});
     this.companyHRList = JSON.parse(this.currentUser.companyHRList);
     this.summaryPerformanceAppraisal.CompanyId = this.companyHRList[0].Value;
   }
@@ -48,6 +50,21 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
 
     if(!this.summaryPerformanceAppraisalTo){
       this._notificationService.printErrorMessage("To date is required.");
+      return;
+    }
+
+    let _fromMonth = this.summaryPerformanceAppraisalFrom.date.month.toString().length < 2 ? '0' + this.summaryPerformanceAppraisalFrom.date.month : this.summaryPerformanceAppraisalFrom.date.month;
+    let _fromDay = this.summaryPerformanceAppraisalFrom.date.day.toString().length < 2 ? '0' + this.summaryPerformanceAppraisalFrom.date.day : this.summaryPerformanceAppraisalFrom.date.day;
+    let _fromDate: string = this.summaryPerformanceAppraisalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    let summaryFrom = new Date(_fromDate);
+
+    let _toMonth = this.summaryPerformanceAppraisalTo.date.month.toString().length < 2 ? '0' + this.summaryPerformanceAppraisalTo.date.month : this.summaryPerformanceAppraisalTo.date.month;
+    let _toDay = this.summaryPerformanceAppraisalTo.date.day.toString().length < 2 ? '0' + this.summaryPerformanceAppraisalTo.date.day : this.summaryPerformanceAppraisalTo.date.day;
+    let _toDate: string = this.summaryPerformanceAppraisalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    let summaryTo = new Date(_toDate);
+
+    if(summaryFrom > summaryTo){
+      this._notificationService.printErrorMessage("To Date should be larger than From Date.");
       return;
     }
 

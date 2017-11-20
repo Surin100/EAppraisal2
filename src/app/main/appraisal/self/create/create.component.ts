@@ -34,7 +34,6 @@ export class CreateComponent implements OnInit {
   partBShow: string[];
   partCShow: string[];
 
-
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _handleErrorService: HandleErrorService
   ) {
@@ -92,7 +91,7 @@ export class CreateComponent implements OnInit {
       let goal3Content = JSON.parse(response.Goal3Content);
       let goal4Content = JSON.parse(response.Goal4Content);
 
-      if (goal1Content.length > 0) {
+      if (goal1Content && goal1Content.length > 0) {
         this.appraisal.goal1Content = '';
         goal1Content.forEach(element => {
           if (element !== goal1Content[0]) {
@@ -104,7 +103,7 @@ export class CreateComponent implements OnInit {
         });
       }
 
-      if (goal2Content.length >0) {
+      if (goal2Content && goal2Content.length >0) {
         this.appraisal.goal2Content = '';
         goal2Content.forEach(element => {
           if (element !== goal2Content[0]) {
@@ -116,7 +115,7 @@ export class CreateComponent implements OnInit {
         });
       }
 
-      if (goal3Content.length > 0) {
+      if (goal3Content && goal3Content.length > 0) {
         this.appraisal.goal3Content = '';
         goal3Content.forEach(element => {
           if (element !== goal3Content[0]) {
@@ -126,11 +125,9 @@ export class CreateComponent implements OnInit {
             this.appraisal.goal3Content += element.plan;
           }
         });
-
-
       }
 
-      if (goal4Content.length > 0) {
+      if (goal4Content && goal4Content.length > 0) {
         this.appraisal.goal4Content = '';
         goal4Content.forEach(element => {
           if (element !== goal4Content[0]) {
