@@ -13,7 +13,8 @@ export class NonAuthenGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (localStorage.getItem(SystemConstants.CURRENT_USER)) {
+    // if (localStorage.getItem(SystemConstants.CURRENT_USER)) {
+    if (sessionStorage.getItem(SystemConstants.CURRENT_USER)) {
       this._router.navigate(['main']);
       return false;
     }

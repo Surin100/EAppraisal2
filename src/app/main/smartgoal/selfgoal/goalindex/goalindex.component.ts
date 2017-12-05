@@ -420,15 +420,22 @@ export class GoalIndexComponent implements OnInit {
     this.smartGoal.personalDevelopmentContent = JSON.stringify(this.personalDevelopmentContents);
 
     this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.DepartmentId)[0].Text;
-    this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
-      window.open(SystemConstants.BASE_API + response);
-      // window.location.href = this.baseFolder + response.Message;
-      this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', response).subscribe((response: Response) => { });
-      this.saveGoalLoading = false;
-    }, error => {
-      this._handleErrorService.handleError(error);
+
+    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+      this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
+        window.open(SystemConstants.BASE_API + response);
+        setTimeout(()=> Resolve(response),300000);
+        // window.location.href = this.baseFolder + response.Message;
+      }, error => {
+        this._handleErrorService.handleError(error);
+        this.saveGoalLoading = false;
+      });
+    });
+    exportExcelPromise.then((element)=>{
+      this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
       this.saveGoalLoading = false;
     });
+    
   }
 
   // View Smart Goal

@@ -53,8 +53,10 @@ export class LoginComponent implements OnInit {
           user['expires_in'] = data['expires_in'];
           user['token_type'] = data['token_type'];
 
-          localStorage.removeItem(SystemConstants.CURRENT_USER);
-          localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          // localStorage.removeItem(SystemConstants.CURRENT_USER);
+          // localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          sessionStorage.removeItem(SystemConstants.CURRENT_USER);
+          sessionStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
           // this._router.navigate([UrlConstants.HOME]);
           window.location.href = UrlConstants.HOME;
           // window.location.reload(true);

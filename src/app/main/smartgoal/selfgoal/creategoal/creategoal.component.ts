@@ -343,7 +343,8 @@ export class CreateGoalComponent implements OnInit {
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
-        Resolve(response);
+        // Resolve(response);
+        setTimeout(()=> Resolve(response),300000);
       }, error => {
         this._handleErrorService.handleError(error);
         this.saveGoalLoading = false;

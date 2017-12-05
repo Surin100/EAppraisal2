@@ -38,6 +38,9 @@ export class RegisterComponent implements OnInit {
   changeLMFromRow: number;
   changeLMToRow: number;
 
+  changeEmployeeLv: any = {};
+  changeEmployeeLvLoading: Boolean = false;
+
   registerEmployeeTemplatePath: string = '/Templates/ImportUserTemplate.xlsx';
   changeLineManagerTemplatePath: string = '/Templates/ImportLineManagerTemplate.xlsx'
 
@@ -196,6 +199,22 @@ export class RegisterComponent implements OnInit {
       // console.log(this.registerArray);
     };
     reader.readAsBinaryString(files[0]);
+  }
+
+  changeEmployeeLevel(){
+    this.changeEmployeeLvLoading = true;
+    var changeELPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/Account/ChangeEmployeeLevel', this.changeEmployeeLv).subscribe((response: any) => {
+        Resolve(response);
+        this._notificationService.printSuccessMessage(MessageConstants.CHANGE_EMPLOYEELEVEL_OK_MSG);
+      }, error => {
+        this._handleErrorService.handleError(error);
+        Resolve(error);
+      });
+    });
+    changeELPromise.then(() => {
+      this.changeEmployeeLvLoading = false;
+    });
   }
 
   getRegisterEmployeesTemplate() {

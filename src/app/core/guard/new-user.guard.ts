@@ -20,7 +20,8 @@ export class NewUserGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    let currentUser: LoggedInUser = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    // let currentUser: LoggedInUser = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    let currentUser: LoggedInUser = JSON.parse(sessionStorage.getItem(SystemConstants.CURRENT_USER));
     if (!currentUser) {
       this._router.navigate([UrlConstants.LOGIN]);
       return false;
@@ -31,7 +32,8 @@ export class NewUserGuard implements CanActivate {
 
     // console.log(expireDate > today);
     if (expireDate < today) {
-      localStorage.removeItem(SystemConstants.CURRENT_USER);
+      // localStorage.removeItem(SystemConstants.CURRENT_USER);
+      sessionStorage.removeItem(SystemConstants.CURRENT_USER);
       this._router.navigate([UrlConstants.LOGIN]);
       return false;
     }
@@ -46,14 +48,15 @@ export class NewUserGuard implements CanActivate {
     this._http.get(SystemConstants.BASE_API + '/api/Account/GetRole', { headers: this.headers })
       .map(this.extractData)
       .subscribe((data)=> {
-        // console.log(data);
+        // console.log(currentUser);
         if(data.includes('NewUser') && currentUser.roles.includes('NewUser')){ 
           this._router.navigate([UrlConstants.CHANGE_PASSWORD]);
           return false;
         }
         if(!data.includes('NewUser') && currentUser.roles.includes('NewUser')){
           this._router.navigate([UrlConstants.LOGIN]);
-          localStorage.removeItem(SystemConstants.CURRENT_USER);
+          // localStorage.removeItem(SystemConstants.CURRENT_USER);
+          sessionStorage.removeItem(SystemConstants.CURRENT_USER);
         }
       });
 

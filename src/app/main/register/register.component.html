@@ -210,6 +210,49 @@
             </div>
           </div>
         </div>
+        <div class="col-md-offset-6 col-sm-offset-6 col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel panelabc">
+            <div class="x_title">
+              <h2 class="text-info">Change Employee Level </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <!-- Reset Password Form -->
+
+              <div class="animate form">
+                <section class="login_content noPadding">
+                  <form class="noMargin" #changeEmployeeLevelForm="ngForm" novalidate (ngSubmit)="changeEmployeeLevel()">
+                    <div class="item form-group">
+                      <div class=" col-md-3 col-sm-3 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="userName">Employee ID:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="userName" [(ngModel)]="changeEmployeeLv.UserName" name="userName" />
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class=" col-md-3 col-sm-3 col-xs-12">
+                        <label class="control-label pull-right labelMargin" for="userName">Employee Level:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control inputMargin" id="userName" [(ngModel)]="changeEmployeeLv.EmployeeLvId" name="userName" />
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <button type="submit" class="btn btn-primary pull-right">Change Employee Level</button>
+                        <img *ngIf="resetPasswordLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </section>
+              </div>
+
+              <!-- /Reset Password Form -->
+
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

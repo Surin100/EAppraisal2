@@ -84,7 +84,7 @@ export class SummaryPerformanceAppraisalComponent implements OnInit {
 
       this._dataService.post('/api/Report/SummaryPerformanceAppraisal', this.summaryPerformanceAppraisal).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
-        setTimeout(()=> Resolve(response),1) ;
+        setTimeout(()=> Resolve(response),300000);
       }, error => {
         // alert(JSON.stringify(error));
         this._handleErrorService.handleError(error);

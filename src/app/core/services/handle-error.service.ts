@@ -14,7 +14,8 @@ export class HandleErrorService {
   public handleError(error: any) {
     // alert(JSON.stringify(JSON.parse(error._body).ModelState));
     if (error.status == 401) {
-      localStorage.removeItem(SystemConstants.CURRENT_USER);
+      // localStorage.removeItem(SystemConstants.CURRENT_USER);
+      sessionStorage.removeItem(SystemConstants.CURRENT_USER);
       this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
       // console.log(localStorage.removeItem(SystemConstants.CURRENT_USER));
       this._utilityService.navigateToLogin();

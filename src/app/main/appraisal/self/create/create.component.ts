@@ -311,7 +311,8 @@ export class CreateComponent implements OnInit {
     let exportExcelPromise = new Promise((Resolve, Reject) => {
       this._dataService.post('/api/appraisal/exportExcel', JSON.stringify(this.appraisal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
-        Resolve(response);
+        // Resolve(response);
+        setTimeout(()=> Resolve(response),300000);
       }, error => this._handleErrorService.handleError(error));
     });
     exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));

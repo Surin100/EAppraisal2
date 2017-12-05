@@ -29,8 +29,10 @@ export class AuthenService {
       // console.log(user);
       let user = response.json();
       if (user.access_token) {
-        localStorage.removeItem(SystemConstants.CURRENT_USER);
-        localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+        // localStorage.removeItem(SystemConstants.CURRENT_USER);
+        // localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+        sessionStorage.removeItem(SystemConstants.CURRENT_USER);
+        sessionStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
       }
       return user;
     });
@@ -41,7 +43,8 @@ export class AuthenService {
     this.headers.append("Authorization", "Bearer " + this.getLoggedInUser().access_token);
     this._http.post(SystemConstants.BASE_API + '/api/Account/Logout', null, { headers: this.headers }).map((res: Response) => res.text() ? res.json() : {})
       .subscribe((response: Response) => {
-        window.localStorage.removeItem(SystemConstants.CURRENT_USER);
+        // window.localStorage.removeItem(SystemConstants.CURRENT_USER);
+        sessionStorage.removeItem(SystemConstants.CURRENT_USER);
         this._router.navigate([UrlConstants.LOGIN]);
         // this._compiler.clearCache();
         // window.location.reload(true);
@@ -52,7 +55,8 @@ export class AuthenService {
   }
 
   isUserAuthenticated(): boolean {
-    let user = localStorage.getItem(SystemConstants.CURRENT_USER);
+    // let user = localStorage.getItem(SystemConstants.CURRENT_USER);
+    let user = sessionStorage.getItem(SystemConstants.CURRENT_USER);
     if (user) {
       return true;
     }
@@ -63,7 +67,8 @@ export class AuthenService {
   getLoggedInUser(): LoggedInUser {
     let user: LoggedInUser;
     if (this.isUserAuthenticated()) {
-      var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+      // var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+      var userData = JSON.parse(sessionStorage.getItem(SystemConstants.CURRENT_USER));
       // debugger;
       // console.log(userData);
       user = new LoggedInUser(userData.access_token, userData.userName, userData.email, userData.fullName, userData.employeeLvId, userData.jobTitle,

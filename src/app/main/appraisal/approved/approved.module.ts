@@ -8,6 +8,7 @@ import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 import { ApprovedComponent } from './approved.component';
 import { approvedRoutes } from './approved.routes';
 import { DataService } from '../../../core/services/data.service';
+import {AutosizeModule } from '../../autosize/autosize.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { DataService } from '../../../core/services/data.service';
     FormsModule,
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
-    RouterModule.forChild(approvedRoutes)
+    RouterModule.forChild(approvedRoutes),
+    AutosizeModule
   ],
   providers: [DataService],
   declarations: [ApprovedComponent]

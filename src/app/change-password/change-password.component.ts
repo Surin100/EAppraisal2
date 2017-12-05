@@ -36,7 +36,8 @@ export class ChangePasswordComponent implements OnInit {
     if(this.currentUser.roles.includes('NewUser')) this.model.oldPassword = "";
     this._dataService.post('/api/Account/ChangePassword', this.model).subscribe((response: any) => {
       this._notificationService.printSuccessMessage(MessageConstants.CHANGEPASSWORD_SUCCESS);
-      localStorage.removeItem(SystemConstants.CURRENT_USER);
+      // localStorage.removeItem(SystemConstants.CURRENT_USER);
+      sessionStorage.removeItem(SystemConstants.CURRENT_USER);
       this._utilityService.navigateToLogin();
     }, error => {
       this._handleErrorService.handleError(error)

@@ -3,4 +3,5 @@ export class SystemConstants {
     public static BASE_API = "http://localhost:5000";
     
     // public static BASE_API = "http://10.200.62.53:8080";
+    // public static BASE_API = "http://10.1.5.24:8080";
 }

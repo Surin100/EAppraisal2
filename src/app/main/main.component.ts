@@ -21,7 +21,8 @@ export class MainComponent implements OnInit {
     private _signalrService: SignalrService) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    // this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    this.user = JSON.parse(sessionStorage.getItem(SystemConstants.CURRENT_USER));
     // console.log(JSON.stringify(this.user));
     // console.log(this.user);
   }
