@@ -424,6 +424,7 @@ export class GoalIndexComponent implements OnInit {
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoal)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
+        this.saveGoalLoading = false;
         setTimeout(()=> Resolve(response),300000);
         // window.location.href = this.baseFolder + response.Message;
       }, error => {
@@ -433,7 +434,7 @@ export class GoalIndexComponent implements OnInit {
     });
     exportExcelPromise.then((element)=>{
       this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
-      this.saveGoalLoading = false;
+      // this.saveGoalLoading = false;
     });
     
   }

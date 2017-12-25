@@ -152,7 +152,8 @@
                         <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
-                        <input class="form-control" name="from" #from="ngModel" [(ngModel)]="smartGoalFrom" type="text" required readonly/>
+                        <!-- <input class="form-control" name="from" #from="ngModel" [(ngModel)]="smartGoalFrom" type="text" required/> -->
+                        <my-date-picker name="from" #from="ngModel" [options]="myDatePickerOptions" [(ngModel)]="smartGoalFrom" required></my-date-picker>
                       </div>
                     </div>
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
@@ -160,7 +161,8 @@
                         <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
-                        <input class="form-control" name="to" #to="ngModel" [(ngModel)]="smartGoalTo" type="text" required readonly/>
+                        <!-- <input class="form-control" name="to" #to="ngModel" [(ngModel)]="smartGoalTo" type="text" required/> -->
+                        <my-date-picker name="to" #to="ngModel" [options]="myDatePickerOptions" [(ngModel)]="smartGoalTo" required></my-date-picker>
                       </div>
                     </div>
                   </div>

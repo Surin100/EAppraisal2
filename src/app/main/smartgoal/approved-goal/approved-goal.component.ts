@@ -57,7 +57,7 @@ export class ApprovedGoalComponent implements OnInit {
         this.approvedGoalList.forEach(element => {
           element.StatusName = JSON.parse(this.currentUser.statusList).filter(a => a.Value == element.StatusId)[0].Text;
         });
-        // console.log(this.appraisals);
+        // console.log(response);
         this.pageIndex = response.PageIndex;
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
@@ -141,6 +141,7 @@ export class ApprovedGoalComponent implements OnInit {
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoalApproval)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
+        
         // Resolve(response);
         setTimeout(()=> Resolve(response),300000);
       }, error => {

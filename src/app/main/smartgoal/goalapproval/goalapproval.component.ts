@@ -101,9 +101,11 @@ export class GoalApprovalComponent implements OnInit {
         this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
         this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
         let fromDate = new Date(response.From);
-        this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        // this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.smartGoalFrom = { date: { year: fromDate.getFullYear(), month: fromDate.getMonth() + 1, day: fromDate.getDate() } };
         let toDate = new Date(response.To);
-        this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        // this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.smartGoalTo = { date: { year: toDate.getFullYear(), month: toDate.getMonth() + 1, day: toDate.getDate() } };
         let reviewDate = new Date(response.ReviewDate)
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
   
@@ -124,9 +126,11 @@ export class GoalApprovalComponent implements OnInit {
         this.smartGoalApproval.DepartmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.smartGoalApproval.DepartmentId)[0].Text;
         this.smartGoalApproval.CategoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.smartGoalApproval.CategoryId)[0].Text;
         let fromDate = new Date(response.From);
-        this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        // this.smartGoalFrom = fromDate.getDate() + '/' + (fromDate.getMonth() + 1) + '/' + fromDate.getFullYear();
+        this.smartGoalFrom = { date: { year: fromDate.getFullYear(), month: fromDate.getMonth() + 1, day: fromDate.getDate() } };
         let toDate = new Date(response.To);
-        this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        // this.smartGoalTo = toDate.getDate() + '/' + (toDate.getMonth() + 1) + '/' + toDate.getFullYear();
+        this.smartGoalTo = { date: { year: toDate.getFullYear(), month: toDate.getMonth() + 1, day: toDate.getDate() } };
         let reviewDate = new Date(response.ReviewDate)
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
   
@@ -177,6 +181,16 @@ export class GoalApprovalComponent implements OnInit {
     let _reviewDay = this.temporarydate.date.day.toString().length < 2 ? '0' + this.temporarydate.date.day : this.temporarydate.date.day;
     let _reviewDate: string = this.temporarydate.date.year + '-' + _reviewMonth + '-' + _reviewDay + 'T15:00:00Z'
     this.smartGoalApproval.reviewDate = new Date(_reviewDate);
+
+    let _fromMonth = this.smartGoalFrom.date.month.toString().length < 2 ? '0' + this.smartGoalFrom.date.month : this.smartGoalFrom.date.month;
+    let _fromDay = this.smartGoalFrom.date.day.toString().length < 2 ? '0' + this.smartGoalFrom.date.day : this.smartGoalFrom.date.day;
+    let _fromDate: string = this.smartGoalFrom.date.year + '-' + _fromMonth + '-' + _fromDay + 'T12:00:00Z'
+    this.smartGoalApproval.From = new Date(_fromDate);
+
+    let _toMonth = this.smartGoalTo.date.month.toString().length < 2 ? '0' + this.smartGoalTo.date.month : this.smartGoalTo.date.month;
+    let _toDay = this.smartGoalTo.date.day.toString().length < 2 ? '0' + this.smartGoalTo.date.day : this.smartGoalTo.date.day;
+    let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
+    this.smartGoalApproval.To = new Date(_toDate);
     
     if (this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
     if (this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
@@ -263,6 +277,7 @@ export class GoalApprovalComponent implements OnInit {
     let exportExcelPromise = new Promise((Resolve, Reject)=>{
       this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoalApproval)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
+        this.approveLoading = false;
         // Resolve(response);
         setTimeout(()=> Resolve(response),300000);
       }, error => {
@@ -272,7 +287,7 @@ export class GoalApprovalComponent implements OnInit {
     });
     exportExcelPromise.then((element)=>{
       this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
-      this.approveLoading = false;
+      // this.approveLoading = false;
     });
     
   }

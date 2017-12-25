@@ -85,7 +85,7 @@ export class CreateComponent implements OnInit {
   loadData() {
     this._dataService.get('/api/appraisal/GetTheLastGoal').subscribe((response: any) => {
       // console.log(response);
-      this.appraisal.LastGoalId = response.Id;
+      this.appraisal.LastGoalId = 0; //response.Id;
       let goal1Content = JSON.parse(response.Goal1Content);
       let goal2Content = JSON.parse(response.Goal2Content);
       let goal3Content = JSON.parse(response.Goal3Content);
