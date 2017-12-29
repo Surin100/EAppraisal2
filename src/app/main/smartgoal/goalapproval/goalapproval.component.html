@@ -43,6 +43,17 @@
     <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
       [(ngModel)]="pageIndex" [maxSize]="maxSize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
       lastText="&raquo;"></pagination>
+      <div class="pull-right">
+        <label for="from">From year
+          <em class="text-primary">Từ năm:</em>
+        </label>
+        <input name="from" #from="ngModel" [(ngModel)]="exportIndex.FromYear" type="text" />
+        <label for="to">To year
+          <em class="text-primary">Đến năm:</em>
+        </label>
+        <input name="to" #to="ngModel" [(ngModel)]="exportIndex.ToYear" type="text" />
+        <button type="button" (click)="exportApprovalIndexToExcel()" class="btn btn-primary">Export Excel</button>
+      </div>
   </div>
 
   <!--Approve Smart Goal modal-->

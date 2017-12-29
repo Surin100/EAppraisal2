@@ -26,6 +26,7 @@ export class ApprovedComponent implements OnInit {
   appraisalApprovalFrom;
   appraisalApprovalTo;
   appraisalApprovalReviewDate;
+  exportIndex: any = {};
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService) { }
 
@@ -104,5 +105,16 @@ export class ApprovedComponent implements OnInit {
       }, error => this._handleErrorService.handleError(error));
     });
     exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+  }
+
+  exportApprovedIndexToExcel(){
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/AppraisalApproval/ApprovedListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+        window.open(SystemConstants.BASE_API + response);
+        // Resolve(response);
+        setTimeout(()=> Resolve(response),300000);
+    }, error => this._handleErrorService.handleError(error));
+  });
+  exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 }

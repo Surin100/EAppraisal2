@@ -43,6 +43,7 @@ export class GoalApprovalComponent implements OnInit {
   temporarydate;
   departmentList;
   categoryList;
+  exportIndex: any = {};
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService,
     private _notificationService: NotificationService) {
@@ -456,5 +457,16 @@ export class GoalApprovalComponent implements OnInit {
   removePersonalDevelopment() {
     this.personalDevelopmentContents = [];
     this.personalDevelopmentContent = {};
+  }
+
+  exportApprovalIndexToExcel(){
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/SmartGoal/ApprovalListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+        window.open(SystemConstants.BASE_API + response);
+        // Resolve(response);
+        setTimeout(()=> Resolve(response),300000);
+    }, error => this._handleErrorService.handleError(error));
+  });
+  exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 }

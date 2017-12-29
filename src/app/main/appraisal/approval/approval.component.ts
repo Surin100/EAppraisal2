@@ -44,6 +44,7 @@ export class ApprovalComponent implements OnInit {
   partCShow: string[];
   appraisalApprovalFrom: string;
   appraisalApprovalTo: string;
+  exportIndex: any = {};
 
   canSendMessage: Boolean;
   
@@ -354,7 +355,17 @@ export class ApprovalComponent implements OnInit {
         this.appraisalApproval.Goal4 = 0; this.generateSubTotal2(); break;
       default: return;
     }
+  }
 
+  exportApprovalIndexToExcel(){
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
+      this._dataService.post('/api/Appraisal/ApprovalListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+        window.open(SystemConstants.BASE_API + response);
+        // Resolve(response);
+        setTimeout(()=> Resolve(response),300000);
+    }, error => this._handleErrorService.handleError(error));
+  });
+  exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
 }
 
