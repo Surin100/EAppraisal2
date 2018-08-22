@@ -1,4 +1,92 @@
 <div class="x_content" style="min-height:800px">
+
+  <!-- Search Form -->
+  <div class="animate form">
+    <section class="login_content noPadding">
+      <form class="noMargin form-label-right" #searchForm="ngForm" (ngSubmit)="loadData()" novalidate *ngIf='approvedGoalList'>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeId">Employee ID -
+              <em class="text-primary">Mã Nhân Viên</em>
+            </label>
+            <input id="employeeId" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeId" name="employeeId" type="text"
+            />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeName">Employee Name -
+              <em class="text-primary">Tên Nhân Viên</em>
+            </label>
+            <input id="employeeName" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeName" name="employeeName"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Department -
+              <em class="text-primary">Bộ Phận</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.DepartmentId" name="departmentId">
+              <option *ngFor="let department of departmentSearchList" [ngValue]="department.Value">{{department.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeTitle">Employee Title -
+              <em class="text-primary">Chức Vụ</em>
+            </label>
+            <input id="employeeTitle" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeTitle" name="employeeTitle"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Status -
+              <em class="text-primary">Trạng Thái</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.StatusId" name="statusId">
+              <option *ngFor="let status of statusSearchList" [ngValue]="status.Value">{{status.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchFrom" class="control-label pull-right">From year
+                <em class="text-primary">Từ năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchFrom" name="searchFrom" class="form-control inputMargin" #from="ngModel" [(ngModel)]="search.FromYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchTo" class="control-label pull-right">To year
+                <em class="text-primary">Đến năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchTo" name="searchTo" class="form-control inputMargin" #to="ngModel" [(ngModel)]="search.ToYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success searchBtnMargin pull-left submit">
+          <i class="fa fa-search"></i> Search</button>
+        <button type="button" (click)="clearSearch()" class="btn btn-success searchBtnMargin pull-left">Clear</button>
+      </form>
+    </section>
+  </div>
+  <!-- /Search Form -->
+
   <div>
     <table class="table table-bordered">
       <thead>
@@ -39,7 +127,9 @@
           <td class="text-center">{{goal.TotalScore | number: '1.0-2'}}</td>
           <td>{{goal.StatusName}}</td>
           <td>
-            <button class="btn btn-primary" (click)="showApprovedSmartGoalModal(goal.Id)"><i class="fa fa-eye" ></i></button>
+            <button class="btn btn-primary" (click)="showApprovedSmartGoalModal(goal.Id)">
+              <i class="fa fa-eye"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -47,17 +137,17 @@
     <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
       [(ngModel)]="pageIndex" [maxSize]="maxSize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
       lastText="&raquo;"></pagination>
-      <div class="pull-right">
-          <label for="from">From year
-            <em class="text-primary">Từ năm:</em>
-          </label>
-          <input name="from" #from="ngModel" [(ngModel)]="exportIndex.FromYear" type="text" />
-          <label for="to">To year
-            <em class="text-primary">Đến năm:</em>
-          </label>
-          <input name="to" #to="ngModel" [(ngModel)]="exportIndex.ToYear" type="text" />
-          <button type="button" (click)="exportApprovedIndexToExcel()" class="btn btn-primary">Export Excel</button>
-        </div>
+    <div class="pull-right">
+      <!-- <label for="from">From year
+        <em class="text-primary">Từ năm:</em>
+      </label>
+      <input name="from" #from="ngModel" [(ngModel)]="search.FromYear" type="text" />
+      <label for="to">To year
+        <em class="text-primary">Đến năm:</em>
+      </label>
+      <input name="to" #to="ngModel" [(ngModel)]="search.ToYear" type="text" /> -->
+      <button type="button" (click)="exportApprovedIndexToExcel()" class="btn btn-primary">Export Excel</button>
+    </div>
   </div>
 </div>
 
@@ -77,8 +167,14 @@
           <img src="/assets/images/logo.jpg" />
         </div>
 
-        <h2 class="text-center noMargin" style="font-size:2em"><strong>S.M.A.R.T GOAL</strong></h2>
-        <h2 class="text-center" style="margin-bottom:1em; font-size:2em"><strong><em>MỤC TIÊU "THÔNG MINH" CỦA CÁ NHÂN</em></strong></h2>
+        <h2 class="text-center noMargin" style="font-size:2em">
+          <strong>S.M.A.R.T GOAL</strong>
+        </h2>
+        <h2 class="text-center" style="margin-bottom:1em; font-size:2em">
+          <strong>
+            <em>MỤC TIÊU "THÔNG MINH" CỦA CÁ NHÂN</em>
+          </strong>
+        </h2>
         <div class="clearfix"></div>
         <!-- Form -->
         <div class="animate form">
@@ -89,7 +185,9 @@
               <div class="col-md-5 col-sm-12 col-xs-12">
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label  pull-right" for="associateName">Associate's Name - <em class="text-primary">Nhân viên:</em></label>
+                    <label class="control-label  pull-right" for="associateName">Associate's Name -
+                      <em class="text-primary">Nhân viên:</em>
+                    </label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="associateName" class="form-control inputMargin" #associateName="ngModel" [(ngModel)]="smartGoalApproval.AssociateName"
@@ -98,7 +196,9 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label  pull-right" for="associateTitle">Associate's Title - <em class="text-primary">Chức danh:</em></label>
+                    <label class="control-label  pull-right" for="associateTitle">Associate's Title -
+                      <em class="text-primary">Chức danh:</em>
+                    </label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="asscociateTitle" class="form-control inputMargin" #associateTitle="ngModel" [(ngModel)]="smartGoalApproval.AssociateTitle"
@@ -107,7 +207,9 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
+                    <label class="control-label  pull-right" for="reviewer">Reviewer -
+                      <em class="text-primary">Người đánh giá:</em>
+                    </label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="reviewer" class="form-control inputMargin" #reviewerr="ngModel" [(ngModel)]="smartGoalApproval.ReviewerName" name="reviewer"
@@ -116,7 +218,9 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title - <em class="text-primary">Chức danh:</em></label>
+                    <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title -
+                      <em class="text-primary">Chức danh:</em>
+                    </label>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="smartGoalApproval.ReviewerTitle"
@@ -129,7 +233,7 @@
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input class="form-control inputMargin" type="text" [(ngModel)]="smartGoalApproval.categoryName" name="categoryName" required
-                    readonly/>
+                      readonly/>
                   </div>
                 </div>
               </div>
@@ -139,7 +243,9 @@
               <div class="col-md-7 col-sm-12 col-xs-12">
                 <div class="item form-group">
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <label class="control-label  pull-right" for="associateId">Associate ID - <em class="text-primary">Mã số nhân viên:</em></label>
+                    <label class="control-label  pull-right" for="associateId">Associate ID -
+                      <em class="text-primary">Mã số nhân viên:</em>
+                    </label>
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="smartGoalApproval.AssociateId"
@@ -148,7 +254,9 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <label class="control-label  pull-right" for="department">Department - <em class="text-primary">Bộ phận:</em></label>
+                    <label class="control-label  pull-right" for="department">Department -
+                      <em class="text-primary">Bộ phận:</em>
+                    </label>
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <input class="form-control inputMargin" [(ngModel)]="smartGoalApproval.DepartmentEnName" name="departmentEnName" type="text"
@@ -156,12 +264,19 @@
                   </div>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <div class="text-right noPadding"><label class="control-label">Goal set for period<br/><em class="text-primary">Mục tiêu cho giai đoạn:</em> </label></div>
+                  <div class="text-right noPadding">
+                    <label class="control-label">Goal set for period
+                      <br/>
+                      <em class="text-primary">Mục tiêu cho giai đoạn:</em>
+                    </label>
+                  </div>
                 </div>
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
+                      <label class="control-label  pull-right" for="from">From
+                        <em class="text-primary">Từ (*):</em>
+                      </label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <input class="form-control" name="from" #from="ngModel" [(ngModel)]="smartGoalApprovalFrom" type="text" required readonly/>
@@ -169,7 +284,9 @@
                   </div>
                   <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
                     <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                      <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
+                      <label class="control-label  pull-right" for="to">To
+                        <em class="text-primary">Đến (*):</em>
+                      </label>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                       <input class="form-control" name="to" #to="ngModel" [(ngModel)]="smartGoalApprovalTo" type="text" required readonly/>
@@ -178,7 +295,9 @@
                 </div>
                 <div class="item form-group">
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <label class="control-label  pull-right" for="temporaryDate">Date / <em class="text-primary">Ngày :</em></label>
+                    <label class="control-label  pull-right" for="temporaryDate">Date /
+                      <em class="text-primary">Ngày :</em>
+                    </label>
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
@@ -199,11 +318,13 @@
                   </tr>
                   <tr>
                     <th class="abc col3">
-                      No.of goal<br/>
+                      No.of goal
+                      <br/>
                       <em>Thứ tự mục tiêu</em>
                     </th>
                     <th class="abc">
-                      Key Performance Area (*)<br/>
+                      Key Performance Area (*)
+                      <br/>
                       <em class="text-primary">Trọng tâm của mục tiêu (*)</em>
                     </th>
                     <th class="abc noPadding" colspan="3" id="goalTableHeader">
@@ -212,15 +333,18 @@
                         <thead>
                           <tr id="goalContentTableHeader" style="height: 10em;">
                             <th class="abc">
-                              S.M.A.R.T. GOAL (What) and Action Plan (How) (*)<br/>
+                              S.M.A.R.T. GOAL (What) and Action Plan (How) (*)
+                              <br/>
                               <em>MỤC TIÊU (Là gì) và Kế hoach Thực hiện (Như thế nào) (*)</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
-                              Completed date<br/>
+                              Completed date
+                              <br/>
                               <em class="text-primary">Thời gian hoàn thành</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
-                              Measure indicator<br/>
+                              Measure indicator
+                              <br/>
                               <em class="text-primary">Chỉ tiêu đo lường</em>
                             </th>
                           </tr>
@@ -229,7 +353,8 @@
 
                     </th>
                     <th class="abc">
-                      Scoring for result<br/>
+                      Scoring for result
+                      <br/>
                       <em class="text-primary">Điểm số đánh giá Kết quả</em>
                     </th>
                   </tr>
@@ -244,18 +369,22 @@
                     <td class="col-md-2 col-sm-2 col-xs-2">
                       <div>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Customer" name="goal1Customer" [attr.disabled]="true"/> Customer / <em class="text-primary">Khách hàng</em>
-                    </label>
+                          <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal1Customer" name="goal1Customer" [attr.disabled]="true" /> Customer /
+                          <em class="text-primary">Khách hàng</em>
+                        </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Finance" name="goal1Finance" [attr.disabled]="true"/> Finance / <em class="text-primary">Tài chính</em>
-                    </label>
+                          <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal1Finance" name="goal1Finance" [attr.disabled]="true" /> Finance /
+                          <em class="text-primary">Tài chính</em>
+                        </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Employee" name="goal1Employee" [attr.disabled]="true"/> Employee / <em class="text-primary">Nhân viên</em>
-                    </label>
+                          <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal1Employee" name="goal1Employee" [attr.disabled]="true" /> Employee /
+                          <em class="text-primary">Nhân viên</em>
+                        </label>
                         <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal1Operating" name="goal1Operating" [attr.disabled]="true"/> Operating Process / <br/>
-                      <em class="text-primary marginLeft1">Quy trình hoạt động</em>
-                    </label>
+                          <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal1Operating" name="goal1Operating" [attr.disabled]="true" /> Operating Process /
+                          <br/>
+                          <em class="text-primary marginLeft1">Quy trình hoạt động</em>
+                        </label>
                       </div>
                     </td>
                     <td colspan="3" class="noPadding">
@@ -281,32 +410,37 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="goal11">1</label>
                         <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal11" name="goal1" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal11" name="goal1"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal12">2</label>
                         <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal12" name="goal1" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal12" name="goal1"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal13">3</label>
                         <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal13" name="goal1" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal13" name="goal1"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal14">4</label>
                         <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal14" name="goal1" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal14" name="goal1"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal15">5</label>
                         <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal15" name="goal1" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal1" (change)="generateTotalScore()" id="goal15" name="goal1"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                     </td>
                   </tr>
@@ -319,18 +453,22 @@
                     </td>
                     <td class="col-md-2 col-sm-2 col-xs-2">
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Customer" name="goal2Customer" [attr.disabled]="true"/> Customer / <em class="text-primary">Khách hàng</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal2Customer" name="goal2Customer" [attr.disabled]="true" /> Customer /
+                        <em class="text-primary">Khách hàng</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Finance" name="goal2Finance" [attr.disabled]="true"/> Finance / <em class="text-primary">Tài chính</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal2Finance" name="goal2Finance" [attr.disabled]="true" /> Finance /
+                        <em class="text-primary">Tài chính</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Employee" name="goal2Employee" [attr.disabled]="true"/> Employee / <em class="text-primary">Nhân viên</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal2Employee" name="goal2Employee" [attr.disabled]="true" /> Employee /
+                        <em class="text-primary">Nhân viên</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal2Internal" name="goal2Internal" [attr.disabled]="true"/> Internal Process / <br/>
-                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal2Internal" name="goal2Internal" [attr.disabled]="true" /> Internal Process /
+                        <br/>
+                        <em class="text-primary marginLeft1">Quy trình nội bộ</em>
+                      </label>
                     </td>
                     <td colspan="3" class="noPadding">
 
@@ -355,32 +493,37 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="goal21">1</label>
                         <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal21" name="goal2" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal21" name="goal2"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal22">2</label>
                         <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal22" name="goal2"  [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal22" name="goal2"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal23">3</label>
                         <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal23" name="goal2"  [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal23" name="goal2"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal24">4</label>
                         <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal24" name="goal2"  [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal24" name="goal2"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal25">5</label>
                         <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal25" name="goal2"  [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal2" (change)="generateTotalScore()" id="goal25" name="goal2"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                     </td>
                   </tr>
@@ -393,18 +536,22 @@
                     </td>
                     <td class="col-md-2 col-sm-2 col-xs-2">
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Customer" name="goal3Customer" [attr.disabled]="true"/> Customer / <em class="text-primary">Khách hàng</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal3Customer" name="goal3Customer" [attr.disabled]="true" /> Customer /
+                        <em class="text-primary">Khách hàng</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Finance" name="goal3Finance" [attr.disabled]="true"/> Finance / <em class="text-primary">Tài chính</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal3Finance" name="goal3Finance" [attr.disabled]="true" /> Finance /
+                        <em class="text-primary">Tài chính</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Employee" name="goal3Employee" [attr.disabled]="true"/> Employee / <em class="text-primary">Nhân viên</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal3Employee" name="goal3Employee" [attr.disabled]="true" /> Employee /
+                        <em class="text-primary">Nhân viên</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal3Internal" name="goal3Internal" [attr.disabled]="true"/> Internal Process / <br/>
-                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal3Internal" name="goal3Internal" [attr.disabled]="true" /> Internal Process /
+                        <br/>
+                        <em class="text-primary marginLeft1">Quy trình nội bộ</em>
+                      </label>
                     </td>
                     <td colspan="3" class="noPadding">
 
@@ -429,32 +576,37 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="goal31">1</label>
                         <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal31" name="goal3" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal31" name="goal3"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal32">2</label>
                         <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal32" name="goal3" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal32" name="goal3"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal33">3</label>
                         <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal33" name="goal3" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal33" name="goal3"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal34">4</label>
                         <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal34" name="goal3" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal34" name="goal3"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal35">5</label>
                         <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal35" name="goal3" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal3" (change)="generateTotalScore()" id="goal35" name="goal3"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                     </td>
                   </tr>
@@ -467,18 +619,22 @@
                     </td>
                     <td class="col-md-2 col-sm-2 col-xs-2">
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Customer" name="goal4Customer" [attr.disabled]="true"/> Customer / <em class="text-primary">Khách hàng</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal4Customer" name="goal4Customer" [attr.disabled]="true" /> Customer /
+                        <em class="text-primary">Khách hàng</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Finance" name="goal4Finance" [attr.disabled]="true"/> Finance / <em class="text-primary">Tài chính</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal4Finance" name="goal4Finance" [attr.disabled]="true" /> Finance /
+                        <em class="text-primary">Tài chính</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Employee" name="goal4Employee" [attr.disabled]="true"/> Employee / <em class="text-primary">Nhân viên</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal4Employee" name="goal4Employee" [attr.disabled]="true" /> Employee /
+                        <em class="text-primary">Nhân viên</em>
+                      </label>
                       <label class="pull-left" style="cursor:pointer">
-                      <input type="checkbox" [(ngModel)] = "smartGoalApproval.Goal4Internal" name="goal4Internal" [attr.disabled]="true"/> Internal Process / <br/>
-                      <em class="text-primary marginLeft1">Quy trình nội bộ</em>
-                    </label>
+                        <input type="checkbox" [(ngModel)]="smartGoalApproval.Goal4Internal" name="goal4Internal" [attr.disabled]="true" /> Internal Process /
+                        <br/>
+                        <em class="text-primary marginLeft1">Quy trình nội bộ</em>
+                      </label>
                     </td>
                     <td colspan="3" class="noPadding">
 
@@ -503,32 +659,37 @@
                       <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                         <label class="text-left radioPadding" for="goal41">1</label>
                         <label>
-                      <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal41" name="goal4" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="1" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal41" name="goal4"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal42">2</label>
                         <label>
-                      <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal42" name="goal4" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="2" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal42" name="goal4"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal43">3</label>
                         <label>
-                      <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal43" name="goal4" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="3" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal43" name="goal4"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal44">4</label>
                         <label>
-                      <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal44" name="goal4" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="4" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal44" name="goal4"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                       <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                         <label class="text-left radioPadding" for="goal45">5</label>
                         <label>
-                      <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal45" name="goal4" [attr.disabled]="true"/>
-                    </label>
+                          <input type="radio" [value]="5" [(ngModel)]="smartGoalApproval.Goal4" (change)="generateTotalScore()" id="goal45" name="goal4"
+                            [attr.disabled]="true" />
+                        </label>
                       </div>
                     </td>
                   </tr>
@@ -537,7 +698,12 @@
                 <tfoot>
                   <tr>
                     <td colspan="5">
-                      <div class="text-right text-warning"><strong>Total of scores / number of goals<br/><em class="text-primary">Tổng điểm = Tổng số điểm / Số lượng mục tiêu</em></strong></div>
+                      <div class="text-right text-warning">
+                        <strong>Total of scores / number of goals
+                          <br/>
+                          <em class="text-primary">Tổng điểm = Tổng số điểm / Số lượng mục tiêu</em>
+                        </strong>
+                      </div>
                     </td>
                     <td class="total">
                       <h4 class="text-center">
@@ -554,7 +720,8 @@
                 <thead>
                   <tr class="abc">
                     <th colspan="4">
-                      a. Other business goals and contributions / <em style="color:darkblue">Các mục tiêu kinh doanh và đóng góp khác</em>
+                      a. Other business goals and contributions /
+                      <em style="color:darkblue">Các mục tiêu kinh doanh và đóng góp khác</em>
                     </th>
                   </tr>
                   <tr>
@@ -564,13 +731,16 @@
                   </tr>
                   <tr class="abc">
                     <th colspan=4>
-                      b. Personal Development Plan / <em style="color:darkblue"> Kế hoạch phát triển cả nhân.</em><br/> (*)
-                      Recommended but not compulsory and not included in the performance scoring / <em style="color:darkblue">Khuyến khích, không bắt buộc và không được cộng vào điểm hiệu quả công việc.</em>
+                      b. Personal Development Plan /
+                      <em style="color:darkblue"> Kế hoạch phát triển cả nhân.</em>
+                      <br/> (*) Recommended but not compulsory and not included in the performance scoring /
+                      <em style="color:darkblue">Khuyến khích, không bắt buộc và không được cộng vào điểm hiệu quả công việc.</em>
                     </th>
                   </tr>
                   <tr>
                     <th class="abc">
-                      Personal Development Area<br/>
+                      Personal Development Area
+                      <br/>
                       <em>Trọng tâm phát triển cá nhân</em>
                     </th>
                     <th class="noPadding" colspan="3">
@@ -579,15 +749,18 @@
                         <thead>
                           <tr>
                             <th class="abc">
-                              S.M.A.R.T. GOAL (What) and Action Plan (How)<br/>
+                              S.M.A.R.T. GOAL (What) and Action Plan (How)
+                              <br/>
                               <em>MỤC TIÊU (Là gì) và Kế hoạch Thực hiện (Như thế nào)</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
-                              Completed date<br/>
+                              Completed date
+                              <br/>
                               <em>Thời gian hoàn thành</em>
                             </th>
                             <th class="abc col-md-2 col-sm-2 col-xs-2">
-                              Measure indicator<br/>
+                              Measure indicator
+                              <br/>
                               <em>Chỉ tiêu đo lường</em>
                             </th>
                           </tr>
@@ -657,7 +830,11 @@
                 <tfoot>
                   <tr>
                     <td colspan="2">
-                      <div class="text-left"><strong>Signature of acknowledgement and Date / <em class="text-primary">Chữ ký xác nhận nội dung và Ngày:</em></strong></div>
+                      <div class="text-left">
+                        <strong>Signature of acknowledgement and Date /
+                          <em class="text-primary">Chữ ký xác nhận nội dung và Ngày:</em>
+                        </strong>
+                      </div>
                     </td>
                   </tr>
                 </tfoot>
@@ -767,14 +944,16 @@
 
               <div class="item form-group">
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <div class="pull-right"><strong>(*): Required Field.</strong></div>
+                  <div class="pull-right">
+                    <strong>(*): Required Field.</strong>
+                  </div>
                 </div>
                 <div class="clearfix"></div>
               </div>
               <div>
-                  <button type="button" [disabled]="!approvedSmartGoalForm.valid" (click)="exportExcel(approvedSmartGoalForm.valid)"
-                  class="btn btn-primary">Export Excel</button>
-                <button (click)="approvedSmartGoalModal.hide()" class="btn btn-info pull-right" type="button"><i class="fa fa-arrow-left"></i> Back </button>
+                <button type="button" [disabled]="!approvedSmartGoalForm.valid" (click)="exportExcel(approvedSmartGoalForm.valid)" class="btn btn-primary">Export Excel</button>
+                <button (click)="approvedSmartGoalModal.hide()" class="btn btn-info pull-right" type="button">
+                  <i class="fa fa-arrow-left"></i> Back </button>
               </div>
             </form>
           </section>

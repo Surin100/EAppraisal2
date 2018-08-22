@@ -34,6 +34,11 @@ export class CreateComponent implements OnInit {
   partBShow: string[];
   partCShow: string[];
 
+  readonlyGoal1Content = false;
+  readonlyGoal2Content = false;
+  readonlyGoal3Content = false;
+  readonlyGoal4Content = false;
+
   constructor(private _authenService: AuthenService, private _dataService: DataService, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _handleErrorService: HandleErrorService
   ) {
@@ -101,6 +106,8 @@ export class CreateComponent implements OnInit {
             this.appraisal.goal1Content += element.plan;
           }
         });
+
+        this.readonlyGoal1Content = true;
       }
 
       if (goal2Content && goal2Content.length >0) {
@@ -113,6 +120,7 @@ export class CreateComponent implements OnInit {
             this.appraisal.goal2Content += element.plan;
           }
         });
+        this.readonlyGoal2Content = true;
       }
 
       if (goal3Content && goal3Content.length > 0) {
@@ -125,6 +133,8 @@ export class CreateComponent implements OnInit {
             this.appraisal.goal3Content += element.plan;
           }
         });
+
+        this.readonlyGoal3Content = true;
       }
 
       if (goal4Content && goal4Content.length > 0) {
@@ -137,6 +147,8 @@ export class CreateComponent implements OnInit {
             this.appraisal.goal4Content += element.plan;
           }
         });
+
+        this.readonlyGoal4Content = true;
       }
       // console.log(this.appraisal);
     }, error => this._handleErrorService.handleError(error));

@@ -1,4 +1,93 @@
 <div class="x_content" style="min-height:800px">
+
+  <!-- Search Form -->
+  <div class="animate form">
+    <section class="login_content noPadding">
+      <form class="noMargin form-label-right" #searchForm="ngForm" (ngSubmit)="loadData()" novalidate *ngIf='appraisals'>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeId">Employee ID -
+              <em class="text-primary">Mã Nhân Viên</em>
+            </label>
+            <input id="employeeId" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeId" name="employeeId" type="text"
+            />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeName">Employee Name -
+              <em class="text-primary">Tên Nhân Viên</em>
+            </label>
+            <input id="employeeName" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeName" name="employeeName"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Department -
+              <em class="text-primary">Bộ Phận</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.DepartmentId" name="departmentId">
+              <option *ngFor="let department of departmentSearchList" [ngValue]="department.Value">{{department.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeTitle">Employee Title -
+              <em class="text-primary">Chức Vụ</em>
+            </label>
+            <input id="employeeTitle" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeTitle" name="employeeTitle"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Status -
+              <em class="text-primary">Trạng Thái</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.StatusId" name="statusId">
+              <option *ngFor="let status of statusSearchList" [ngValue]="status.Value">{{status.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchFrom" class="control-label pull-right">From year
+                <em class="text-primary">Từ năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchFrom" name="searchFrom" class="form-control inputMargin" #from="ngModel" [(ngModel)]="search.FromYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchTo" class="control-label pull-right">To year
+                <em class="text-primary">Đến năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchTo" name="searchTo" class="form-control inputMargin" #to="ngModel" [(ngModel)]="search.ToYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success searchBtnMargin pull-left submit">
+          <i class="fa fa-search"></i> Search</button>
+        <button type="button" (click)="clearSearch()" class="btn btn-success searchBtnMargin pull-left">Clear</button>
+      </form>
+    </section>
+  </div>
+  <!-- /Search Form -->
+
+  <!-- Approval List -->
   <div>
     <table class="table table-bordered">
       <thead>
@@ -35,7 +124,9 @@
           <td class="text-center">{{appraisal.Conclusion | number: '1.0-2'}}</td>
           <td>{{appraisal.StatusName}}</td>
           <td>
-            <button class="btn btn-primary" (click)="showApproveAppraisalModal(appraisal.Id, appraisal.StatusId)"><i class="fa fa-check" ></i></button>
+            <button class="btn btn-primary" (click)="showApproveAppraisalModal(appraisal.Id, appraisal.StatusId)">
+              <i class="fa fa-check"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -43,20 +134,13 @@
     <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
       [(ngModel)]="pageIndex" [maxSize]="maxSize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
       lastText="&raquo;"></pagination>
-      <div class="pull-right">
-          <label for="from">From year
-            <em class="text-primary">Từ năm:</em>
-          </label>
-          <input name="from" #from="ngModel" [(ngModel)]="exportIndex.FromYear" type="text" />
-          <label for="to">To year
-            <em class="text-primary">Đến năm:</em>
-          </label>
-          <input name="to" #to="ngModel" [(ngModel)]="exportIndex.ToYear" type="text" />
-          <button type="button" (click)="exportApprovalIndexToExcel()" class="btn btn-primary">Export Excel</button>
-        </div>
+    <div class="pull-right">
+      <button type="button" (click)="exportApprovalIndexToExcel()" class="btn btn-primary">Export Excel</button>
+    </div>
   </div>
+  <!-- /Approval List -->
 
-  <!--Approve modal-->
+  <!-- Approve modal-->
   <div bsModal #approveAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg noMargin" style="width:100%">
@@ -64,15 +148,21 @@
         <div class="modal-header">
           <!-- <h4 class="modal-title pull-left">Approve Modal</h4> -->
           <button type="button" class="close pull-right" (click)='approveAppraisalModal.hide()' aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <div class="text-center" style="margin-bottom: 2em">
             <img src="/assets/images/logo.jpg" />
           </div>
-          <h2 class="text-center noMargin" style="font-size:2em"><strong>PERFORMANCE APPRAISAL FORM</strong></h2>
-          <h2 class="text-center" style="margin-bottom:1em; font-size:2em"><strong><em>BẢNG ĐÁNH GIÁ HIỆU QUẢ CÔNG VIỆC</em></strong></h2>
+          <h2 class="text-center noMargin" style="font-size:2em">
+            <strong>PERFORMANCE APPRAISAL FORM</strong>
+          </h2>
+          <h2 class="text-center" style="margin-bottom:1em; font-size:2em">
+            <strong>
+              <em>BẢNG ĐÁNH GIÁ HIỆU QUẢ CÔNG VIỆC</em>
+            </strong>
+          </h2>
           <!-- Form -->
           <div class="animate form">
             <section class="login_content noPadding">
@@ -82,36 +172,48 @@
                 <div class="col-md-5 col-sm-12 col-xs-12">
                   <div class="item form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label class="control-label  pull-right" for="associateName">Associate's Name - <em class="text-primary">Nhân viên:</em></label>
+                      <label class="control-label  pull-right" for="associateName">Associate's Name -
+                        <em class="text-primary">Nhân viên:</em>
+                      </label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="associateName" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateName" name="associateName" type="text" required readonly />
-                    </div>
-                  </div>
-                  <div class="item form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label class="control-label  pull-right" for="associateTitle">Associate's Title - <em class="text-primary">Chức danh:</em></label>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="asscociateTitle" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateTitle" name="asscociateTitle" type="text" required readonly/>
+                      <input id="associateName" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateName" name="associateName"
+                        type="text" required readonly />
                     </div>
                   </div>
                   <div class="item form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label class="control-label  pull-right" for="reviewer">Reviewer - <em class="text-primary">Người đánh giá:</em></label>
+                      <label class="control-label  pull-right" for="associateTitle">Associate's Title -
+                        <em class="text-primary">Chức danh:</em>
+                      </label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="reviewerName" class="form-control inputMargin" #reviewerName="ngModel" [(ngModel)]="appraisalApproval.ReviewerName" name="reviewerName"
-                        type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"/>
+                      <input id="asscociateTitle" class="form-control inputMargin" [(ngModel)]="appraisalApproval.AssociateTitle" name="asscociateTitle"
+                        type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title - <em class="text-primary">Chức danh:</em></label>
+                      <label class="control-label  pull-right" for="reviewer">Reviewer -
+                        <em class="text-primary">Người đánh giá:</em>
+                      </label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="reviewerName" class="form-control inputMargin" #reviewerName="ngModel" [(ngModel)]="appraisalApproval.ReviewerName"
+                        name="reviewerName" type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"
+                      />
+                    </div>
+                  </div>
+                  <div class="item form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label class="control-label  pull-right" for="reviewerTitle">Reviewer Title -
+                        <em class="text-primary">Chức danh:</em>
+                      </label>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <input id="reviewerTitle" class="form-control inputMargin" #reviewerTitle="ngModel" [(ngModel)]="appraisalApproval.ReviewerTitle"
-                        name="reviewerTitle" type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"/>
+                        name="reviewerTitle" type="text" required [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"
+                      />
                     </div>
                   </div>
                   <div class="item form-group">
@@ -131,16 +233,20 @@
                 <div class="col-md-7 col-sm-12 col-xs-12">
                   <div class="item form-group">
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                      <label class="control-label  pull-right" for="associateId">Associate ID - <em class="text-primary">Mã số nhân viên:</em></label>
+                      <label class="control-label  pull-right" for="associateId">Associate ID -
+                        <em class="text-primary">Mã số nhân viên:</em>
+                      </label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisalApproval.AssociateId" name="asscociateId"
-                        type="text" required readonly/>
+                      <input id="asscociateId" class="form-control inputMargin" #associateId="ngModel" [(ngModel)]="appraisalApproval.AssociateId"
+                        name="asscociateId" type="text" required readonly/>
                     </div>
                   </div>
                   <div class="item form-group">
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                      <label class="control-label  pull-right" for="department">Department - <em class="text-primary">Bộ phận:</em></label>
+                      <label class="control-label  pull-right" for="department">Department -
+                        <em class="text-primary">Bộ phận:</em>
+                      </label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <input id="departmentEnName" class="form-control inputMargin" #departmentEnName="ngModel" [(ngModel)]="appraisalApproval.departmentEnName"
@@ -148,12 +254,16 @@
                     </div>
                   </div>
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <label class="control-label  pull-right">Period to appraise - <em class="text-primary">Giai đoạn đánh giá:</em></label>
+                    <label class="control-label  pull-right">Period to appraise -
+                      <em class="text-primary">Giai đoạn đánh giá:</em>
+                    </label>
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noPadding noMargin">
                       <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                        <label class="control-label  pull-right" for="from">From <em class="text-primary">Từ (*):</em></label>
+                        <label class="control-label  pull-right" for="from">From
+                          <em class="text-primary">Từ (*):</em>
+                        </label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                         <input name="from" #from="ngModel" class="form-control" [(ngModel)]="appraisalApprovalFrom" type="text" required readonly/>
@@ -161,7 +271,9 @@
                     </div>
                     <div class="item form-group col-md-6 col-sm-6 col-xs-12 noMargin noPadding">
                       <div class="col-md-3 col-sm-3 col-xs-12 noPadding">
-                        <label class="control-label  pull-right" for="to">To <em class="text-primary">Đến (*):</em></label>
+                        <label class="control-label  pull-right" for="to">To
+                          <em class="text-primary">Đến (*):</em>
+                        </label>
                       </div>
                       <div class="col-md-9 col-sm-9 col-xs-12 inputMargin noPadding">
                         <input name="to" #to="ngModel" class="form-control" [(ngModel)]="appraisalApprovalTo" type="text" required readonly />
@@ -170,7 +282,9 @@
                   </div>
                   <div class="item form-group">
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                      <label class="control-label  pull-right" for="temporaryDate">Review date - <em class="text-primary">Ngày đánh giá:</em></label>
+                      <label class="control-label  pull-right" for="temporaryDate">Review date -
+                        <em class="text-primary">Ngày đánh giá:</em>
+                      </label>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <div class="col-md-6 col-sm-6 col-xs-12 inputMargin noPadding">
@@ -198,7 +312,8 @@
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
-                          Rating - <em class="text-primary">Đánh giá</em>
+                          Rating -
+                          <em class="text-primary">Đánh giá</em>
                         </div>
                       </th>
                     </tr>
@@ -207,404 +322,520 @@
                     <tr>
                       <th>
                         <div class="text-center">Customer Driven</div>
-                        <div class="text-center"><em class="text-primary">Hướng tới khách hàng</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Hướng tới khách hàng</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           1. Anticipates, strives consistently to understand internal and external customers' needs whilst meeting and exceeding their
                           expectations.
                         </div>
-                        <em class="text-primary">Có ý thức đoán trước, tìm hiểu nhu cầu của khách hàng (cả bên ngoài và nội bộ) để đáp ứng
-                  và vượt trên những mong đợi đó.</em>
+                        <em class="text-primary">Có ý thức đoán trước, tìm hiểu nhu cầu của khách hàng (cả bên ngoài và nội bộ) để đáp ứng và vượt
+                          trên những mong đợi đó.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="customerDriven1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven1" name="customerDriven" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven1" name="customerDriven"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven2" name="customerDriven" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven2" name="customerDriven"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven3" name="customerDriven" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven3" name="customerDriven"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven4" name="customerDriven" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven4" name="customerDriven"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="customerDriven5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven5" name="customerDriven" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CustomerDriven" required id="customerDriven5" name="customerDriven"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Quest for Excellence</div>
-                        <div class="text-center"><em class="text-primary">Tìm kiếm sự hoàn thiện</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Tìm kiếm sự hoàn thiện</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           2. Has a passion for excellence; strives to deliver the highest standard in every task and every encounter with internal
                           and external customers.
                         </div>
-                        <em class="text-primary">Luôn hướng tới sự hoàn thiện trong công việc, cố gắng hoàn thành với chất lượng cao nhất các việc được giao và trong mỗi lần gặp gỡ với khách.</em>
+                        <em class="text-primary">Luôn hướng tới sự hoàn thiện trong công việc, cố gắng hoàn thành với chất lượng cao nhất các việc
+                          được giao và trong mỗi lần gặp gỡ với khách.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="questForExcellence1">1</label>
                           <label>
-                      <input type="radio" [value]="1"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence1" name="questForExcellence" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence1" name="questForExcellence"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence2" name="questForExcellence" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence2" name="questForExcellence"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence3" name="questForExcellence" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence3" name="questForExcellence"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence4" name="questForExcellence" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence4" name="questForExcellence"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="questForExcellence5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence5" name="questForExcellence" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QuestForExcellence" required id="questForExcellence5" name="questForExcellence"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Teamwork</div>
-                        <div class="text-center"><em class="text-primary">Tinh thần đồng đội</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Tinh thần đồng đội</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           3. Works well with and supports colleagues; demontrates accountability and ownership in achieving the team's common goals
                           and objectives.
                         </div>
-                        <em class="text-primary">Phối hợp tốt với đồng nghiệp, giúp đỡ và hỗ trợ đồng nghiệp, thể hiện tinh thần trách nhiệm đối với công việc chung.</em>
+                        <em class="text-primary">Phối hợp tốt với đồng nghiệp, giúp đỡ và hỗ trợ đồng nghiệp, thể hiện tinh thần trách nhiệm đối với
+                          công việc chung.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="teamWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork1" name="teamWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork1" name="teamWork" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork2" name="teamWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork2" name="teamWork" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork3" name="teamWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork3" name="teamWork" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork4" name="teamWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork4" name="teamWork" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="teamWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5"  [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork5" name="teamWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.TeamWork" required id="teamWork5" name="teamWork" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Respect and Trust</div>
-                        <div class="text-center"><em class="text-primary">Tôn trọng và Tin tưởng</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Tôn trọng và Tin tưởng</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           4. Respect guests, Company and colleagues and other people; gives trust by consistently delivering on agreed objectives and
                           expectations.
                         </div>
-                        <em class="text-primary">Tôn trọng khách hàng, Công ty, đồng nghiệp và mọi người nói chung. Tạo lòng tin bằng việc luôn giữ đúng lời hứa và thực hiện những gì mình cam kết làm.</em>
+                        <em class="text-primary">Tôn trọng khách hàng, Công ty, đồng nghiệp và mọi người nói chung. Tạo lòng tin bằng việc luôn giữ
+                          đúng lời hứa và thực hiện những gì mình cam kết làm.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust1" name="respectAndTrust"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust2" name="respectAndTrust"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust3" name="respectAndTrust"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust4" name="respectAndTrust"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="respectAndTrust5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.RespectAndTrust" required id="respectAndTrust5" name="respectAndTrust"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Enterprising</div>
-                        <div class="text-center"><em class="text-primary">Linh hoạt, sáng tạo</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Linh hoạt, sáng tạo</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           5. Works smart and innovative; is flexible and responsive to change; is action-oriented and actively seek to achieve goals
                           and results.
                         </div>
-                        <em class="text-primary">Làm việc thông minh, sáng tạo; linh hoạt và thích ứng với tình huống; luôn chủ động tìm phương án và hành động thích hợp để đạt được mục tiêu.</em>
+                        <em class="text-primary">Làm việc thông minh, sáng tạo; linh hoạt và thích ứng với tình huống; luôn chủ động tìm phương án
+                          và hành động thích hợp để đạt được mục tiêu.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="enterprising1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising1" name="enterprising" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising1" name="enterprising"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising2" name="enterprising" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising2" name="enterprising"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising3" name="enterprising" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising3" name="enterprising"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising4" name="enterprising" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising4" name="enterprising"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="enterprising5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising5" name="enterprising" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Enterprising" required id="enterprising5" name="enterprising"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Communication</div>
-                        <div class="text-center"><em class="text-primary">Cách ứng xử</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Cách ứng xử</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           6. Has a positive attitude toward diversity and the difference of opinions. Practices fairness and integrity when dealing
                           with guests, colleagues and others.
                         </div>
-                        <em class="text-primary">Có thái độ tích cực, sẵn sàng tiếp thu ý kiến mới. Thể hiện sự công bằng và nhất quán trong giao tiếp với khách hàng, đồng nghiệp và mọi người nói chung.</em>
+                        <em class="text-primary">Có thái độ tích cực, sẵn sàng tiếp thu ý kiến mới. Thể hiện sự công bằng và nhất quán trong giao
+                          tiếp với khách hàng, đồng nghiệp và mọi người nói chung.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="communication1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Communication" required id="communication1" name="communication" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Communication" required id="communication1" name="communication"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Communication" required id="communication2" name="communication" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Communication" required id="communication2" name="communication"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Communication" required id="communication3" name="communication" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Communication" required id="communication3" name="communication"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Communication" required id="communication4" name="communication" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Communication" required id="communication4" name="communication"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="communication5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Communication" required id="communication5" name="communication" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Communication" required id="communication5" name="communication"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Dependability</div>
-                        <div class="text-center"><em class="text-primary">Chuyên cần</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Chuyên cần</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           7. Arrive to work on time; inform manager of lateness and absence in a timely manner. Utilize working hours effectively.
                           Arrange well before taking leave of absence.
                         </div>
-                        <em class="text-primary">Đến làm việc đúng giờ; báo cáo kịp thời với quản lý về việc đi trễ, vắng mặt. Sử dụng thời gian làm việc hiệu quả. Biết cách sắp xếp công việc trước khi nghỉ phép.</em>
+                        <em class="text-primary">Đến làm việc đúng giờ; báo cáo kịp thời với quản lý về việc đi trễ, vắng mặt. Sử dụng thời gian làm
+                          việc hiệu quả. Biết cách sắp xếp công việc trước khi nghỉ phép.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="dependability1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Dependability" required id="dependability1" name="dependability" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Dependability" required id="dependability1" name="dependability"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Dependability" required id="dependability2" name="dependability" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Dependability" required id="dependability2" name="dependability"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Dependability" required id="dependability3" name="dependability" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Dependability" required id="dependability3" name="dependability"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Dependability" required id="dependability4" name="dependability" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Dependability" required id="dependability4" name="dependability"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="dependability5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Dependability" required id="dependability5" name="dependability" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Dependability" required id="dependability5" name="dependability"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Quantity of Work</div>
-                        <div class="text-center"><em class="text-primary">Khối lượng công việc</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Khối lượng công việc</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           8. Complete necessary amount of work. Finish daily tasks in a timely manner. Complete assignments by the agreed deadline.
                         </div>
-                        <em class="text-primary">Làm đủ khối lượng công việc; thực hiện các công việc thường nhật một cách nhanh chóng, hoàn thành các dự án được giao đúng hạn.</em>
+                        <em class="text-primary">Làm đủ khối lượng công việc; thực hiện các công việc thường nhật một cách nhanh chóng, hoàn thành
+                          các dự án được giao đúng hạn.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork1" name="quantityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork2" name="quantityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork3" name="quantityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork4" name="quantityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="quantityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QuantityOfWork" required id="quantityOfWork5" name="quantityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Quality of Work</div>
-                        <div class="text-center"><em class="text-primary">Chất lượng công việc</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Chất lượng công việc</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           9. Continuously comply to established standards and procedures. Produces accuracy, consistency and thoroughness of work.
                         </div>
-                        <em class="text-primary">Luôn tuân thủ các quy trình làm việc chuẩn và các quy định nghiệp vụ. Hoàn thành công việc một cách chính xác, ổn định và hoàn thiện.</em>
+                        <em class="text-primary">Luôn tuân thủ các quy trình làm việc chuẩn và các quy định nghiệp vụ. Hoàn thành công việc một cách
+                          chính xác, ổn định và hoàn thiện.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork1" name="qualityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork2" name="qualityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork3" name="qualityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork4" name="qualityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityOfWork5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityOfWork" required id="qualityOfWork5" name="qualityOfWork"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
@@ -617,8 +848,10 @@
                   <thead>
                     <tr class="abc">
                       <th colspan=3>
-                        b. Supervisory Competency - Năng lực giám sát <a *ngIf="supervisoryToggle" href="#bodySupervisory" (click)="supervisoryClick()"
-                        data-toggle="collapse" class="pull-right"><i class="fa" [ngClass]="{'fa-chevron-up':supervisoryChevron,'fa-chevron-down':!supervisoryChevron}"></i></a>
+                        b. Supervisory Competency - Năng lực giám sát
+                        <a *ngIf="supervisoryToggle" href="#bodySupervisory" (click)="supervisoryClick()" data-toggle="collapse" class="pull-right">
+                          <i class="fa" [ngClass]="{'fa-chevron-up':supervisoryChevron,'fa-chevron-down':!supervisoryChevron}"></i>
+                        </a>
                       </th>
                     </tr>
                   </thead>
@@ -626,14 +859,17 @@
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
-                          Rating - <em class="text-primary">Đánh giá</em>
+                          Rating -
+                          <em class="text-primary">Đánh giá</em>
                         </div>
                       </th>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Personal Efficiency</div>
-                        <div class="text-center"><em class="text-primary">Quản lý thời gian</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Quản lý thời gian</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -645,39 +881,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency1">1</label>
                           <label>
-                      <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" id="personalEfficiency1" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency2">2</label>
                           <label>
-                      <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" id="personalEfficiency2" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency3">3</label>
                           <label>
-                      <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" id="personalEfficiency3" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency4">4</label>
                           <label>
-                      <input type="radio" [value]="4" id="PersonalEfficiency4" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" id="PersonalEfficiency4" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="personalEfficiency5">5</label>
                           <label>
-                      <input type="radio" [value]="5" id="personalEfficiency5" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" id="personalEfficiency5" [(ngModel)]="appraisalApproval.PersonalEfficiency" name="personalEfficiency"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Workforce Scheduling</div>
-                        <div class="text-center"><em class="text-primary">Sắp xếp nhân sự</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Sắp xếp nhân sự</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -689,39 +942,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling1" name="workforceScheduling"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling2" name="workforceScheduling"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling3" name="workforceScheduling"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling4" name="workforceScheduling"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="workforceScheduling5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.WorkforceScheduling" id="workforceScheduling5" name="workforceScheduling"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Quality Management</div>
-                        <div class="text-center"><em class="text-primary">Quản lý chất lượng</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Quản lý chất lượng</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -733,39 +1003,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="qualityManagement1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement1" name="qualityManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement1" name="qualityManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement2" name="qualityManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement2" name="qualityManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement3" name="qualityManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement3" name="qualityManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement4" name="qualityManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement4" name="qualityManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="qualityManagement5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement5" name="qualityManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.QualityManagement" id="qualityManagement5" name="qualityManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Performance Management</div>
-                        <div class="text-center"><em class="text-primary">Quản lý hiệu quả công việc</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Quản lý hiệu quả công việc</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -777,39 +1064,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="performanceManagement1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement1" name="performanceManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement1" name="performanceManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement2" name="performanceManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement2" name="performanceManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement3" name="performanceManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement3" name="performanceManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement4" name="performanceManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement4" name="performanceManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="performanceManagement5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement5" name="performanceManagement" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.PerformanceManagement" id="performanceManagement5" name="performanceManagement"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Succession Planning</div>
-                        <div class="text-center"><em class="text-primary">Đào tạo Nhân sự kế thừa</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Đào tạo Nhân sự kế thừa</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -821,39 +1125,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="successionPlanning1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning1" name="successionPlanning" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning1" name="successionPlanning"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning2" name="successionPlanning" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning2" name="successionPlanning"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning3" name="successionPlanning" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning3" name="successionPlanning"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning4" name="successionPlanning" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning4" name="successionPlanning"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="successionPlanning5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning5" name="successionPlanning" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.SuccessionPlanning" id="successionPlanning5" name="successionPlanning"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Managing Conflicts, Grievances</div>
-                        <div class="text-center"><em class="text-primary">Xử lý mâu thuẫn, khiếu nại</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Xử lý mâu thuẫn, khiếu nại</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -865,39 +1186,56 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="managingConflicts1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts1" name="managingConflicts" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts1" name="managingConflicts"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts2" name="managingConflicts" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts2" name="managingConflicts"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts3" name="managingConflicts" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts3" name="managingConflicts"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts4" name="managingConflicts" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts4" name="managingConflicts"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="managingConflicts5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts5" name="managingConflicts" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.ManagingConflicts" id="managingConflicts5" name="managingConflicts"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Celebrate Results</div>
-                        <div class="text-center"><em class="text-primary">Tưởng thưởng thành quả</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Tưởng thưởng thành quả</em>
+                        </div>
                       </th>
                       <td>
                         <div>
@@ -909,32 +1247,47 @@
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="celebrateResults1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults1" name="celebrateResults" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults1" name="celebrateResults"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults2" name="celebrateResults" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults2" name="celebrateResults"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults3" name="celebrateResults" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults3" name="celebrateResults"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults4" name="celebrateResults" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults4" name="celebrateResults"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="celebrateResults5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults5" name="celebrateResults" [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.CelebrateResults" id="celebrateResults5" name="celebrateResults"
+                              [required]="partBShow.includes(appraisalApproval.EmployeeLvId) || partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
@@ -947,8 +1300,10 @@
                   <thead>
                     <tr class="abc">
                       <th colspan=3>
-                        c. People Leadership - Năng lực lãnh đạo <a *ngIf="leadershipToggle" href="#bodyLeadership" (click)="leadershipClick()"
-                        data-toggle="collapse" class="pull-right"><i class="fa" [ngClass]="{'fa-chevron-up':leadershipChevron,'fa-chevron-down':!leadershipChevron}"></i></a>
+                        c. People Leadership - Năng lực lãnh đạo
+                        <a *ngIf="leadershipToggle" href="#bodyLeadership" (click)="leadershipClick()" data-toggle="collapse" class="pull-right">
+                          <i class="fa" [ngClass]="{'fa-chevron-up':leadershipChevron,'fa-chevron-down':!leadershipChevron}"></i>
+                        </a>
                       </th>
                     </tr>
                   </thead>
@@ -956,142 +1311,192 @@
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
-                          Rating - <em class="text-primary">Đánh giá</em>
+                          Rating -
+                          <em class="text-primary">Đánh giá</em>
                         </div>
                       </th>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Lead with Vision</div>
-                        <div class="text-center"><em class="text-primary">Lãnh đạo có định hướng</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Lãnh đạo có định hướng</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           7. Establishes a clear direction for the assigned unit; leads by example; inspires and energizes others; creates and manages
                           positive changes.
                         </div>
-                        <em class="text-primary">Thiết lập đường lỗi rõ ràng cho bộ phận mình quản lý, lãnh đạo bằng cách làm gương, tạo cảm hứng, động lực cho nhân viên; tạo ra các thay đổi tích cực trong bộ phận.</em>
+                        <em class="text-primary">Thiết lập đường lỗi rõ ràng cho bộ phận mình quản lý, lãnh đạo bằng cách làm gương, tạo cảm hứng,
+                          động lực cho nhân viên; tạo ra các thay đổi tích cực trong bộ phận.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="leadWithVision1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision1" name="leadWithVision" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision1" name="leadWithVision"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision2" name="leadWithVision" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision2" name="leadWithVision"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision3" name="leadWithVision" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision3" name="leadWithVision"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision4" name="leadWithVision" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision4" name="leadWithVision"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="leadWithVision5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision5" name="leadWithVision" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.LeadWithVision" id="leadWithVision5" name="leadWithVision"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Align and Engage</div>
-                        <div class="text-center"><em class="text-primary">Khuyến khích và gắn kết</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Khuyến khích và gắn kết</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           8. Solicits inputs and involves others; delegates and empowers team; evaluate, reward and discipline associates properly
                           and impartially.
                         </div>
-                        <em class="text-primary">Khuyến khích nhân viên đóng góp ý kiến, tham gia xây dựng tầm nhìn và mục tiêu. Đánh giá, khen thưởng và kỷ luật nhân viên một cách công bằng và thích hợp.</em>
+                        <em class="text-primary">Khuyến khích nhân viên đóng góp ý kiến, tham gia xây dựng tầm nhìn và mục tiêu. Đánh giá, khen thưởng
+                          và kỷ luật nhân viên một cách công bằng và thích hợp.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage1" name="alignAndEngage"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage2" name="alignAndEngage"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage3" name="alignAndEngage"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage4" name="alignAndEngage"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="alignAndEngage5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.AlignAndEngage" id="alignAndEngage5" name="alignAndEngage"
+                              [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()"
+                              [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th>
                         <div class="text-center">Be a Talent Magnet</div>
-                        <div class="text-center"><em class="text-primary">Thu hút nhân tài</em></div>
+                        <div class="text-center">
+                          <em class="text-primary">Thu hút nhân tài</em>
+                        </div>
                       </th>
                       <td>
                         <div>
                           9. Attracts and retains talents; Actively provides coaching, guidance and feedback to develop associates; encourages learning
                           and growth.
                         </div>
-                        <em class="text-primary">Thu hút và phát triển nhân tài. Tích cực huấn luyện, hướng dẫn, nhận xét để phát triển nhân viên; khuyến khích nhân viên học hỏi để tiến bộ.</em>
+                        <em class="text-primary">Thu hút và phát triển nhân tài. Tích cực huấn luyện, hướng dẫn, nhận xét để phát triển nhân viên;
+                          khuyến khích nhân viên học hỏi để tiến bộ.</em>
                       </td>
                       <td class="form-group">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
                           <label class="text-left radioPadding" for="talentMagnet1">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet1" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet1" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet2">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet2" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet2" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet3">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet3" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet3" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet4">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet4" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet4" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="talentMagnet5">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet5" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)" (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.TalentMagnet" id="talentMagnet5" name="talentMagnet" [required]="partCShow.includes(appraisalApproval.EmployeeLvId)"
+                              (change)="generateSubTotal1()" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || partAShow.includes(appraisalApproval.EmployeeLvId) || partBShow.includes(appraisalApproval.EmployeeLvId) || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
@@ -1099,7 +1504,12 @@
                   <tfoot>
                     <tr>
                       <td colspan="2">
-                        <div class="text-right"><strong>Sub total 1 = total scores rated for competencies / number of competencies<br/><em class="text-primary">Tổng điểm  = Tổng số điểm cho từng Năng lực / Số năng lực</em></strong></div>
+                        <div class="text-right">
+                          <strong>Sub total 1 = total scores rated for competencies / number of competencies
+                            <br/>
+                            <em class="text-primary">Tổng điểm = Tổng số điểm cho từng Năng lực / Số năng lực</em>
+                          </strong>
+                        </div>
                       </td>
                       <td class="total">
                         <h4 class="text-center">
@@ -1125,14 +1535,16 @@
                           Summary of goals achievement (Business S.M.A.R.T goal document is required to attach into this form)
                         </div>
                         <div>
-                          <em style="color:darkblue">Tóm tắt kết quả thực hiện mục tiêu đã thống nhất (Bảng đánh giá Mục tiêu công việc của cá nhân phải được đính kèm)</em>
+                          <em style="color:darkblue">Tóm tắt kết quả thực hiện mục tiêu đã thống nhất (Bảng đánh giá Mục tiêu công việc của cá nhân
+                            phải được đính kèm)</em>
                         </div>
                       </th>
                     </tr>
                     <tr>
                       <th colspan=3>
                         <div class="pull-right">
-                          Rating - <em class="text-primary">Đánh giá</em>
+                          Rating -
+                          <em class="text-primary">Đánh giá</em>
                         </div>
                       </th>
                     </tr>
@@ -1140,170 +1552,218 @@
                   <tbody>
                     <tr>
                       <td class="col15">
-                        <strong>Goal 1/ <em class="text-primary">Mục tiêu 1</em></strong>
+                        <strong>Goal 1/
+                          <em class="text-primary">Mục tiêu 1</em>
+                        </strong>
                       </td>
                       <td>
                         <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal1Content" name="goal1Content" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
-                            <input hidden type="radio" id="goal10" name="goal1" [checked]="!appraisalApproval.Goal1Content.trim()? uncheckGoal('goal1'):false" *ngIf="appraisalApproval.Goal1"
-                            />
+                          <input hidden type="radio" id="goal10" name="goal1" [checked]="!appraisalApproval.Goal1Content.trim()? uncheckGoal('goal1'):false"
+                            *ngIf="appraisalApproval.Goal1" />
                           <label class="text-left radioPadding" for="goal11">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal1" id="goal11" name="goal1" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal1" id="goal11" name="goal1" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal12">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal1" id="goal12" name="goal1" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal1" id="goal12" name="goal1" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal13">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal1" id="goal13" name="goal1" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal1" id="goal13" name="goal1" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal14">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal1" id="goal14" name="goal1" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal1" id="goal14" name="goal1" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal15">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal1" id="goal15" name="goal1" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal1" id="goal15" name="goal1" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal1Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal1Content || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <td class="col15">
-                        <strong>Goal 2/ <em class="text-primary">Mục tiêu 2</em></strong>
+                        <strong>Goal 2/
+                          <em class="text-primary">Mục tiêu 2</em>
+                        </strong>
                       </td>
                       <td>
                         <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal2Content" name="goal2Content" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
-                            <input hidden type="radio" id="goal20" name="goal2" [checked]="!appraisalApproval.Goal2Content.trim()? uncheckGoal('goal2'):false" *ngIf="appraisalApproval.Goal2"
-                            />
+                          <input hidden type="radio" id="goal20" name="goal2" [checked]="!appraisalApproval.Goal2Content.trim()? uncheckGoal('goal2'):false"
+                            *ngIf="appraisalApproval.Goal2" />
                           <label class="text-left radioPadding" for="goal21">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal2" id="goal21" name="goal2" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal2" id="goal21" name="goal2" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal22">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal2" id="goal22" name="goal2" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal2" id="goal22" name="goal2" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal23">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal2" id="goal23" name="goal2" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal2" id="goal23" name="goal2" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal24">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal2" id="goal24" name="goal2" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal2" id="goal24" name="goal2" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal25">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal2" id="goal25" name="goal2" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal2" id="goal25" name="goal2" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal2Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal2Content || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
 
                     <tr>
                       <td class="col15">
-                        <strong>Goal 3/ <em class="text-primary">Mục tiêu 3</em></strong>
+                        <strong>Goal 3/
+                          <em class="text-primary">Mục tiêu 3</em>
+                        </strong>
                       </td>
                       <td>
                         <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal3Content" name="goal3Content" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
-                            <input hidden type="radio" id="goal30" name="goal3" [checked]="!appraisalApproval.Goal3Content.trim()? uncheckGoal('goal3'):false" *ngIf="appraisalApproval.Goal3"
-                            />
+                          <input hidden type="radio" id="goal30" name="goal3" [checked]="!appraisalApproval.Goal3Content.trim()? uncheckGoal('goal3'):false"
+                            *ngIf="appraisalApproval.Goal3" />
                           <label class="text-left radioPadding" for="goal31">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal3" id="goal31" name="goal3" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal3" id="goal31" name="goal3" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal32">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal3" id="goal32" name="goal3" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal3" id="goal32" name="goal3" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal33">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal3" id="goal33" name="goal3" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal3" id="goal33" name="goal3" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal34">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal3" id="goal34" name="goal3" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal3" id="goal34" name="goal3" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal35">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal3" id="goal35" name="goal3" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal3" id="goal35" name="goal3" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal3Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal3Content || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Goal 4/ <em class="text-primary">Mục tiêu 4</em></strong>
+                        <strong>Goal 4/
+                          <em class="text-primary">Mục tiêu 4</em>
+                        </strong>
                       </td>
                       <td>
                         <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.Goal4Content" name="goal4Content" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
                       </td>
                       <td class="total">
                         <div class="radio col-md-2 col-sm2 col-xs-12 noMargin">
-                            <input hidden type="radio" id="goal40" name="goal4" [checked]="!appraisalApproval.Goal4Content.trim()? uncheckGoal('goal4'):false" *ngIf="appraisalApproval.Goal4"
-                            />
+                          <input hidden type="radio" id="goal40" name="goal4" [checked]="!appraisalApproval.Goal4Content.trim()? uncheckGoal('goal4'):false"
+                            *ngIf="appraisalApproval.Goal4" />
                           <label class="text-left radioPadding" for="goal41">1</label>
                           <label>
-                      <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal4" id="goal41" name="goal4" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"/>
-                    </label>
+                            <input type="radio" [value]="1" [(ngModel)]="appraisalApproval.Goal4" id="goal41" name="goal4" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal42">2</label>
                           <label>
-                      <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal4" id="goal42" name="goal4" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"/>
-                    </label>
+                            <input type="radio" [value]="2" [(ngModel)]="appraisalApproval.Goal4" id="goal42" name="goal4" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal43">3</label>
                           <label>
-                      <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal4" id="goal43" name="goal4" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"/>
-                    </label>
+                            <input type="radio" [value]="3" [(ngModel)]="appraisalApproval.Goal4" id="goal43" name="goal4" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal44">4</label>
                           <label>
-                      <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal4" id="goal44" name="goal4" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"/>
-                    </label>
+                            <input type="radio" [value]="4" [(ngModel)]="appraisalApproval.Goal4" id="goal44" name="goal4" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"
+                            />
+                          </label>
                         </div>
                         <div class="radio col-md-2 col-sm2 col-xs-12  noMargin">
                           <label class="text-left radioPadding" for="goal45">5</label>
                           <label>
-                      <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal4" id="goal45" name="goal4" (change)="generateSubTotal2()" [required] = "appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"/>
-                    </label>
+                            <input type="radio" [value]="5" [(ngModel)]="appraisalApproval.Goal4" id="goal45" name="goal4" (change)="generateSubTotal2()"
+                              [required]="appraisalApproval.Goal4Content" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || !appraisalApproval.Goal4Content || null"
+                            />
+                          </label>
                         </div>
                       </td>
                     </tr>
@@ -1311,7 +1771,12 @@
                   <tfoot>
                     <tr>
                       <td colspan="2">
-                        <div class="text-right text-warning"><strong> Sub total 2 = Total of scores / number of goals<br/><em class="text-primary">Tổng điểm = Tổng số điểm / số mục tiêu</em></strong></div>
+                        <div class="text-right text-warning">
+                          <strong> Sub total 2 = Total of scores / number of goals
+                            <br/>
+                            <em class="text-primary">Tổng điểm = Tổng số điểm / số mục tiêu</em>
+                          </strong>
+                        </div>
                       </td>
                       <td class="total">
                         <h4 class="text-center">
@@ -1321,14 +1786,16 @@
                     </tr>
                     <tr>
                       <td colspan="3">
-                        Appraisee's comments - <em class="text-primary">Nhận xét của người được đánh giá</em>
+                        Appraisee's comments -
+                        <em class="text-primary">Nhận xét của người được đánh giá</em>
                         <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.AppraiseeComment" name="appraiseeComment" readonly></textarea>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="3">
-                        Appraisor's comments - <em class="text-primary">Nhận xét của người đánh giá</em>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.appraisorComment" name="appraisorComment"  [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
+                        Appraisor's comments -
+                        <em class="text-primary">Nhận xét của người đánh giá</em>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.appraisorComment" name="appraisorComment" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
                       </td>
                     </tr>
                   </tfoot>
@@ -1347,7 +1814,12 @@
                   <tfoot>
                     <tr>
                       <td colspan="2">
-                        <div class="text-right text-warning"><strong> OVERALL AVERAGE SCORE = Sub total 1 * 70% + Sub total 2 * 30%:<br/><em class="text-primary">ĐIỂM TRUNG BÌNH TỔNG: = Tổng 1 * 70% + Tổng 2 * 30%</em></strong></div>
+                        <div class="text-right text-warning">
+                          <strong> OVERALL AVERAGE SCORE = Sub total 1 * 70% + Sub total 2 * 30%:
+                            <br/>
+                            <em class="text-primary">ĐIỂM TRUNG BÌNH TỔNG: = Tổng 1 * 70% + Tổng 2 * 30%</em>
+                          </strong>
+                        </div>
                       </td>
                       <td class="total">
                         <h4 class="text-center">
@@ -1360,40 +1832,70 @@
                 <!-- /Table Part 3 -->
 
                 <div class="text-left bottomMargin1">
-                  4.00-5.00: Labor contract to be issued, eligible for promotion, salary adjustment/ <em class="text-primary">Nhân viên được ký hợp đồng lao động với công ty, đủ điều kiện để xem xét thăng cấp, điều chỉnh lương.</em>
+                  4.00-5.00: Labor contract to be issued, eligible for promotion, salary adjustment/
+                  <em class="text-primary">Nhân viên được ký hợp đồng lao động với công ty, đủ điều kiện để xem xét thăng cấp, điều chỉnh lương.</em>
                 </div>
                 <div class="text-left bottomMargin1">
-                  3.00-3.99: Labor contract to be issued/ <em class="text-primary">Nhân viên được ký hợp đồng lao động với Công ty.</em>
+                  3.00-3.99: Labor contract to be issued/
+                  <em class="text-primary">Nhân viên được ký hợp đồng lao động với Công ty.</em>
                 </div>
                 <div class="text-left bottomMargin1">
-                  Below 2.99: Employment shall be terminated/ <em class="text-primary">Nhân viên không được ký hợp đồng lao động với Công ty.</em>
+                  Below 2.99: Employment shall be terminated/
+                  <em class="text-primary">Nhân viên không được ký hợp đồng lao động với Công ty.</em>
                 </div>
                 <h4 class="text-left">
                   <strong>
-            REVIEWER' RECOMMENDATION/ <em class="text-primary">ĐỀ XUẤT CỦA NGƯỜI ĐÁNH GIÁ</em>
-            </strong>
+                    REVIEWER' RECOMMENDATION/
+                    <em class="text-primary">ĐỀ XUẤT CỦA NGƯỜI ĐÁNH GIÁ</em>
+                  </strong>
                 </h4>
 
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="1" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/><span>Contract to be issued/ <em class="text-primary">Ký hợp đồng chính thức</em></span></label>
+                  <label>
+                    <input type="radio" name="recommendation" [value]="1" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    />
+                    <span>Contract to be issued/
+                      <em class="text-primary">Ký hợp đồng chính thức</em>
+                    </span>
+                  </label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="2" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/><span>Contract to be renewed/ <em class="text-primary">Ký tiếp hợp đồng</em></span></label>
+                  <label>
+                    <input type="radio" name="recommendation" [value]="2" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    />
+                    <span>Contract to be renewed/
+                      <em class="text-primary">Ký tiếp hợp đồng</em>
+                    </span>
+                  </label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="3" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/><span>End employment/ <em class="text-primary">Chấm dứt hợp đồng lao động</em></span></label>
+                  <label>
+                    <input type="radio" name="recommendation" [value]="3" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    />
+                    <span>End employment/
+                      <em class="text-primary">Chấm dứt hợp đồng lao động</em>
+                    </span>
+                  </label>
                 </div>
                 <div class="radio text-left recommend">
-                  <label><input type="radio" name="recommendation" [value]="4" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"/><span>Salary Adjustment / Promotion/ <em class="text-primary">Điều chỉnh lương / Thăng chức</em></span></label>
+                  <label>
+                    <input type="radio" name="recommendation" [value]="4" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    />
+                    <span>Salary Adjustment / Promotion/
+                      <em class="text-primary">Điều chỉnh lương / Thăng chức</em>
+                    </span>
+                  </label>
                 </div>
                 <div class="text-left" style="padding-left:4em">
-                  (Please attach Associate Record Form) / <em class="text-primary">(Kèm theo Phiếu Thông tin Nhân viên)</em>
+                  (Please attach Associate Record Form) /
+                  <em class="text-primary">(Kèm theo Phiếu Thông tin Nhân viên)</em>
                 </div>
                 <table class="table" style="border:none !important; border-collapse: collapse !important">
                   <thead>
                     <tr>
                       <th style="border: none" colspan="2">
-                        ACKNOWLEDGEMENT – <em class="text-primary">XÁC NHẬN:</em>
+                        ACKNOWLEDGEMENT –
+                        <em class="text-primary">XÁC NHẬN:</em>
                       </th>
                     </tr>
 
@@ -1401,56 +1903,72 @@
                       <td style="border: none" colspan="2">
                         The below signatures indicate that the reviewer and the associate have discussed and agreed on all contentsstated in this
                         form and that the consequent decision is approved by the Department Head and verified by Human Resources
-                        and Administration.<br>
-                        <em class="text-primary">Các chữ ký dưới đây xác nhận rằng người đánh giá và người được đánh giá đã thảo luận và đồng ý tất cả các nội dung ghi trong bản đánh giá hiệu quả công việc này; quyết định do kết quả đánh giá đã được Trưởng Bộ phận duyệt và Phòng Hành chính – Nhân sự xác nhận.</em>
+                        and Administration.
+                        <br>
+                        <em class="text-primary">Các chữ ký dưới đây xác nhận rằng người đánh giá và người được đánh giá đã thảo luận và đồng ý tất
+                          cả các nội dung ghi trong bản đánh giá hiệu quả công việc này; quyết định do kết quả đánh giá đã
+                          được Trưởng Bộ phận duyệt và Phòng Hành chính – Nhân sự xác nhận.</em>
                       </td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td style="border:none">
-                        <u>Associate’s name &signature</u> - <em class="text-primary">Tên và chữ ký Nhân viên:</em>
+                        <u>Associate’s name &signature</u> -
+                        <em class="text-primary">Tên và chữ ký Nhân viên:</em>
                       </td>
                       <td style="border: none">
-                        <u>Division Head</u> - <em class="text-primary">Trưởng Bộ phận:</em>
+                        <u>Division Head</u> -
+                        <em class="text-primary">Trưởng Bộ phận:</em>
                       </td>
                     </tr>
                     <tr>
                       <td style="border:none;padding-bottom: 8em">
-                        Ngày <em class="text-primary">date: ............................................... </em>
+                        Ngày
+                        <em class="text-primary">date: ............................................... </em>
                       </td>
                       <td style="border:none">
-                        Ngày <em class="text-primary">date: ............................................... </em>
+                        Ngày
+                        <em class="text-primary">date: ............................................... </em>
                       </td>
                     </tr>
                     <tr>
                       <td style="border:none">
-                        <u>Reviewer’s name &signature</u> - <em class="text-primary">Tên và chữ ký người đánh giá:</em>
+                        <u>Reviewer’s name &signature</u> -
+                        <em class="text-primary">Tên và chữ ký người đánh giá:</em>
                       </td>
                       <td style="border: none">
-                        <u>Human Resources</u> - <em class="text-primary">Nhân Sự:</em>
+                        <u>Human Resources</u> -
+                        <em class="text-primary">Nhân Sự:</em>
                       </td>
                     </tr>
                     <tr>
                       <td style="border:none;padding-bottom: 8em">
-                        Ngày <em class="text-primary">date: ............................................... </em>
+                        Ngày
+                        <em class="text-primary">date: ............................................... </em>
                       </td>
                       <td style="border:none">
-                        Ngày <em class="text-primary">date: ............................................... </em>
+                        Ngày
+                        <em class="text-primary">date: ............................................... </em>
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="item form-group">
                   <div class="col-md-5 col-sm-5 col-xs-12">
-                    <div class="pull-right"><strong>(*): Required Field.</strong></div>
+                    <div class="pull-right">
+                      <strong>(*): Required Field.</strong>
+                    </div>
                   </div>
                   <div class="clearfix"></div>
                 </div>
                 <div>
-                  <button type="button" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="exportExcel(approveAppraisalForm.valid)" class="btn btn-primary">Export Excel</button>
-                  <button type="submit" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="appraisalApproval.statusId = undefined" class="btn btn-primary">{{currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'? 'Confirm': 'Approve'}}</button>
-                  <button type="submit" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="appraisalApproval.statusId = 'V'" class="btn btn-danger">Reject</button>
+                  <button type="button" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="exportExcel(approveAppraisalForm.valid)"
+                    class="btn btn-primary">Export Excel</button>
+                  <button type="submit" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="appraisalApproval.statusId = undefined"
+                    class="btn btn-primary">{{currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S'? 'Confirm': 'Approve'}}</button>
+                  <button type="submit" [disabled]="!approveAppraisalForm.valid || approveLoading==true" (click)="appraisalApproval.statusId = 'V'"
+                    class="btn btn-danger">Reject</button>
                   <button (click)="approveAppraisalModal.hide()" [disabled]="approveLoading==true" class="btn btn-info" type="button">Cancel</button>
                   <img *ngIf="approveLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                   />
@@ -1464,4 +1982,5 @@
       </div>
     </div>
   </div>
+  <!-- /Approve modal-->
 </div>

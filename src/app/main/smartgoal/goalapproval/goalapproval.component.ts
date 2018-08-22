@@ -43,16 +43,31 @@ export class GoalApprovalComponent implements OnInit {
   temporarydate;
   departmentList;
   categoryList;
-  exportIndex: any = {};
+  // exportIndex: any = {};
+
+  departmentSearchList = [];
+  statusSearchList = [];
+  search: any = {};
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService,
-    private _notificationService: NotificationService) {
-    this.currentUser = _authenService.getLoggedInUser();
-  }
+    private _notificationService: NotificationService) { }
 
   ngOnInit() {
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
+    this.currentUser = this._authenService.getLoggedInUser();
     this.departmentList = JSON.parse(this.currentUser.departmentList);
     this.categoryList = JSON.parse(this.currentUser.categoryList);
+
+    this.departmentSearchList = JSON.parse(this.currentUser.departmentList);
+    this.departmentSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
+    this.statusSearchList = JSON.parse(this.currentUser.statusList);
+    this.statusSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
     this.loadData()
   }
 
@@ -62,7 +77,15 @@ export class GoalApprovalComponent implements OnInit {
   };
 
   loadData() {
-    this._dataService.get('/api/SmartGoal/GetNeedYourSmartGoalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize + '&filter=' + this.filter)
+
+    if (this.search.EmployeeId === undefined) this.search.EmployeeId = '';
+    if (this.search.EmployeeName === undefined) this.search.EmployeeName = '';
+    if (this.search.EmployeeTitle === undefined) this.search.EmployeeTitle = '';
+
+    this._dataService.get('/api/SmartGoal/GetNeedYourSmartGoalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize +
+      '&employeeId=' + this.search.EmployeeId + '&employeeName=' + this.search.EmployeeName + '&departmentId=' + this.search.DepartmentId +
+      '&employeeTitle=' + this.search.EmployeeTitle + '&statusId=' + this.search.StatusId +
+      '&fromYear=' + this.search.FromYear + '&toYear=' + this.search.ToYear)
       .subscribe((response: any) => {
         this.smartGoals = response.Items;
         this.smartGoals.forEach(element => {
@@ -91,7 +114,7 @@ export class GoalApprovalComponent implements OnInit {
     this.goal3Content = {};
     this.goal4Content = {};
     this.personalDevelopmentContent = {};
-    if(StatusId==='S'){
+    if (StatusId === 'S') {
       this._dataService.get('/api/SmartGoal/getSmartGoal/' + Id).subscribe((response: any) => {
         this.smartGoalApproval = response;
         this.smartGoalApproval.SmartGoalId = response.Id;
@@ -109,7 +132,7 @@ export class GoalApprovalComponent implements OnInit {
         this.smartGoalTo = { date: { year: toDate.getFullYear(), month: toDate.getMonth() + 1, day: toDate.getDate() } };
         let reviewDate = new Date(response.ReviewDate)
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-  
+
         this.goal1Contents = JSON.parse(response.Goal1Content);
         this.goal2Contents = JSON.parse(response.Goal2Content);
         this.goal3Contents = JSON.parse(response.Goal3Content);
@@ -119,8 +142,8 @@ export class GoalApprovalComponent implements OnInit {
         // alert(JSON.stringify(this.goal1Contents));
       }, error => this._handleErrorService.handleError(error));
     }
-    else{
-      this._dataService.get('/api/SmartGoalApproval/GetViewSmartGoalApproval/?_smartGoalId=' + Id + '&statusId='+StatusId).subscribe((response: any) => {
+    else {
+      this._dataService.get('/api/SmartGoalApproval/GetViewSmartGoalApproval/?_smartGoalId=' + Id + '&statusId=' + StatusId).subscribe((response: any) => {
         this.smartGoalApproval = response;
         this.smartGoalApproval.AppraiseeId = response.UserId;
         // console.log(this.smartGoal);
@@ -134,7 +157,7 @@ export class GoalApprovalComponent implements OnInit {
         this.smartGoalTo = { date: { year: toDate.getFullYear(), month: toDate.getMonth() + 1, day: toDate.getDate() } };
         let reviewDate = new Date(response.ReviewDate)
         this.temporarydate = { date: { year: reviewDate.getFullYear(), month: reviewDate.getMonth() + 1, day: reviewDate.getDate() } };
-  
+
         this.goal1Contents = JSON.parse(response.Goal1Content);
         this.goal2Contents = JSON.parse(response.Goal2Content);
         this.goal3Contents = JSON.parse(response.Goal3Content);
@@ -144,7 +167,7 @@ export class GoalApprovalComponent implements OnInit {
         // alert(JSON.stringify(this.goal1Contents));
       }, error => this._handleErrorService.handleError(error));
     }
-    
+
   }
 
   goalIsValid() {
@@ -192,7 +215,7 @@ export class GoalApprovalComponent implements OnInit {
     let _toDay = this.smartGoalTo.date.day.toString().length < 2 ? '0' + this.smartGoalTo.date.day : this.smartGoalTo.date.day;
     let _toDate: string = this.smartGoalTo.date.year + '-' + _toMonth + '-' + _toDay + 'T12:00:00Z'
     this.smartGoalApproval.To = new Date(_toDate);
-    
+
     if (this.goal1Content.plan) this.goal1Contents.push(this.goal1Content);
     if (this.goal2Content.plan) this.goal2Contents.push(this.goal2Content);
     if (this.goal3Content.plan) this.goal3Contents.push(this.goal3Content);
@@ -265,7 +288,7 @@ export class GoalApprovalComponent implements OnInit {
     this.goal2Content = {};
     this.goal3Content = {};
     this.goal4Content = {};
-    this.personalDevelopmentContent={};
+    this.personalDevelopmentContent = {};
 
     this.smartGoalApproval.goal1Content = JSON.stringify(this.goal1Contents);
     this.smartGoalApproval.goal2Content = JSON.stringify(this.goal2Contents);
@@ -275,22 +298,22 @@ export class GoalApprovalComponent implements OnInit {
 
     // this.smartGoal.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(c => c.Value == this.smartGoal.departmentId)[0].Text;
 
-    let exportExcelPromise = new Promise((Resolve, Reject)=>{
+    let exportExcelPromise = new Promise((Resolve, Reject) => {
       this._dataService.post('/api/SmartGoal/exportExcel', JSON.stringify(this.smartGoalApproval)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         this.approveLoading = false;
         // Resolve(response);
-        setTimeout(()=> Resolve(response),300000);
+        setTimeout(() => Resolve(response), 300000);
       }, error => {
         this._handleErrorService.handleError(error);
         this.approveLoading = false;
       });
     });
-    exportExcelPromise.then((element)=>{
+    exportExcelPromise.then((element) => {
       this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { });
       // this.approveLoading = false;
     });
-    
+
   }
 
   uncheckKeyPerformance(name: string): Boolean {
@@ -439,8 +462,8 @@ export class GoalApprovalComponent implements OnInit {
     if (!this.personalDevelopmentContent.plan) return;
     let newPersonalDevelopmentContent = {
       plan: this.personalDevelopmentContent.plan.trim(),
-      date: this.personalDevelopmentContent.date? this.personalDevelopmentContent.date.trim(): undefined,
-      measure: this.personalDevelopmentContent.measure? this.personalDevelopmentContent.measure.trim(): undefined
+      date: this.personalDevelopmentContent.date ? this.personalDevelopmentContent.date.trim() : undefined,
+      measure: this.personalDevelopmentContent.measure ? this.personalDevelopmentContent.measure.trim() : undefined
     };
     this.personalDevelopmentContents.push(newPersonalDevelopmentContent);
     this.personalDevelopmentContent = {};
@@ -459,14 +482,26 @@ export class GoalApprovalComponent implements OnInit {
     this.personalDevelopmentContent = {};
   }
 
-  exportApprovalIndexToExcel(){
+  exportApprovalIndexToExcel() {
     let exportExcelPromise = new Promise((Resolve, Reject) => {
-      this._dataService.post('/api/SmartGoal/ApprovalListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+      this._dataService.post('/api/SmartGoal/ApprovalListToExcel', JSON.stringify(this.search)).subscribe((response: any) => {
         window.open(SystemConstants.BASE_API + response);
         // Resolve(response);
-        setTimeout(()=> Resolve(response),300000);
-    }, error => this._handleErrorService.handleError(error));
-  });
-  exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+        setTimeout(() => Resolve(response), 300000);
+      }, error => this._handleErrorService.handleError(error));
+    });
+    exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+  }
+
+  clearSearch() {
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
+
+    this.search.EmployeeId = '';
+    this.search.EmployeeName = '';
+    this.search.EmployeeTitle = '';
   }
 }

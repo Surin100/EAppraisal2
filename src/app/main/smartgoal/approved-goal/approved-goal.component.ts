@@ -34,15 +34,30 @@ export class ApprovedGoalComponent implements OnInit {
   smartGoalApprovalTo;
   smartGoalApprovalReviewDate;
   personalDevelopmentContents: any = [];
-  exportIndex: any = {};
+
+  departmentSearchList = [];
+  statusSearchList = [];
+  search: any = {};
 
   constructor(private _dataService: DataService, private _authenService: AuthenService, private _handleErrorService: HandleErrorService) {
-    this.currentUser = _authenService.getLoggedInUser();
   }
 
   ngOnInit() {
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
+    this.currentUser = this._authenService.getLoggedInUser();
     this.departmentList = JSON.parse(this.currentUser.departmentList);
     this.categoryList = JSON.parse(this.currentUser.categoryList);
+
+    this.departmentSearchList = JSON.parse(this.currentUser.departmentList);
+    this.departmentSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
+    this.statusSearchList = JSON.parse(this.currentUser.statusList);
+    this.statusSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
     this.loadData();
   }
 
@@ -52,7 +67,13 @@ export class ApprovedGoalComponent implements OnInit {
   // };
 
   loadData() {
-    this._dataService.get('/api/SmartGoalApproval/GetApprovedListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize + '&filter=' + this.filter)
+    if(this.search.EmployeeId === undefined) this.search.EmployeeId = '';
+    if(this.search.EmployeeName === undefined) this.search.EmployeeName = '';
+    if(this.search.EmployeeTitle === undefined) this.search.EmployeeTitle = '';
+    this._dataService.get('/api/SmartGoalApproval/GetApprovedListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize +
+      '&employeeId=' + this.search.EmployeeId + '&employeeName=' + this.search.EmployeeName + '&departmentId=' + this.search.DepartmentId +
+      '&employeeTitle=' + this.search.EmployeeTitle + '&statusId=' + this.search.StatusId + 
+      '&fromYear=' + this.search.FromYear + '&toYear=' + this.search.ToYear)
       .subscribe((response: any) => {
         this.approvedGoalList = response.Items;
         this.approvedGoalList.forEach(element => {
@@ -157,12 +178,24 @@ export class ApprovedGoalComponent implements OnInit {
   exportApprovedIndexToExcel(){
     // console.log(this.exportIndex);
     let exportExcelPromise = new Promise((Resolve, Reject) => {
-      this._dataService.post('/api/SmartGoalApproval/ApprovedListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+      this._dataService.post('/api/SmartGoalApproval/ApprovedListToExcel', JSON.stringify(this.search)).subscribe((response: any)=>{
         window.open(SystemConstants.BASE_API + response);
         // Resolve(response);
         setTimeout(()=> Resolve(response),300000);
     }, error => this._handleErrorService.handleError(error));
   });
   exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
+  }
+
+  clearSearch(){
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
+
+    this.search.EmployeeId = '';
+    this.search.EmployeeName = '';
+    this.search.EmployeeTitle = '';
   }
 }

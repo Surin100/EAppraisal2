@@ -25,6 +25,13 @@ export class ApprovalComponent implements OnInit {
   approveLoading: Boolean = false;
   pageIndex: number = 1;
   pageSize: number = 10;
+
+  employeeId: string = '';
+  employeeName: string = '';
+  employeeTitle: string = '';
+  // fromYear = '';
+  // toYear = '';
+
   totalRow: number;
   filter: string = '';
   maxSize: number = 10;
@@ -44,7 +51,9 @@ export class ApprovalComponent implements OnInit {
   partCShow: string[];
   appraisalApprovalFrom: string;
   appraisalApprovalTo: string;
-  exportIndex: any = {};
+  search: any = {};
+  departmentSearchList = [];
+  statusSearchList = [];
 
   canSendMessage: Boolean;
   
@@ -57,13 +66,23 @@ export class ApprovalComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.loadData();
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
     // this.subscribeToEvents();
     // this.canSendMessage = this._signalrService.connectionEstablished;
     this.currentUser = this._authenService.getLoggedInUser();
     this.categoryList = JSON.parse(this.currentUser.categoryList);
 
+    this.departmentSearchList = JSON.parse(this.currentUser.departmentList);
+    this.departmentSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
+    this.statusSearchList = JSON.parse(this.currentUser.statusList);
+    this.statusSearchList.push({ Disabled: false, Group: null, Selected: true, Text: 'All', Value: 'All' });
+
+    this.loadData();
   }
 
 
@@ -93,7 +112,13 @@ export class ApprovalComponent implements OnInit {
   };
 
   loadData() {
-    this._dataService.get('/api/appraisal/GetNeedYourAppraisalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize + '&filter=' + this.filter)
+    if (this.search.EmployeeId === undefined) this.search.EmployeeId = '';
+    if (this.search.EmployeeName === undefined) this.search.EmployeeName = '';
+    if (this.search.EmployeeTitle === undefined) this.search.EmployeeTitle = '';
+    this._dataService.get('/api/appraisal/GetNeedYourAppraisalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize 
+    + '&employeeId=' + this.employeeId + '&employeeName=' + this.employeeName + '&departmentId=' + this.search.DepartmentId
+    + '&employeeTitle=' + this.employeeTitle+ '&statusId=' + this.search.StatusId 
+    + '&fromYear=' + '2018' + '&toYear=' + this.search.ToYear )
       .subscribe((response: any) => {
         this.appraisals = response.Items;
         this.appraisals.forEach(element => {
@@ -104,6 +129,7 @@ export class ApprovalComponent implements OnInit {
         this.pageSize = response.PageSize;
         this.totalRow = response.TotalRow;
       }, error => this._handleErrorService.handleError(error));
+      
   }
 
   pageChanged(event: any): void {
@@ -359,7 +385,7 @@ export class ApprovalComponent implements OnInit {
 
   exportApprovalIndexToExcel(){
     let exportExcelPromise = new Promise((Resolve, Reject) => {
-      this._dataService.post('/api/Appraisal/ApprovalListToExcel', JSON.stringify(this.exportIndex)).subscribe((response: any)=>{
+      this._dataService.post('/api/Appraisal/ApprovalListToExcel', JSON.stringify(this.search)).subscribe((response: any)=>{
         window.open(SystemConstants.BASE_API + response);
         // Resolve(response);
         setTimeout(()=> Resolve(response),300000);
@@ -367,7 +393,16 @@ export class ApprovalComponent implements OnInit {
   });
   exportExcelPromise.then((element) => this._dataService.delete('/api/Report/deleteReportFile', 'reportPath', element.toString()).subscribe((response: Response) => { }));
   }
+
+  clearSearch(){
+    let dateNow: Date = new Date(Date.now());
+    this.search.FromYear = dateNow.getFullYear();
+    this.search.ToYear = dateNow.getFullYear();
+    this.search.DepartmentId = 'All';
+    this.search.StatusId = 'All'
+
+    this.search.EmployeeId = '';
+    this.search.EmployeeName = '';
+    this.search.EmployeeTitle = '';
+  }
 }
-
-
-

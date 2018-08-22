@@ -1,4 +1,93 @@
 <div class="x_content" style="min-height:800px">
+
+  <!-- Search Form -->
+  <div class="animate form">
+    <section class="login_content noPadding">
+      <form class="noMargin form-label-right" #searchForm="ngForm" (ngSubmit)="loadData()" novalidate *ngIf='approvedList'>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeId">Employee ID -
+              <em class="text-primary">Mã Nhân Viên</em>
+            </label>
+            <input id="employeeId" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeId" name="employeeId" type="text"
+            />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeName">Employee Name -
+              <em class="text-primary">Tên Nhân Viên</em>
+            </label>
+            <input id="employeeName" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeName" name="employeeName"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Department -
+              <em class="text-primary">Bộ Phận</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.DepartmentId" name="departmentId">
+              <option *ngFor="let department of departmentSearchList" [ngValue]="department.Value">{{department.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text" for="employeeTitle">Employee Title -
+              <em class="text-primary">Chức Vụ</em>
+            </label>
+            <input id="employeeTitle" class="form-control" #employeeId="ngModel" [(ngModel)]="search.EmployeeTitle" name="employeeTitle"
+              type="text" />
+          </div>
+        </div>
+        <div class="item form-group">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+            <label class="text">Status -
+              <em class="text-primary">Trạng Thái</em>
+            </label>
+            <select class="form-control" [(ngModel)]="search.StatusId" name="statusId">
+              <option *ngFor="let status of statusSearchList" [ngValue]="status.Value">{{status.Text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchFrom" class="control-label pull-right">From year
+                <em class="text-primary">Từ năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchFrom" name="searchFrom" class="form-control inputMargin" #from="ngModel" [(ngModel)]="search.FromYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <label for="searchTo" class="control-label pull-right">To year
+                <em class="text-primary">Đến năm:</em>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <input id="searchTo" name="searchTo" class="form-control inputMargin" #to="ngModel" [(ngModel)]="search.ToYear" type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success searchBtnMargin pull-left submit">
+          <i class="fa fa-search"></i> Search</button>
+        <button type="button" (click)="clearSearch()" class="btn btn-success searchBtnMargin pull-left">Clear</button>
+      </form>
+    </section>
+  </div>
+  <!-- /Search Form -->
+
+  <!-- Approved List -->
   <div>
     <table class="table table-bordered">
       <thead>
@@ -50,17 +139,10 @@
       [(ngModel)]="pageIndex" [maxSize]="maxSize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
       lastText="&raquo;"></pagination>
     <div class="pull-right">
-      <label for="from">From year
-        <em class="text-primary">Từ năm:</em>
-      </label>
-      <input name="from" #from="ngModel" [(ngModel)]="exportIndex.FromYear" type="text" />
-      <label for="to">To year
-        <em class="text-primary">Đến năm:</em>
-      </label>
-      <input name="to" #to="ngModel" [(ngModel)]="exportIndex.ToYear" type="text" />
       <button type="button" (click)="exportApprovedIndexToExcel()" class="btn btn-primary">Export Excel</button>
     </div>
   </div>
+  <!-- /Approved List -->
 
   <!--View modal-->
   <div bsModal #approvedAppraisalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -1571,8 +1653,7 @@
 
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" disabled [value]="1" [(ngModel)]="appraisalApproval.Recommendation"
-                      readonly/>
+                    <input type="radio" name="recommendation" disabled [value]="1" [(ngModel)]="appraisalApproval.Recommendation" readonly/>
                     <span>Contract to be issued/
                       <em class="text-primary">Ký hợp đồng chính thức</em>
                     </span>
@@ -1580,8 +1661,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" disabled [value]="2" [(ngModel)]="appraisalApproval.Recommendation"
-                      readonly/>
+                    <input type="radio" name="recommendation" disabled [value]="2" [(ngModel)]="appraisalApproval.Recommendation" readonly/>
                     <span>Contract to be renewed/
                       <em class="text-primary">Ký tiếp hợp đồng</em>
                     </span>
@@ -1589,8 +1669,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" disabled [value]="3" [(ngModel)]="appraisalApproval.Recommendation"
-                      readonly/>
+                    <input type="radio" name="recommendation" disabled [value]="3" [(ngModel)]="appraisalApproval.Recommendation" readonly/>
                     <span>End employment/
                       <em class="text-primary">Chấm dứt hợp đồng lao động</em>
                     </span>
@@ -1598,8 +1677,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" disabled [value]="4" [(ngModel)]="appraisalApproval.Recommendation"
-                      readonly/>
+                    <input type="radio" name="recommendation" disabled [value]="4" [(ngModel)]="appraisalApproval.Recommendation" readonly/>
                     <span>Salary Adjustment / Promotion/
                       <em class="text-primary">Điều chỉnh lương / Thăng chức</em>
                     </span>
@@ -1696,4 +1774,6 @@
       </div>
     </div>
   </div>
+  <!--/View modal-->
+
 </div>
