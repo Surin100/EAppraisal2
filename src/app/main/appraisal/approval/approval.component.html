@@ -1795,7 +1795,7 @@
                       <td colspan="3">
                         Appraisor's comments -
                         <em class="text-primary">Nhận xét của người đánh giá</em>
-                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.appraisorComment" name="appraisorComment" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
+                        <textarea autosize class="my-textarea" [(ngModel)]="appraisalApproval.AppraisorComment" name="appraisorComment" [readonly]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"></textarea>
                       </td>
                     </tr>
                   </tfoot>
@@ -1852,7 +1852,7 @@
 
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" [value]="1" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    <input type="radio" name="recommendation" [value]="1" [(ngModel)]="appraisalApproval.Recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
                     />
                     <span>Contract to be issued/
                       <em class="text-primary">Ký hợp đồng chính thức</em>
@@ -1861,7 +1861,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" [value]="2" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    <input type="radio" name="recommendation" [value]="2" [(ngModel)]="appraisalApproval.Recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
                     />
                     <span>Contract to be renewed/
                       <em class="text-primary">Ký tiếp hợp đồng</em>
@@ -1870,7 +1870,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" [value]="3" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    <input type="radio" name="recommendation" [value]="3" [(ngModel)]="appraisalApproval.Recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
                     />
                     <span>End employment/
                       <em class="text-primary">Chấm dứt hợp đồng lao động</em>
@@ -1879,7 +1879,7 @@
                 </div>
                 <div class="radio text-left recommend">
                   <label>
-                    <input type="radio" name="recommendation" [value]="4" [(ngModel)]="appraisalApproval.recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
+                    <input type="radio" name="recommendation" [value]="4" [(ngModel)]="appraisalApproval.Recommendation" [attr.disabled]="currentUser.roles.includes('HRExecutive') && appraisalApproval.StatusId!='S' || null"
                     />
                     <span>Salary Adjustment / Promotion/
                       <em class="text-primary">Điều chỉnh lương / Thăng chức</em>

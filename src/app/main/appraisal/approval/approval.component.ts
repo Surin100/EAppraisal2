@@ -146,7 +146,9 @@ export class ApprovalComponent implements OnInit {
       this._dataService.get('/api/appraisal/getAppraisal/' + Id).subscribe((response: any) => {
         this.appraisalApproval = {};
         this.appraisalApproval = response;
+
         // console.log(this.appraisalApproval);
+
         this.appraisalApproval.AppraisalId = response.Id;
         this.appraisalApproval.AppraiseeId = response.UserId;
         this.appraisalApproval.ReviewerName = this.currentUser.fullName;
@@ -178,7 +180,9 @@ export class ApprovalComponent implements OnInit {
       this._dataService.get('/api/AppraisalApproval/getViewAppraisalApproval/?_appraisalId=' + Id + '&statusId=' + StatusId).subscribe((response: any) => {
         this.appraisalApproval = {};
         this.appraisalApproval = response;
+
         // console.log(this.appraisalApproval);
+
         this.appraisalApproval.AppraiseeId = response.UserId;
         this.appraisalApproval.departmentEnName = JSON.parse(this.currentUser.departmentList).filter(a => a.Value == this.appraisalApproval.DepartmentId)[0].Text;
         this.appraisalApproval.categoryName = JSON.parse(this.currentUser.categoryList).filter(a => a.Value == this.appraisalApproval.CategoryId)[0].Text;
