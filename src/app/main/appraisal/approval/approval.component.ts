@@ -26,9 +26,9 @@ export class ApprovalComponent implements OnInit {
   pageIndex: number = 1;
   pageSize: number = 10;
 
-  employeeId: string = '';
-  employeeName: string = '';
-  employeeTitle: string = '';
+  // employeeId: string = '';
+  // employeeName: string = '';
+  // employeeTitle: string = '';
   // fromYear = '';
   // toYear = '';
 
@@ -112,12 +112,14 @@ export class ApprovalComponent implements OnInit {
   };
 
   loadData() {
+    // alert('abc');
     if (this.search.EmployeeId === undefined) this.search.EmployeeId = '';
     if (this.search.EmployeeName === undefined) this.search.EmployeeName = '';
     if (this.search.EmployeeTitle === undefined) this.search.EmployeeTitle = '';
+    // console.log(this.search);
     this._dataService.get('/api/appraisal/GetNeedYourAppraisalApprovalListPaging?pageIndex=' + this.pageIndex + '&pagesize=' + this.pageSize 
-    + '&employeeId=' + this.employeeId + '&employeeName=' + this.employeeName + '&departmentId=' + this.search.DepartmentId
-    + '&employeeTitle=' + this.employeeTitle+ '&statusId=' + this.search.StatusId 
+    + '&employeeId=' + this.search.EmployeeId + '&employeeName=' + this.search.EmployeeName + '&departmentId=' + this.search.DepartmentId
+    + '&employeeTitle=' + this.search.EmployeeTitle+ '&statusId=' + this.search.StatusId 
     + '&fromYear=' + '2018' + '&toYear=' + this.search.ToYear )
       .subscribe((response: any) => {
         this.appraisals = response.Items;
